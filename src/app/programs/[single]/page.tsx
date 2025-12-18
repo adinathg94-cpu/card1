@@ -1,0 +1,81 @@
+
+import TitleBadge from "@/components/TitleBadge";
+import ImageFallback from "@/helpers/ImageFallback";
+import MDXContent from "@/helpers/MDXContent";
+import { getSinglePage } from "@/lib/contentParser";
+import { markdownify } from "@/lib/utils/textConverter";
+import CallToActionQuaternary from "@/partials/CallToActionQuaternary";
+import CallToActionSecondary from "@/partials/CallToActionSecondary";
+import FAQs from "@/partials/FAQs";
+import SeoMeta from "@/partials/SeoMeta";
+import { Program } from "@/types";
+
+// remove dynamicParams
+export const dynamicParams = false;
+
+// generate static params
+export const generateStaticParams: () => { single: string }[] = () => {
+  const programs = getSinglePage<Program["frontmatter"]>("programs");
+
+  const paths = programs.map((program) => ({
+    single: program.slug!,
+  }));
+
+  return paths;
+};
+
+const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => {
+  const params = await props.params;
+  const programs = getSinglePage<Program["frontmatter"]>("programs");
+  const program = programs.filter((page) => page.slug === params.single)[0];
+
+  const { title, image, categories, badge } =
+    program.frontmatter;
+
+  return (
+    <>
+      <SeoMeta {...program.frontmatter} />
+      <section className="section-lg">
+        <div className="container">
+          <article data-aos="fade-up-sm" data-aos-delay="150">
+            <TitleBadge
+              icon={"FaAngleRight"}
+              label={categories?.map((category) => category).join(", ")}
+              bg_color={badge?.bg_color || "bg-secondary"}
+              isCenter={false}
+            />
+            <h1
+              dangerouslySetInnerHTML={markdownify(title)}
+              className="mb-8 mt-4 font-semibold text-balance"
+            />
+            {image && (
+              <div className="mb-10">
+                <ImageFallback
+                  src={image}
+                  height={600}
+                  width={1280}
+                  alt={title}
+                  className="w-full aspect-[16/7.5] object-cover  object-center rounded-4xl"
+                  priority
+                />
+              </div>
+            )}
+            <div className="row justify-center">
+              <div className="lg:col-10">
+                <div className="content mb-10">
+                  <MDXContent content={program.content} />
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+      <CallToActionQuaternary isNoSectionTop />
+      <FAQs />
+      <CallToActionSecondary />
+    </>
+  );
+}
+
+
+export default ProgramSingle;

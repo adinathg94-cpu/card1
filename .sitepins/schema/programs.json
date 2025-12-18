@@ -1,0 +1,87 @@
+{
+  "file": "src/content/programs/community-rebuilding.md",
+  "name": "programs",
+  "fileType": "md",
+  "fmType": "yaml",
+  "template": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "string",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "meta_title",
+      "label": "Meta Title",
+      "type": "string",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "description",
+      "label": "Description",
+      "type": "string",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "date",
+      "label": "Date",
+      "type": "Date",
+      "value": "",
+      "defaultValue": "",
+      "alwaysUseCurrentDate": false
+    },
+    {
+      "name": "end_date",
+      "label": "End Date",
+      "type": "Date",
+      "value": "",
+      "defaultValue": "",
+      "alwaysUseCurrentDate": false
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "media",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "categories",
+      "label": "Categories",
+      "type": "Array",
+      "value": [],
+      "defaultValue": ""
+    },
+    {
+      "name": "goal",
+      "label": "Goal",
+      "type": "string",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "raised",
+      "label": "Raised",
+      "type": "string",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "featured",
+      "label": "Featured",
+      "type": "boolean",
+      "value": false,
+      "defaultValue": ""
+    },
+    {
+      "name": "draft",
+      "label": "Draft",
+      "type": "boolean",
+      "value": false,
+      "defaultValue": ""
+    }
+  ]
+}

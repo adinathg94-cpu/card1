@@ -1,0 +1,15 @@
+@utility bg-gradient {
+  @apply bg-linear-to-b from-[rgba(249,249,249,1)] from-[0.53%] to-white to-[83.28%];
+}
+
+/* form style */
+@utility form-input {
+  @apply w-full rounded-xl border-transparent bg-white px-4 py-4 text-text-dark placeholder:text-text text-sm focus:border-primary  focus:ring-transparent max-lg:text-left!;
+}
+
+@utility form-label {
+  @apply mb-2 block font-primary text-sm font-semibold text-text-dark;
+  span {
+    @apply text-red-500;
+  }
+}

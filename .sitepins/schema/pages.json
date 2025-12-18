@@ -1,0 +1,79 @@
+{
+  "file": "src/content/pages/privacy-policy.md",
+  "name": "pages",
+  "fileType": "md",
+  "fmType": "yaml",
+  "template": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "string",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "meta_title",
+      "label": "Meta Title",
+      "type": "string",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "description",
+      "label": "Description",
+      "type": "string",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "media",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "badge",
+      "label": "Privacy Policy",
+      "type": "object",
+      "defaultValue": "",
+      "fields": [
+        {
+          "name": "enable",
+          "label": "Enable",
+          "type": "boolean",
+          "value": false,
+          "defaultValue": ""
+        },
+        {
+          "name": "label",
+          "label": "Label",
+          "type": "string",
+          "value": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "icon",
+          "label": "Icon",
+          "type": "string",
+          "value": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "bg_color",
+          "label": "Bg Color",
+          "type": "string",
+          "value": "",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "name": "draft",
+      "label": "Draft",
+      "type": "boolean",
+      "value": false,
+      "defaultValue": ""
+    }
+  ]
+}

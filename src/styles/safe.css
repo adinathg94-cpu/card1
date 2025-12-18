@@ -1,0 +1,31 @@
+/* navbar toggler */
+input#nav-toggle:checked + label #show-button {
+  #ham-btn {
+    @apply rotate-45 translate-y-1.5 w-[140%];
+  }
+}
+
+input#nav-toggle:checked ~ #nav-menu {
+  @apply block lg:flex;
+}
+
+/* apply above css only below 1024px */
+@media (max-width: 1024px) {
+  #all-pages-dropdown.active {
+    @apply block;
+  }
+}
+
+/* swiper pagination */
+.swiper-wrapper {
+  -webkit-transition-timing-function: linear !important;
+  -o-transition-timing-function: linear !important;
+  transition-timing-function: linear !important;
+}
+
+.features-grid > div:last-child {
+  border-bottom-right-radius: 1rem;
+}
+.features-grid > div:nth-last-child(3):nth-child(3n) {
+  border-bottom-left-radius: 1rem;
+}

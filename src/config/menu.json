@@ -1,0 +1,128 @@
+{
+  "main": [
+    {
+      "name": "All Pages",
+      "url": "",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Home",
+          "url": "/"
+        },
+        {
+          "name": "Contact Us",
+          "url": "/contact"
+        },
+        {
+          "name": "Teams",
+          "url": "/teams"
+        },
+        {
+          "name": "About Us",
+          "url": "/about"
+        },
+        {
+          "name": "Blog",
+          "url": "/blog"
+        },
+        {
+          "name": "Reviews",
+          "url": "/reviews"
+        },
+        {
+          "name": "Programs",
+          "url": "/programs"
+        },
+        {
+          "name": "Blog Details",
+          "url": "/blog/post-1"
+        },
+        {
+          "name": "Elements",
+          "url": "/elements"
+        },
+        {
+          "name": "404",
+          "url": "/404"
+        },
+        {
+          "name": "Program Details",
+          "url": "/programs/program-1"
+        },
+        {
+          "name": "Privacy Policy",
+          "url": "/privacy-policy"
+        },
+        {
+          "name": "Donation",
+          "url": "/donation"
+        },
+        {
+          "name": "Terms & Conditions",
+          "url": "/terms-and-conditions"
+        }
+      ]
+    },
+    {
+      "name": "Causes",
+      "url": "/programs"
+    },
+    {
+      "name": "Blog",
+      "url": "/blog"
+    }
+  ],
+  "footer": [
+    {
+      "title": "Quick Links",
+      "children": [
+        {
+          "name": "Donation",
+          "url": "/donation"
+        },
+        {
+          "name": "About Us",
+          "url": "/about"
+        },
+        {
+          "name": "Programs",
+          "url": "/programs"
+        }
+      ]
+    },
+    {
+      "title": "More",
+      "children": [
+        {
+          "name": "Blog",
+          "url": "/blog"
+        },
+        {
+          "name": "Blog details",
+          "url": "/blog/post-1"
+        },
+        {
+          "name": "Testimonials",
+          "url": "/reviews"
+        }
+      ]
+    },
+    {
+      "title": "Legal & Policy Links",
+      "children": [
+        {
+          "name": "Privacy Policy",
+          "url": "/privacy-policy"
+        },
+        {
+          "name": "Terms of Service",
+          "url": "/terms-and-conditions"
+        },
+        {
+          "name": "Contact Us",
+          "url": "/contact"
+        }
+      ]
+    }
+  ]
+}

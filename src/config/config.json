@@ -1,0 +1,54 @@
+{
+  "site": {
+    "title": "CARD",
+    "base_url": "https://kindora-nextjs.vercel.app",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/images/favicon.png",
+    "logo": "/images/cardlogo.png",
+    "logo_width": "180",
+    "logo_height": "60",
+    "logo_text": "CARD"
+  },
+
+  "settings": {
+    "sticky_header": true,
+    "pagination": 6,
+    "blog_folder": "blog"
+  },
+
+  "params": {
+    "contact_form_action": "#",
+    "footer_description": "Together, we can make a real impact in communities around the world.",
+    "copyright": "Copyright © {year} All Rights Reserved by [Themefisher](https://themefisher.com/)"
+  },
+
+  "navigation_button": {
+    "enable": true,
+    "label": "Donate Now",
+    "link": "https://themefisher.com/products/kindora-nextjs"
+  },
+
+  "google_tag_manager": {
+    "enable": false,
+    "gtm_id": "GTM-XXXXXX"
+  },
+
+  "disqus": {
+    "enable": true,
+    "shortname": "themefisher-template",
+    "settings": {}
+  },
+
+  "metadata": {
+    "meta_author": "Themefisher",
+    "meta_image": "/images/og-image.png",
+    "meta_description": "Kindora - Charity & Non-Profit NextJS Template"
+  },
+
+  "subscription_in_footer": {
+    "enable": true,
+    "mailchimp_form_action": "https://gmail.us4.list-manage.com/subscribe/post?u=463ee871f45d2d93748e77cad&amp;id=a0a2c6d074",
+    "mailchimp_form_name": "b_463ee871f45d2d93748e77cad_a0a2c6d074"
+  }
+}

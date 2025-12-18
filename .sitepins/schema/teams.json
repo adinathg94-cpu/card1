@@ -1,0 +1,36 @@
+{
+  "file": "src/content/teams/devon-lane.md",
+  "name": "teams",
+  "fileType": "md",
+  "fmType": "yaml",
+  "template": [
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "string",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "image",
+      "label": "Image",
+      "type": "media",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "designation",
+      "label": "Designation",
+      "type": "string",
+      "value": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "isLeadTeam",
+      "label": "IsLeadTeam",
+      "type": "boolean",
+      "value": false,
+      "defaultValue": ""
+    }
+  ]
+}
