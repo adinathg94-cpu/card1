@@ -4,45 +4,15 @@ import Logo from "@/components/Logo";
 import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { FaAngleDown, FaArrowRightLong } from "react-icons/fa6";
 
 const Header = () => {
   const [isNavToggled, setIsNavToggled] = useState(false);
-  const [dropdownVisibility, setDropdownVisibility] = useState({});
-  const [isLargeScreen, setIsLargeScreen] = useState(true);
-
-  // Handle screen size detection
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024);
-    };
-
-    // Initial check
-    checkScreenSize();
-
-    // Add resize event listener
-    window.addEventListener("resize", checkScreenSize);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("resize", checkScreenSize);
-    };
-  }, []);
 
   // Handle hamburger menu toggle
   const handleNavToggle = () => {
     setIsNavToggled(!isNavToggled);
-  };
-
-  // Handle dropdown toggle for mobile screens
-  const handleDropdownToggle = (id: string) => {
-    if (isLargeScreen) return; // Don't toggle on large screens
-
-    setDropdownVisibility((prev) => ({
-      ...prev,
-      [id]: !prev[id as keyof typeof prev],
-    }));
   };
 
   // Close menu when clicking outside
@@ -115,17 +85,7 @@ const Header = () => {
             } lg:flex lg:justify-center`}
           >
             {menu.main.map((item, i) => (
-              <li
-                key={i}
-                id={item.hasChildren ? "all-pages" : undefined}
-                className={`nav-item ${item.hasChildren ? "nav-dropdown group relative" : ""
-                  }`}
-                onClick={
-                  item.hasChildren
-                    ? () => handleDropdownToggle(`dropdown-${i}`)
-                    : undefined
-                }
-              >
+              <li key={i} className="nav-item">
                 <Link
                   href={item.url}
                   aria-label={item.name}
@@ -134,31 +94,6 @@ const Header = () => {
                   {item.name}
                   <FaAngleDown className="ml-1 text-[10px]" />
                 </Link>
-                {item.hasChildren && (
-                  <ul
-                    className={`grid sm:grid-cols-2 md:grid-cols-3 lg:mt-12 gap-x-4 border border-border bg-body p-8 lg:pr-0 mb-2 lg:mb-0
-         lg:duration-200 lg:absolute lg:left-0 lg:invisible lg:group-hover:visible
-         lg:opacity-0 lg:group-hover:opacity-100 lg:scale-95 lg:group-hover:scale-100
-         lg:group-hover:grid max-w-fit lg:min-w-max nav-dropdown-list ${!isLargeScreen &&
-                        !dropdownVisibility[`dropdown-${i}` as keyof typeof dropdownVisibility]
-                        ? "hidden"
-                        : ""
-                      }`}
-                    id={`dropdown-${i}`}
-                  >
-                    {item.children.map((child: any, j: number) => (
-                      <li key={j} className="nav-dropdown-item">
-                        <Link
-                          href={child.url}
-                          className="nav-dropdown-link"
-                          aria-label={`menu: ${child.name}`}
-                        >
-                          {child.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
               </li>
             ))}
             {config.navigation_button && config.navigation_button.enable && (
