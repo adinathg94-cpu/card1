@@ -1,26 +1,23 @@
 ---
 # Banner
 banner:
-  title: "Impact that reaches rural communities"
-  content: "Support Value Families Through Every Purchase"
-  image: "/images/banner.png"
-  testimonial_image: "/images/homepage/banner-testimonial.png"
+  title: "Spreading smiles and building brighter futures."
+  content: ""
+  image: "/images/banner1.png"
+  testimonial_image: ""
   button_solid:
     enable: true
-    label: "Donate Now"
-    link: "/donation"
+    label: "Read More"
+    link: "/about"
   button_link:
     enable: true
-    label: "Learn More"
-    link: "/about"
+    label: "Watch Our Videos"
+    link: "#"
 
   badge:
-    enable: true
-    label: "1000+ Donor active members"
-    images:
-      - "/images/homepage/avatar/avatar-8.png"
-      - "/images/homepage/avatar/avatar-9.png"
-      - "/images/homepage/avatar/avatar-7.png"
+    enable: false
+    label: ""
+    images: []
 
   partners:
     title: "Our most loved partners"
@@ -34,24 +31,23 @@ banner:
 
   media_section:
     enable: true
-    label: "Watch our </br> story reel"
+    label: "Watch Our Videos"
     url: "https://www.youtube.com/embed/dyZcRRWiuuw?autoplay=1&mute=0"
 
   impact_metrics:
-    label: "Dedicated team"
-    description: "Providing essential resources and aid to those who are in emergency."
+    label: ""
+    description: ""
     counter:
-      count: "50"
-      count_suffix: "K"
+      count: ""
+      count_suffix: ""
       count_prefix: ""
       count_duration: 10
-    team:
-      - "/images/homepage/avatar/avatar-8.png"
-      - "/images/homepage/avatar/avatar-9.png"
-      - "/images/homepage/avatar/avatar-7.png"
-    secondary_labels:
-      - "Real lives changed"
-      - "By your support"
+    team: []
+    secondary_labels: []
+  contact_info:
+    enable: true
+    phone: "+91 469 2600931"
+    email: "card.admin@marthoma.in, info@cardindia.in"
 
 # Promotions cards section
 promotions:

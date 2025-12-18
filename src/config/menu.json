@@ -1,75 +1,32 @@
 {
   "main": [
     {
-      "name": "All Pages",
-      "url": "",
-      "hasChildren": true,
-      "children": [
-        {
-          "name": "Home",
-          "url": "/"
-        },
-        {
-          "name": "Contact Us",
-          "url": "/contact"
-        },
-        {
-          "name": "Teams",
-          "url": "/teams"
-        },
-        {
-          "name": "About Us",
-          "url": "/about"
-        },
-        {
-          "name": "Blog",
-          "url": "/blog"
-        },
-        {
-          "name": "Reviews",
-          "url": "/reviews"
-        },
-        {
-          "name": "Programs",
-          "url": "/programs"
-        },
-        {
-          "name": "Blog Details",
-          "url": "/blog/post-1"
-        },
-        {
-          "name": "Elements",
-          "url": "/elements"
-        },
-        {
-          "name": "404",
-          "url": "/404"
-        },
-        {
-          "name": "Program Details",
-          "url": "/programs/program-1"
-        },
-        {
-          "name": "Privacy Policy",
-          "url": "/privacy-policy"
-        },
-        {
-          "name": "Donation",
-          "url": "/donation"
-        },
-        {
-          "name": "Terms & Conditions",
-          "url": "/terms-and-conditions"
-        }
-      ]
+      "name": "Home",
+      "url": "/"
     },
     {
-      "name": "Causes",
+      "name": "About Us",
+      "url": "/about"
+    },
+    {
+      "name": "Services",
+      "url": "/programs"
+    },
+    {
+      "name": "Projects",
       "url": "/programs"
     },
     {
       "name": "Blog",
       "url": "/blog"
+    },
+    {
+      "name": "Page",
+      "url": "/elements"
+    },
+    {
+      "name": "Contact",
+      "url": "/contact"
     }
   ],
   "footer": [

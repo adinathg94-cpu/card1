@@ -5,6 +5,7 @@ import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FaAngleDown, FaArrowRightLong } from "react-icons/fa6";
 
 const Header = () => {
   const [isNavToggled, setIsNavToggled] = useState(false);
@@ -68,13 +69,26 @@ const Header = () => {
 
   return (
     <header className="header z-30">
-      <nav className="navbar container px-4">
+      <nav className="navbar container px-4 flex items-center justify-between gap-6 flex-nowrap">
         {/* logo */}
         <div className="order-0 flex items-center">
           <Logo />
         </div>
-        <div className="flex items-center gap-2">
-          {/* navbar toggler */}
+        <div className="flex items-center gap-2 flex-1 justify-end">
+          {/* Desktop Donate Button */}
+          <div className="ml-auto flex items-center lg:ml-2 order-1">
+            {config.navigation_button && config.navigation_button.enable && (
+              <Link
+                className="btn btn-primary lg:inline-flex hidden items-center gap-2 rounded-full bg-[#0c79c0] px-7 py-3 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-[#0a68a6] whitespace-nowrap"
+                aria-label={config.navigation_button.label}
+                href={config.navigation_button.link}
+              >
+                {config.navigation_button.label}
+                <FaArrowRightLong className="text-base" />
+              </Link>
+            )}
+          </div>
+          {/* navbar toggler - moved to right */}
           <input
             id="nav-toggle"
             type="checkbox"
@@ -85,7 +99,7 @@ const Header = () => {
           />
           <label
             htmlFor="nav-toggle"
-            className="cursor-pointer flex items-center lg:hidden"
+            className="cursor-pointer flex items-center lg:hidden order-2"
           >
             <div id="show-button">
               <div className={`ham-btn ${isNavToggled ? "active" : ""}`}>
@@ -96,8 +110,9 @@ const Header = () => {
           {/* /navbar toggler */}
           <ul
             id="nav-menu"
-            className={`navbar-nav absolute left-0 right-0 lg:static lg:flex items-center lg:w-auto lg:space-x-3 lg:pb-0 ${isNavToggled ? "" : "hidden"
-              } lg:flex`}
+            className={`navbar-nav absolute left-0 right-0 lg:static lg:flex items-center lg:w-auto lg:space-x-4 lg:pb-0 whitespace-nowrap ${
+              isNavToggled ? "" : "hidden"
+            } lg:flex lg:justify-center`}
           >
             {menu.main.map((item, i) => (
               <li
@@ -111,28 +126,14 @@ const Header = () => {
                     : undefined
                 }
               >
-                {item.hasChildren ? (
-                  <span className="nav-link inline-flex items-center cursor-pointer">
-                    {item.name}
-                    <svg
-                      className={`dropdown-arrow h-4 w-4 fill-current ml-2 transition-transform duration-500 ${dropdownVisibility[`dropdown-${i}` as keyof typeof dropdownVisibility]
-                        ? "rotate-180"
-                        : "group-hover:-rotate-180"
-                        }`}
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                    </svg>
-                  </span>
-                ) : (
-                  <Link
-                    href={item.url}
-                    aria-label={item.name}
-                    className="nav-link inline-flex items-center cursor-pointer"
-                  >
-                    {item.name}
-                  </Link>
-                )}
+                <Link
+                  href={item.url}
+                  aria-label={item.name}
+                  className="nav-link inline-flex items-center cursor-pointer text-[15px] font-semibold tracking-[0.14em] uppercase text-[#034833]"
+                >
+                  {item.name}
+                  <FaAngleDown className="ml-1 text-[10px]" />
+                </Link>
                 {item.hasChildren && (
                   <ul
                     className={`grid sm:grid-cols-2 md:grid-cols-3 lg:mt-12 gap-x-4 border border-border bg-body p-8 lg:pr-0 mb-2 lg:mb-0
@@ -172,17 +173,6 @@ const Header = () => {
               </li>
             )}
           </ul>
-          <div className="ml-auto flex items-center lg:ml-2">
-            {config.navigation_button && config.navigation_button.enable && (
-              <Link
-                className="btn btn-primary hidden lg:inline-block"
-                aria-label={config.navigation_button.label}
-                href={config.navigation_button.link}
-              >
-                {config.navigation_button.label}
-              </Link>
-            )}
-          </div>
         </div>
       </nav>
     </header>

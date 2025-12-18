@@ -1,5 +1,5 @@
 .header {
-  @apply bg-transparent max-lg:py-6 px-2 absolute inset-x-0;
+  @apply bg-white max-lg:py-6 px-2 absolute inset-x-0;
 }
 
 /* navbar items */
