@@ -52,19 +52,19 @@ banner:
 # Promotions cards section
 promotions:
   enable: true
-  title: "Programs that change lives"
-  description: "Together, we can make a real impact in communities around the world. Help us bring hope and support."
+  title: "Impact that reaches rural communities"
+  description: "Together, we accompany vulnerable rural communities to overcome poverty, rebuild their lives and live with dignity through practical, faith‑inspired action."
   badge:
     enable: true
     label: "Impactful metrics"
     icon: "FaRegHourglassHalf" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
     bg_color: "bg-secondary"
   cards:
-    - title: "Meals Distributed"
+    - title: "Nutritious Meals Served"
       list:
         - "Ensuring food security"
-        - "for vulnerable families"
-        - "and individuals."
+        - "for vulnerable families and"
+        - "individuals in rural and tribal regions."
       counter:
         count: "200"
         count_suffix: "K"
@@ -75,10 +75,11 @@ promotions:
         link: "/about"
       image: "/images/homepage/meals.png"
 
-    - title: "Individuals Supported"
+    - title: "People reached"
       list:
-        - "Providing resources and aid to those in"
-        - "need. Addressing education and health."
+        - "Providing education, health care,"
+        - "livelihood support and climate-resilient solutions to poor"
+        - "and marginalized communities."
       counter:
         count: "10000"
         count_suffix: "+"
@@ -89,7 +90,7 @@ promotions:
         link: "/about"
       image: "/images/homepage/individuals.png"
 
-    - title: "Homes rebuilt successfully"
+    - title: "Homes and resilience"
       list:
         - "Giving communities access to safe homes"
         - "and future. Helping families restore lives."
@@ -105,60 +106,61 @@ promotions:
 
 impact_results:
   enable: true
-  title: "Results that inspire change"
-  description: "Together, we can make a real impact in communities around the world. Help us bring hope and support."
+  title: "About Us"
+  description: "CARD is the social service wing of the Mar Thoma Church, walking alongside poor and marginalized communities across India to overcome poverty and injustice.​ Since 1977, CARD has been a compassionate development partner, combining faith‑inspired service, professional expertise and community participation to restore dignity, rights and sustainable livelihoods."
   badge:
     enable: true
-    label: "Our results"
+    label: "Who we are"
     icon: "FaArtstation" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
     bg_color: "bg-tertiary"
 
   results:
-    - title: "Building Brighter Futures Through Learning Opportunities"
-      subtitle: "Empowering Education"
+    - title: "Vision"
+      subtitle: "Vision and Mission"
       image: "/images/homepage/result1.png"
       image_2: "/images/homepage/result3.png"
-      description: "Our commitment to education has enabled thousands of children and adults to gain the skills and knowledge they need to thrive."
-      metrics:
-        - title: "Schools Partnered"
-          counter:
-            count: "100"
-            count_suffix: "+"
-            count_prefix: ""
-            count_duration: 10
-          icon: "FaRegHourglassHalf" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
-          bg_color: "bg-secondary"
+      description: "Communities where poverty and injustice no longer exist, and every person enjoys a life of dignity, equality and sustainable relationships rooted in love, justice, participation and freedom."
+    
+      # metrics:
+      #   - title: "Schools Partnered"
+      #     counter:
+      #       count: "100"
+      #       count_suffix: "+"
+      #       count_prefix: ""
+      #       count_duration: 10
+      #     icon: "FaRegHourglassHalf" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
+      #     bg_color: "bg-secondary"
 
-        - title: "Scholarships Awarded"
-          counter:
-            count: "800"
-            count_suffix: "+"
-            count_prefix: ""
-            count_duration: 10
-          icon: "FaChartPie" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
-          bg_color: "bg-tertiary"
+      #   - title: "Scholarships Awarded"
+      #     counter:
+      #       count: "800"
+      #       count_suffix: "+"
+      #       count_prefix: ""
+      #       count_duration: 10
+      #     icon: "FaChartPie" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
+      #     bg_color: "bg-tertiary"
 
-    - title: "Delivering Vital Health Resources to Those in Need"
-      subtitle: "Medical Resources"
+    - title: "Mission"
+      subtitle: "Vision and Mission"
       image: "/images/homepage/result2.png"
       image_2: "/images/homepage/result3.png"
-      description: "We believe that access to healthcare is a fundamental right. By providing medical aid, health education, and wellness resources."
-      metrics:
-        - title: "Medical Kits Distributed"
-          counter:
-            count: "20"
-            count_suffix: "K+"
-            count_prefix: ""
-            count_duration: 20
-          icon: "BsStars" ## Icons from https://react-icons.github.io/react-icons/icons/bs/
-          bg_color: "bg-primary"
+      description: "In Christ with the people, CARD walks alongside the poor and marginalized of India, empowering them through education, skill training, people’s organizations and livelihood support so they can move towards communities free from poverty, upholding human dignity, gender equality and environmental sustainability.​"
+      # metrics:
+      #   - title: "Medical Kits Distributed"
+      #     counter:
+      #       count: "20"
+      #       count_suffix: "K+"
+      #       count_prefix: ""
+      #       count_duration: 20
+      #     icon: "BsStars" ## Icons from https://react-icons.github.io/react-icons/icons/bs/
+      #     bg_color: "bg-primary"
 
-        - title: "Clinics Operated"
-          counter:
-            count: "800"
-            count_suffix: "K+"
-            count_prefix: ""
-            count_duration: 15
-          icon: "FaChartArea" ## Icons from https://react-icons.github.io/react-icons/icons/bs/
-          bg_color: "bg-secondary"
+      #   - title: "Clinics Operated"
+      #     counter:
+      #       count: "800"
+      #       count_suffix: "K+"
+      #       count_prefix: ""
+      #       count_duration: 15
+      #     icon: "FaChartArea" ## Icons from https://react-icons.github.io/react-icons/icons/bs/
+      #     bg_color: "bg-secondary"
 ---
