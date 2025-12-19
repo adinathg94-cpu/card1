@@ -41,7 +41,7 @@ const Header = () => {
     <header className="header z-30">
       <nav className="navbar container px-4 flex items-center justify-between gap-6 flex-nowrap">
         {/* logo */}
-        <div className="order-0 flex items-center">
+        <div className="order-0 flex items-center flex-shrink-0">
           <Logo />
         </div>
         <div className="flex items-center gap-2 flex-1 justify-end">
