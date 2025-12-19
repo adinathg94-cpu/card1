@@ -408,3 +408,19 @@ export interface ReviewsPage extends RegularPage {
     badge: Badge;
   };
 }
+
+export interface ProductItem {
+  title: string;
+  image: string;
+  count: string;
+  meta: string;
+  description: string;
+  button: Button;
+}
+
+export interface ProductsSection extends RegularPage {
+  frontmatter: RegularPage["frontmatter"] & {
+    enable: boolean;
+    products: ProductItem[];
+  };
+}

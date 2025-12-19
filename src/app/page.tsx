@@ -5,6 +5,7 @@ import CallToActionPrimary from "@/partials/CallToActionPrimary";
 import ProgramsSection from "@/partials/ProgramsSection";
 import SuccessNumbers from "@/components/SuccessNumbers";
 import FeaturesSection from "@/partials/FeaturesSection";
+import ProductsSection from "@/partials/ProductsSection";
 import CallToActionTertiary from "@/partials/CallToActionTertiary";
 import ReviewSection from "@/partials/ReviewSection";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
@@ -27,6 +28,7 @@ export default function Home() {
       <ProgramsSection />
       <SuccessNumbers />
       <FeaturesSection />
+      <ProductsSection />
       <CallToActionTertiary />
       <ReviewSection />
       <CallToActionSecondary />
