@@ -36,6 +36,42 @@ export default function AboutPage() {
   return (
     <>
       <SeoMeta title={title} meta_title={meta_title} description={description} image={image} />
+      <section className="section pb-18 xl:pb-24 pt-24 lg:pt-32">
+        <div className="container">
+          <div
+            data-aos="fade-up-sm"
+            data-aos-delay="150"
+            className="row justify-center"
+          >
+            <div className="col-10 lg:col-7">
+              {team.badge.enable && (
+                <TitleBadge
+                  icon={team.badge.icon}
+                  label={team.badge.label}
+                  bg_color={team.badge.bg_color}
+                />
+              )}
+              <h2
+                className="py-4 text-center"
+                dangerouslySetInnerHTML={markdownify(team.title || "")}
+              />
+              <p
+                className="text-center text-balance"
+                dangerouslySetInnerHTML={markdownify(team.description || "")}
+              />
+            </div>
+          </div>
+          <div className="pt-14">
+            <div className="row g-4">
+              {team.members?.map((member, i) => (
+                <div className="col-10 sm:col-6 md:col-4 lg:col-3 mx-auto" key={i}>
+                  <TeamCard member={member} index={i} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="section-lg">
         <div className="container">
           <div
@@ -103,42 +139,6 @@ export default function AboutPage() {
           </div>
         </section>
       )}
-      <section className="section pt-0">
-        <div className="container">
-          <div
-            data-aos="fade-up-sm"
-            data-aos-delay="150"
-            className="row justify-center"
-          >
-            <div className="col-10 lg:col-7">
-              {team.badge.enable && (
-                <TitleBadge
-                  icon={team.badge.icon}
-                  label={team.badge.label}
-                  bg_color={team.badge.bg_color}
-                />
-              )}
-              <h2
-                className="py-4 text-center"
-                dangerouslySetInnerHTML={markdownify(team.title || "")}
-              />
-              <p
-                className="text-center text-balance"
-                dangerouslySetInnerHTML={markdownify(team.description || "")}
-              />
-            </div>
-          </div>
-          <div className="pt-14">
-            <div className="row g-4">
-              {team.members?.map((member, i) => (
-                <div className="col-10 sm:col-6 md:col-4 lg:col-3 mx-auto" key={i}>
-                  <TeamCard member={member} index={i} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
       <Testimonial />
       <CallToActionSecondary />
     </>

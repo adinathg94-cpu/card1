@@ -5,24 +5,20 @@
       "url": "/"
     },
     {
-      "name": "About Us",
+      "name": "Administration",
       "url": "/about"
     },
     {
-      "name": "Services",
+      "name": "Activities",
       "url": "/programs"
     },
     {
-      "name": "Projects",
-      "url": "/programs"
-    },
-    {
-      "name": "Blog",
+      "name": "News & Blogs",
       "url": "/blog"
     },
     {
-      "name": "Page",
-      "url": "/elements"
+      "name": "Act Alliance",
+      "url": "/blog/post-1"
     },
     {
       "name": "Contact",

@@ -92,7 +92,9 @@ const Header = () => {
                   className="nav-link inline-flex items-center cursor-pointer text-[15px] font-semibold tracking-[0.14em] uppercase text-[#034833]"
                 >
                   {item.name}
-                  <FaAngleDown className="ml-1 text-[10px]" />
+                  {item.name === "Activities" && (
+                    <FaAngleDown className="ml-1 text-[10px]" />
+                  )}
                 </Link>
               </li>
             ))}
