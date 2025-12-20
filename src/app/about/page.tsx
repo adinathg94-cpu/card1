@@ -36,7 +36,7 @@ export default function AboutPage() {
   return (
     <>
       <SeoMeta title={title} meta_title={meta_title} description={description} image={image} />
-      <section className="section pb-18 xl:pb-24 pt-24 lg:pt-32">
+      <section className="section pb-18 xl:pb-24 pt-24 lg:pt-32 mb-0" style={{ marginBottom: '0px' }}>
         <div className="container">
           <div
             data-aos="fade-up-sm"
@@ -72,7 +72,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="section-lg">
+      <section className="section-lg pt-0 xl:pt-4">
         <div className="container">
           <div
             data-aos="fade-up-sm"
