@@ -9,6 +9,7 @@ import FAQs from '@/partials/FAQs';
 import SeoMeta from '@/partials/SeoMeta';
 import type { ContactPage } from '@/types';
 import Link from 'next/link';
+import ContactForm from '@/layouts/components/ContactForm';
 
 const ContactPage = () => {
   const contactIndex = getListPage<ContactPage["frontmatter"]>('contact/_index.md');
@@ -149,48 +150,10 @@ const ContactPage = () => {
                 <h6 className="h4 mb-2 font-semibold">Let’s Chat</h6>
                 <p>Want to learn more about Us, we are ready to help.</p>
 
-                <form className="mt-8" action={contact_form_action} method="POST">
-                  <div className="mb-6">
-                    <label htmlFor="name" className="form-label">
-                      Your Full Name <span>*</span>
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      className="form-input"
-                      placeholder="John Doe"
-                      type="text"
-                      required
-                    />
-                  </div>
-                  <div className="mb-6">
-                    <label htmlFor="email" className="form-label">
-                      Your Email <span>*</span>
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      className="form-input"
-                      placeholder="john.doe@email.com"
-                      type="email"
-                      required
-                    />
-                  </div>
-                  <div className="mb-6">
-                    <label htmlFor="message" className="form-label">
-                      Your Message <span>*</span>
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      className="form-input"
-                      placeholder="Write your message"
-                      required
-                      rows={6}></textarea>
-                  </div>
-                  <button type="submit" className="btn btn-primary w-full text-center"
-                  >Send Message</button>
-                </form>
+                {/* Client-side contact form handles optional mobile number and submits to /api/contact */}
+                <div className="mt-8">
+                  <ContactForm />
+                </div>
               </div>
             </div>
           </div>
