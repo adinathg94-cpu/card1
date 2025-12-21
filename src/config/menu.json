@@ -34,12 +34,12 @@
           "url": "/donation"
         },
         {
-          "name": "About Us",
-          "url": "/about"
+          "name": "Downloads",
+          "url": "/downloads"
         },
         {
-          "name": "Programs",
-          "url": "/programs"
+          "name": "Media",
+          "url": "/media"
         }
       ]
     },
