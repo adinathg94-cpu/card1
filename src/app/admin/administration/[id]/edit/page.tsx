@@ -22,6 +22,7 @@ export default function EditMemberPage() {
 
   useEffect(() => {
     fetchMember();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const fetchMember = async () => {

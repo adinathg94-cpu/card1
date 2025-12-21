@@ -327,24 +327,7 @@ export interface AboutPage extends RegularPage {
   };
 }
 
-export interface DonationPage extends RegularPage {
-  frontmatter: RegularPage["frontmatter"] & {
-    badge: Badge;
-    packages: {
-      enable: boolean;
-      title: string;
-      description: string;
-      badge: Badge;
-      plans: Array<{
-        title: string;
-        description: string;
-        amount: string;
-        billed_per?: string;
-        button: Button;
-      }>;
-    };
-  };
-}
+
 
 export interface ContactPage extends RegularPage {
   frontmatter: RegularPage["frontmatter"] & {

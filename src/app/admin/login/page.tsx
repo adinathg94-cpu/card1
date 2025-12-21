@@ -30,7 +30,7 @@ export default function LoginPage() {
       } else {
         setError(data.error || "Login failed");
       }
-    } catch (err) {
+    } catch (_err) {
       setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);
@@ -38,11 +38,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div 
+    <div
       className="min-h-screen flex items-center justify-center bg-theme-light dark:bg-dark-theme-light"
       suppressHydrationWarning
     >
-      <div 
+      <div
         className="w-full max-w-md p-8 bg-white dark:bg-dark-theme-light rounded-2xl shadow-lg"
         suppressHydrationWarning
       >

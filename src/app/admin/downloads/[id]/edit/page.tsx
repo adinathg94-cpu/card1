@@ -22,6 +22,7 @@ export default function EditDownloadPage() {
 
   useEffect(() => {
     fetchDownload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const fetchDownload = async () => {

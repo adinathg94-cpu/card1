@@ -1,4 +1,4 @@
-
+import { notFound } from "next/navigation";
 import BlogCard from "@/components/BlogCard";
 import Disqus from "@/components/Disqus";
 import TitleBadge from "@/components/TitleBadge";
@@ -23,7 +23,7 @@ export const generateStaticParams: () => { single: string }[] = () => {
   // Try database first, fallback to markdown
   const dbPosts = getBlogPostsFromDB();
   let posts;
-  
+
   if (dbPosts.length > 0) {
     posts = dbPosts.map((post) => ({
       slug: post.slug,
@@ -43,10 +43,10 @@ export const generateStaticParams: () => { single: string }[] = () => {
 
 const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
   const params = await props.params;
-  
+
   // Try database first
   let post = getBlogPostFromDB(params.single);
-  
+
   if (!post) {
     // Fallback to markdown
     const posts = getSinglePage<BlogPost["frontmatter"]>("blog");
@@ -56,14 +56,14 @@ const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
     }
     post = {
       slug: mdPost.slug,
-      frontmatter: mdPost.frontmatter,
+      frontmatter: mdPost.frontmatter as any,
       content: mdPost.content,
     };
   }
 
   const { title, meta_title, description, image, badge, categories } =
-    post.frontmatter;
-  
+    post.frontmatter as any;
+
   // Get all posts for similar items
   const dbPosts = getBlogPostsFromDB();
   let allPosts;
@@ -91,7 +91,7 @@ const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
           <article data-aos="fade-up-sm" data-aos-delay="150">
             <TitleBadge
               icon={"FaAngleRight"}
-              label={categories?.map((category) => category).join(", ")}
+              label={categories?.map((category: string) => category).join(", ")}
               bg_color={(badge && badge.bg_color) || "bg-secondary"}
               isCenter={false}
             />

@@ -34,6 +34,7 @@ export default function EditMediaPage() {
 
   useEffect(() => {
     fetchItem();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const fetchItem = async () => {

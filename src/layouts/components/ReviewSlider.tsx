@@ -11,7 +11,6 @@ import "swiper/css/pagination";
 
 interface Props {
   data: ReviewsSection["frontmatter"];
-  isDonationPage?: boolean;
 }
 
 interface Review {
@@ -28,7 +27,7 @@ interface ExtendedReviewsSection extends ReviewsSection {
   reviews: Review[];
 }
 
-const ReviewSlider: React.FC<Props> = ({ data, isDonationPage = false }) => {
+const ReviewSlider: React.FC<Props> = ({ data }) => {
   // Cast data to ExtendedReviewsSection
   const reviewData = data as unknown as ExtendedReviewsSection;
 
@@ -53,8 +52,7 @@ const ReviewSlider: React.FC<Props> = ({ data, isDonationPage = false }) => {
         {reviewData.reviews?.map((review) => (
           <SwiperSlide key={review.id} className="swiper-slide">
             <div
-              className={`flex flex-col ${isDonationPage ? "items-center lg:items-start" : "items-center"
-                } `}
+              className="flex flex-col items-center"
             >
               <div
                 className="stars"
@@ -62,10 +60,7 @@ const ReviewSlider: React.FC<Props> = ({ data, isDonationPage = false }) => {
                 aria-label="Rating from the company"
               />
               <p
-                className={`${isDonationPage
-                  ? "h6 text-balance font-medium max-lg:text-center"
-                  : "h4 text-center font-semibold"
-                  }  mb-8 mt-4 text-text-dark/90 before:content-['“'] after:content-['”']`}
+                className="h4 text-center font-semibold mb-8 mt-4 text-text-dark/90 before:content-['“'] after:content-['”']"
                 dangerouslySetInnerHTML={markdownify(review.content)}
               />
               <div className="flex justify-between items-center">

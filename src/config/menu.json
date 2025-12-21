@@ -30,10 +30,6 @@
       "title": "Quick Links",
       "children": [
         {
-          "name": "Donation",
-          "url": "/donation"
-        },
-        {
           "name": "Downloads",
           "url": "/downloads"
         },

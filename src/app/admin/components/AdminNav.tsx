@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   FaHouse,
   FaNewspaper,
@@ -38,11 +37,10 @@ export default function AdminNav({ pathname, onLogout }: AdminNavProps) {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                  isActive
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
                     ? "bg-primary text-white"
                     : "hover:bg-theme-light dark:hover:bg-dark-theme-light"
-                }`}
+                  }`}
               >
                 <Icon className="text-lg" />
                 <span>{item.label}</span>

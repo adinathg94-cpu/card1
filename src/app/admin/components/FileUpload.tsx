@@ -54,7 +54,7 @@ export default function FileUpload({
       } else {
         setError(data.error || "Upload failed");
       }
-    } catch (err) {
+    } catch (_err) {
       setError("Upload failed. Please try again.");
     } finally {
       setUploading(false);

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link";
 import AdminNav from "./AdminNav";
 
 interface AdminLayoutProps {
@@ -17,6 +16,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   useEffect(() => {
     checkAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const checkAuth = async () => {
@@ -29,7 +29,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       } else {
         router.push("/admin/login");
       }
-    } catch (error) {
+    } catch (_error) {
       router.push("/admin/login");
     } finally {
       setLoading(false);

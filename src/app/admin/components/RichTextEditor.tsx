@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 
 // Dynamically import react-quill to avoid SSR issues
