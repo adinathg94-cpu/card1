@@ -24,7 +24,7 @@ button:
 
 numbers_banner:
   enable: true
-  title: "Since our founding, Kindora has made an extensive impact"
+  title: "Since our founding, CARD has made an extensive impact"
   description: ""
   badge:
     enable: true

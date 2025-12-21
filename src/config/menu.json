@@ -18,7 +18,7 @@
     },
     {
       "name": "Act Alliance",
-      "url": "/blog/post-1"
+      "url": "/act"
     },
     {
       "name": "Contact",
@@ -44,33 +44,8 @@
       ]
     },
     {
-      "title": "More",
-      "children": [
-        {
-          "name": "Blog",
-          "url": "/blog"
-        },
-        {
-          "name": "Blog details",
-          "url": "/blog/post-1"
-        },
-        {
-          "name": "Testimonials",
-          "url": "/reviews"
-        }
-      ]
-    },
-    {
       "title": "Legal & Policy Links",
       "children": [
-        {
-          "name": "Privacy Policy",
-          "url": "/privacy-policy"
-        },
-        {
-          "name": "Terms of Service",
-          "url": "/terms-and-conditions"
-        },
         {
           "name": "Contact Us",
           "url": "/contact"

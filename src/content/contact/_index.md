@@ -1,5 +1,5 @@
 ---
-title: "Get in Touch with Kindora"
+title: "Get in Touch with CARD"
 meta_title: "Contact Us"
 description: "Together, we can make a real impact in communities around the world. Help us bring hope and support."
 
@@ -19,7 +19,7 @@ cta_banners:
       link: "/contact"
 
   - title: "Partnership Opportunities"
-    description: "If you represent an organization, foundation, or business interested in partnering with Kindora"
+    description: "If you represent an organization, foundation, or business interested in partnering with CARD"
     banner_color: "bg-tertiary/70"
     button:
       enable: true
@@ -27,8 +27,8 @@ cta_banners:
       link: "/contact"
 
 contact_form_intro:
-  title: "Why Reach Out to Kindora?"
-  description: "We’re dedicated to offering personalized guidance and support for any questions you may have about Kindora. Whether you’re a donor, volunteer, or partner, our team is here to assist you every step of the way."
+  title: "Why Reach Out to CARD?"
+  description: "We’re dedicated to offering personalized guidance and support for any questions you may have about CARD. Whether you’re a donor, volunteer, or partner, our team is here to assist you every step of the way."
   badge:
     enable: true
     label: "Donations"

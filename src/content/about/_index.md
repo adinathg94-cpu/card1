@@ -15,7 +15,7 @@ button:
 
 brands:
   enable: true
-  title: "Kindora’s trusted partners and their core values"
+  title: "CARD’s trusted partners and their core values"
   logos:
     - "/images/homepage/brands/1.svg"
     - "/images/homepage/brands/2.svg"
@@ -35,7 +35,7 @@ features:
 
   - title: Sustainability
     icon: "FaFlag" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
-    description: Transparency and accountability are at the heart of Kindora. We’re committed.
+    description: Transparency and accountability are at the heart of CARD. We’re committed.
     button:
       enable: false
       label: Donate Now
@@ -51,7 +51,7 @@ features:
 
 numbers_banner:
   enable: true
-  title: "Since our founding, Kindora has made an extensive impact"
+  title: "Since our founding, CARD has made an extensive impact"
   description: ""
   badge:
     enable: true
@@ -90,7 +90,7 @@ numbers_banner:
 impact_results:
   enable: true
   results:
-    - title: "Kindora’s work is made possible by a dedicated community"
+    - title: "CARD’s work is made possible by a dedicated community"
       subtitle: "Our Mission"
       image: "/images/homepage/result1.png"
       image_2: "/images/homepage/result3.png"
@@ -110,20 +110,28 @@ team:
     icon: "FaDiceD20" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
     bg_color: "bg-primary"
   members:
-    - name: "Guy Hawkins"
-      image: "/images/teams/1.png"
-      designation: "VP of Product"
+    - name: "The Most Rev. Dr. Theodosius Mar Thoma Metropolitan"
+      image: "/images/administration/patron.jpg"
+      designation: "Patron"
 
-    - name: "Leslie Alexander"
-      image: "/images/teams/2.png"
-      designation: "VP of Product"
+    - name: "Rt. Rev. Dr. Euyakim Mar Coorilos Suffragan Metropolitan"
+      image: "/images/administration/president.jpg"
+      designation: "President"
 
-    - name: "Devon Lane"
-      image: "/images/teams/3.png"
-      designation: "VP of Product"
+    - name: "Rev. Shibu Samuel"
+      image: "/images/administration/director.jpg"
+      designation: "Director"
 
-    - name: "Bessie Cooper"
-      image: "/images/teams/4.png"
-      designation: "VP of Product"
+    - name: "Rev.Abey T Mammen"
+      image: "/images/administration/secretary.jpg"
+      designation: "Secretary"
+
+    - name: "Victor T Thomas"
+      image: "/images/administration/treasurer.jpg"
+      designation: "Treasurer"
+
+    - name: "Rev.Shine N Jacob"
+      image: "/images/administration/asst-director.jpg"
+      designation: "Asst.Director"
 draft: false
 ---

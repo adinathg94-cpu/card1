@@ -35,7 +35,7 @@
   },
 
   "disqus": {
-    "enable": true,
+    "enable": false,
     "shortname": "themefisher-template",
     "settings": {}
   },
@@ -43,7 +43,7 @@
   "metadata": {
     "meta_author": "Themefisher",
     "meta_image": "/images/og-image.png",
-    "meta_description": "Kindora - Charity & Non-Profit NextJS Template"
+    "meta_description": "CARD - Charity & Non-Profit NextJS Template"
   },
 
   "subscription_in_footer": {

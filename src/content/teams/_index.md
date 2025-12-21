@@ -16,5 +16,5 @@ team_1:
 
 team_2:
   title: Field and Volunteer Team
-  description: Our field and volunteer team is the heart of Kindora’s grassroots efforts.
+  description: Our field and volunteer team is the heart of CARD’s grassroots efforts.
 ---

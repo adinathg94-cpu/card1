@@ -62,12 +62,34 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="pt-14">
-            <div className="row g-4">
-              {team.members?.map((member, i) => (
-                <div className="col-10 sm:col-6 md:col-4 lg:col-3 mx-auto" key={i}>
-                  <TeamCard member={member} index={i} />
-                </div>
-              ))}
+            {/* First Row: Patron, President */}
+            <div className="row g-4 justify-center">
+              {team.members?.filter((member) => {
+                const designation = member.designation?.toLowerCase() || '';
+                return designation === 'patron' || designation === 'president';
+              }).map((member, i) => {
+                const originalIndex = team.members?.findIndex(m => m.name === member.name) || i;
+                return (
+                  <div className="col-10 sm:col-6 md:col-4 lg:col-3 mx-auto" key={`first-${i}`}>
+                    <TeamCard member={member} index={originalIndex} />
+                  </div>
+                );
+              })}
+            </div>
+            {/* Second Row: Director, Secretary, Treasurer, Asst.Director */}
+            <div className="row g-4 pt-4">
+              {team.members?.filter((member) => {
+                const designation = member.designation?.toLowerCase() || '';
+                return designation === 'director' || designation === 'secretary' || 
+                       designation === 'treasurer' || designation === 'asst.director';
+              }).map((member, i) => {
+                const originalIndex = team.members?.findIndex(m => m.name === member.name) || i;
+                return (
+                  <div className="col-10 sm:col-6 md:col-4 lg:col-3 mx-auto" key={`second-${i}`}>
+                    <TeamCard member={member} index={originalIndex} />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
