@@ -1,9 +1,8 @@
 import config from "@/config/config.json";
 import theme from "@/config/theme.json";
 import TwSizeIndicator from "@/helpers/TwSizeIndicator";
-import Footer from "@/partials/Footer";
-import Header from "@/partials/Header";
 import Providers from "@/partials/Providers";
+import ConditionalLayout from "./components/ConditionalLayout";
 import "@/styles/main.css";
 import { GoogleTagManager } from "@next/third-parties/google";
 
@@ -27,7 +26,12 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
-        <link rel="shortcut icon" href={config.site.favicon} />
+        {/* Favicons */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-name" content="kindora-nextjs" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta
@@ -51,9 +55,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <TwSizeIndicator />
         <Providers>
-          <Header />
-          <main>{children}</main>
-          <Footer />
+          <ConditionalLayout>{children}</ConditionalLayout>
         </Providers>
       </body>
     </html>

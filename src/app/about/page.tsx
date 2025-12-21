@@ -12,7 +12,7 @@ import SeoMeta from "@/partials/SeoMeta";
 import Testimonial from "@/partials/Testimonial";
 
 import ImageFallback from "@/helpers/ImageFallback";
-import { getListPage } from "@/lib/contentParser";
+import { getListPage, getAdministrationMembersFromDB } from "@/lib/contentParser";
 import type { AboutPage } from "@/types";
 import Link from "next/link";
 
@@ -30,8 +30,23 @@ export default function AboutPage() {
     numbers_banner,
     impact_results,
     brands,
-    team,
+    team: teamConfig,
   } = about.frontmatter;
+  
+  // Get team members from database
+  const dbMembers = getAdministrationMembersFromDB();
+  
+  // Merge database members with team config
+  const team = {
+    ...teamConfig,
+    members: dbMembers.length > 0 
+      ? dbMembers.map((member) => ({
+          name: member.name,
+          designation: member.designation,
+          image: member.image,
+        }))
+      : (teamConfig.members || []),
+  };
 
   return (
     <>

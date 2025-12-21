@@ -6,7 +6,7 @@ image: "/images/about.png"
 badge:
   enable: true
   label: "Media"
-  icon: "FaPhotoVideo"
+  icon: "FaPhotoFilm"
   bg_color: "bg-primary"
 draft: false
 ---

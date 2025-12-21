@@ -5,7 +5,7 @@ import TitleBadge from "@/components/TitleBadge";
 import config from "@/config/config.json";
 import ImageFallback from "@/helpers/ImageFallback";
 import MDXContent from "@/helpers/MDXContent";
-import { getSinglePage } from "@/lib/contentParser";
+import { getSinglePage, getBlogPostFromDB, getBlogPostsFromDB } from "@/lib/contentParser";
 import similarItems from "@/lib/utils/similarItems";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
@@ -20,7 +20,19 @@ export const dynamicParams = false;
 
 // generate static params
 export const generateStaticParams: () => { single: string }[] = () => {
-  const posts = getSinglePage(blog_folder);
+  // Try database first, fallback to markdown
+  const dbPosts = getBlogPostsFromDB();
+  let posts;
+  
+  if (dbPosts.length > 0) {
+    posts = dbPosts.map((post) => ({
+      slug: post.slug,
+      frontmatter: post.frontmatter,
+      content: post.content,
+    }));
+  } else {
+    posts = getSinglePage(blog_folder);
+  }
 
   const paths = posts.map((post) => ({
     single: post.slug!,
@@ -31,12 +43,40 @@ export const generateStaticParams: () => { single: string }[] = () => {
 
 const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
   const params = await props.params;
-  const posts = getSinglePage<BlogPost["frontmatter"]>("blog");
-  const post = posts.filter((page) => page.slug === params.single)[0];
+  
+  // Try database first
+  let post = getBlogPostFromDB(params.single);
+  
+  if (!post) {
+    // Fallback to markdown
+    const posts = getSinglePage<BlogPost["frontmatter"]>("blog");
+    const mdPost = posts.filter((page) => page.slug === params.single)[0];
+    if (!mdPost) {
+      notFound();
+    }
+    post = {
+      slug: mdPost.slug,
+      frontmatter: mdPost.frontmatter,
+      content: mdPost.content,
+    };
+  }
 
   const { title, meta_title, description, image, badge, categories } =
     post.frontmatter;
-  const similarPosts = similarItems(post, posts);
+  
+  // Get all posts for similar items
+  const dbPosts = getBlogPostsFromDB();
+  let allPosts;
+  if (dbPosts.length > 0) {
+    allPosts = dbPosts.map((p) => ({
+      slug: p.slug,
+      frontmatter: p.frontmatter,
+      content: p.content,
+    }));
+  } else {
+    allPosts = getSinglePage<BlogPost["frontmatter"]>("blog");
+  }
+  const similarPosts = similarItems(post, allPosts);
 
   return (
     <>

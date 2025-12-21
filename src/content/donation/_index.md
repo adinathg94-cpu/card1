@@ -27,7 +27,7 @@ packages:
       button:
         enable: true
         label: Donate Now
-        link: "/donation"
+        link: "/donation/confirm"
 
     - title: Medical Assistance
       description: Provide a family with one month of rent and housing security.
@@ -36,7 +36,7 @@ packages:
       button:
         enable: true
         label: Donate Now
-        link: "/donation"
+        link: "/donation/confirm"
 
     - title: Education Assistance
       description: Support a family’s housing stability for an entire month.
@@ -45,5 +45,5 @@ packages:
       button:
         enable: true
         label: Donate Now
-        link: "/donation"
+        link: "/donation/confirm"
 ---

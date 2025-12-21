@@ -1,4 +1,4 @@
-import DonationForm from "@/components/DonationForm";
+import DonationForm from "@/layouts/components/DonationForm";
 import SuccessNumbers from "@/components/SuccessNumbers";
 import TitleBadge from "@/components/TitleBadge";
 import config from "@/config/config.json";

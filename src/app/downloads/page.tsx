@@ -1,5 +1,5 @@
 import TitleBadge from "@/components/TitleBadge";
-import { getListPage } from "@/lib/contentParser";
+import { getListPage, getDownloadsFromDB } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
 import SeoMeta from "@/partials/SeoMeta";
@@ -7,43 +7,18 @@ import type { RegularPage } from "@/types";
 import Link from "next/link";
 import { FaDownload, FaFilePdf } from "react-icons/fa6";
 
-// Sample PDF data - in production, this would come from a CMS or API
-const pdfFiles = [
-  {
-    name: "Annual Report 2023",
-    url: "/pdfs/annual-report-2023.pdf",
-    size: "2.5 MB",
-    date: "2023-12-31"
-  },
-  {
-    name: "Impact Assessment Report",
-    url: "/pdfs/impact-assessment-2023.pdf",
-    size: "1.8 MB",
-    date: "2023-11-15"
-  },
-  {
-    name: "Financial Statement 2023",
-    url: "/pdfs/financial-statement-2023.pdf",
-    size: "950 KB",
-    date: "2023-10-20"
-  },
-  {
-    name: "Program Overview",
-    url: "/pdfs/program-overview.pdf",
-    size: "1.2 MB",
-    date: "2023-09-10"
-  },
-  {
-    name: "Community Impact Study",
-    url: "/pdfs/community-impact-study.pdf",
-    size: "3.1 MB",
-    date: "2023-08-05"
-  }
-];
-
 export default function DownloadsPage() {
   const downloads = getListPage<RegularPage["frontmatter"]>("downloads/_index.md");
   const { title, meta_title, description, image, badge } = downloads.frontmatter;
+  
+  // Get downloads from database
+  const dbDownloads = getDownloadsFromDB();
+  const pdfFiles = dbDownloads.map((download) => ({
+    name: download.name,
+    url: download.url,
+    size: download.file_size || "N/A",
+    date: download.date || new Date().toISOString(),
+  }));
 
   return (
     <>

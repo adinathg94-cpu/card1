@@ -6,7 +6,7 @@ description: "Your support empowers us to provide essential resources"
 buttons:
   - enable: true
     label: "Donate Now"
-    link: "/donation"
+    link: "/donation/confirm"
 
   - enable: true
     label: "Become a Volunteer"

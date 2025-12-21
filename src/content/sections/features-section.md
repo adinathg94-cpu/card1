@@ -15,7 +15,7 @@ features:
     button:
       enable: true
       label: Sponsor a Child's Future
-      link: "/donation"
+      link: "/donation/confirm"
 
   - title: Strengthen rural education
     icon: "FaGraduationCap"
@@ -23,7 +23,7 @@ features:
     button:
       enable: true
       label: Back a Village Classroom
-      link: "/donation"
+      link: "/donation/confirm"
 
   - title: Promote health and resilience
     icon: "FaHospital"
@@ -31,7 +31,7 @@ features:
     button:
       enable: true
       label: Fund Life-Saving Care
-      link: "/donation"
+      link: "/donation/confirm"
 
   - title: Secure food and livelihoods
     icon: "FaLeaf"
@@ -39,7 +39,7 @@ features:
     button:
       enable: true
       label: Help a Family
-      link: "/donation"
+      link: "/donation/confirm"
 
   - title: Protect water and the environment
     icon: "FaWater"
@@ -47,7 +47,7 @@ features:
     button:
       enable: true
       label: Power a Community
-      link: "/donation"
+      link: "/donation/confirm"
 
   - title: Stand with communities in crisis
     icon: "FaHandshake"
@@ -55,5 +55,5 @@ features:
     button:
       enable: true
       label: Send Urgent Relief Now
-      link: "/donation"
+      link: "/donation/confirm"
 ---

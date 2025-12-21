@@ -3,7 +3,7 @@ import Pagination from "@/components/Pagination";
 import TitleBadge from "@/components/TitleBadge";
 import config from "@/config/config.json";
 import SeoMeta from "@/partials/SeoMeta";
-import { getSinglePage, getListPage } from "@/lib/contentParser";
+import { getBlogPostsFromDB, getListPage, getSinglePage } from "@/lib/contentParser";
 import { sortByDate } from "@/lib/utils/sortFunctions";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
@@ -12,7 +12,22 @@ import { BlogPage, BlogPost } from "@/types";
 const { blog_folder } = config.settings;
 
 export default function BlogIndexPage() {
-  const posts = getSinglePage<BlogPost["frontmatter"]>(blog_folder);
+  // Try database first, fallback to markdown
+  const dbPosts = getBlogPostsFromDB();
+  let posts;
+  
+  if (dbPosts.length > 0) {
+    // Convert DB posts to the format expected by the component
+    posts = dbPosts.map((post) => ({
+      slug: post.slug,
+      frontmatter: post.frontmatter,
+      content: post.content,
+    }));
+  } else {
+    // Fallback to markdown
+    posts = getSinglePage<BlogPost["frontmatter"]>(blog_folder);
+  }
+  
   const postIndex = getListPage<BlogPage["frontmatter"]>(`${blog_folder}/_index.md`);
   const { badge, title, description, meta_title, image } =
     postIndex.frontmatter;

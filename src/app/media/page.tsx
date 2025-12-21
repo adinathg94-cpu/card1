@@ -1,5 +1,5 @@
 import TitleBadge from "@/components/TitleBadge";
-import { getListPage } from "@/lib/contentParser";
+import { getListPage, getMediaItemsFromDB } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
 import SeoMeta from "@/partials/SeoMeta";
@@ -7,141 +7,94 @@ import type { RegularPage } from "@/types";
 import socialConfig from "@/config/social.json";
 import MediaFeed from "./components/MediaFeed";
 
-// Sample data - in production, this would come from a CMS or API
-const successStories = [
-  {
-    title: "Transforming Lives in Rural Communities",
-    description: "How our programs have impacted over 10,000 families",
-    image: "/images/about.png",
-    link: "#"
-  },
-  {
-    title: "Education for All Initiative",
-    description: "Building schools and providing quality education",
-    image: "/images/about.png",
-    link: "#"
-  }
-];
-
-const caseStudies = [
-  {
-    title: "Disaster Relief Program 2023",
-    description: "Comprehensive response to natural disasters",
-    image: "/images/about.png",
-    link: "#"
-  },
-  {
-    title: "Healthcare Access Project",
-    description: "Improving healthcare in underserved areas",
-    image: "/images/about.png",
-    link: "#"
-  }
-];
-
-const innovations = [
-  {
-    title: "Digital Learning Platform",
-    description: "Revolutionizing education through technology",
-    image: "/images/about.png",
-    link: "#"
-  },
-  {
-    title: "Sustainable Agriculture Program",
-    description: "Innovative farming techniques for better yields",
-    image: "/images/about.png",
-    link: "#"
-  }
-];
-
-const blogPosts = [
-  {
-    title: "Latest Updates from the Field",
-    description: "Read about our recent activities",
-    image: "/images/about.png",
-    link: "/blog"
-  }
-];
-
-const youtubeVideos = [
-  {
-    title: "Our Mission in Action",
-    embedId: "dQw4w9WgXcQ",
-    thumbnail: "/images/about.png"
-  },
-  {
-    title: "Community Impact Stories",
-    embedId: "dQw4w9WgXcQ",
-    thumbnail: "/images/about.png"
-  }
-];
-
-const printMedia = [
-  {
-    title: "Newspaper Coverage - January 2024",
-    image: "/images/about.png",
-    link: "#"
-  },
-  {
-    title: "Magazine Feature - December 2023",
-    image: "/images/about.png",
-    link: "#"
-  }
-];
-
-const reels = [
-  {
-    title: "Day in the Life",
-    thumbnail: "/images/about.png",
-    link: "#"
-  },
-  {
-    title: "Impact Highlights",
-    thumbnail: "/images/about.png",
-    link: "#"
-  },
-  {
-    title: "Volunteer Stories",
-    thumbnail: "/images/about.png",
-    link: "#"
-  },
-  {
-    title: "Event Recap",
-    thumbnail: "/images/about.png",
-    link: "#"
-  },
-  {
-    title: "Behind the Scenes",
-    thumbnail: "/images/about.png",
-    link: "#"
-  }
-];
-
-const posters = [
-  {
-    title: "Campaign Poster 2024",
-    image: "/images/about.png",
-    link: "#"
-  },
-  {
-    title: "Event Announcement",
-    image: "/images/about.png",
-    link: "#"
-  }
-];
-
 export default function MediaPage() {
   const media = getListPage<RegularPage["frontmatter"]>("media/_index.md");
   const { title, meta_title, description, image, badge } = media.frontmatter;
 
+  // Get media items from database
+  const allMediaItems = getMediaItemsFromDB();
+  
+  // Group by type
+  const successStories = allMediaItems
+    .filter((item) => item.type === "success_story")
+    .map((item) => ({
+      title: item.title,
+      description: item.description,
+      image: item.image,
+      link: item.link,
+    }));
+
+  const caseStudies = allMediaItems
+    .filter((item) => item.type === "case_study")
+    .map((item) => ({
+      title: item.title,
+      description: item.description,
+      image: item.image,
+      link: item.link,
+    }));
+
+  const innovations = allMediaItems
+    .filter((item) => item.type === "innovation")
+    .map((item) => ({
+      title: item.title,
+      description: item.description,
+      image: item.image,
+      link: item.link,
+    }));
+
+  const blogPosts = allMediaItems
+    .filter((item) => item.type === "blog_post")
+    .map((item) => ({
+      title: item.title,
+      description: item.description,
+      image: item.image,
+      link: item.link || "/blog",
+    }));
+
+  const youtubeVideos = allMediaItems
+    .filter((item) => item.type === "youtube_video")
+    .map((item) => ({
+      title: item.title,
+      embedId: item.embed_id,
+      thumbnail: item.thumbnail || item.image,
+    }));
+
+  const printMedia = allMediaItems
+    .filter((item) => item.type === "print_media")
+    .map((item) => ({
+      title: item.title,
+      description: item.description,
+      image: item.image,
+      link: item.link,
+    }));
+
+  const reels = allMediaItems
+    .filter((item) => item.type === "reel")
+    .map((item) => ({
+      title: item.title,
+      description: item.description,
+      thumbnail: item.thumbnail || item.image,
+      link: item.link,
+    }));
+
+  const posters = allMediaItems
+    .filter((item) => item.type === "poster")
+    .map((item) => ({
+      title: item.title,
+      description: item.description,
+      image: item.image,
+      link: item.link,
+    }));
+
   // Get social media links from config
-  const facebookLink = socialConfig.main.find(s => s.name === "facebook")?.link || "#";
-  const instagramLink = socialConfig.main.find(s => s.name === "instagram")?.link || "https://www.instagram.com/";
-  const xLink = socialConfig.main.find(s => s.name === "x")?.link || "#";
+  const facebookLink = socialConfig.main.find((s) => s.name === "facebook")?.link || "#";
+  const instagramLink = socialConfig.main.find((s) => s.name === "instagram")?.link || "https://www.instagram.com/";
+  const xLink = socialConfig.main.find((s) => s.name === "x")?.link || "#";
 
   const socialLinks = {
     facebook: facebookLink,
     instagram: instagramLink,
-    x: xLink
+    x: xLink,
   };
 
   return (

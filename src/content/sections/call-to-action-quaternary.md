@@ -6,5 +6,5 @@ banner_color: "bg-tertiary/70"
 button:
   enable: true
   label: "Donate Now"
-  link: "/donation"
+  link: "/donation/confirm"
 ---

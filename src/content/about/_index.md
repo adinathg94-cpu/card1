@@ -31,7 +31,7 @@ features:
     button:
       enable: false
       label: Donate Now
-      link: "/donation"
+      link: "/donation/confirm"
 
   - title: Sustainability
     icon: "FaFlag" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
@@ -39,7 +39,7 @@ features:
     button:
       enable: false
       label: Donate Now
-      link: "/donation"
+      link: "/donation/confirm"
 
   - title: Collaboration
     icon: "FaHandsHolding" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
@@ -47,7 +47,7 @@ features:
     button:
       enable: false
       label: Donate Now
-      link: "/donation"
+      link: "/donation/confirm"
 
 numbers_banner:
   enable: true
@@ -98,7 +98,7 @@ impact_results:
       button:
         enable: true
         label: "Make a Quick Donation"
-        link: "/donation"
+        link: "/donation/confirm"
 
 team:
   enable: true
