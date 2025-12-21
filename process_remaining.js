@@ -1,4 +1,4 @@
-const sharp = require('sharp');
+import sharp from 'sharp';
 
 const targetWidth = 453;
 const targetHeight = 540;

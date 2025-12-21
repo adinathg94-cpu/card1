@@ -1,6 +1,10 @@
-const sharp = require('sharp');
-const fs = require('fs');
-const path = require('path');
+import sharp from 'sharp';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const logoPath = path.join(__dirname, '../public/images/cardlogo.png');
 const outputDir = path.join(__dirname, '../public');
@@ -18,7 +22,7 @@ const sizes = [
 async function generateFavicons() {
   try {
     console.log('Generating favicons from logo...');
-    
+
     // Check if logo exists
     if (!fs.existsSync(logoPath)) {
       console.error(`Logo not found at ${logoPath}`);
@@ -28,7 +32,7 @@ async function generateFavicons() {
     // Generate each size
     for (const { size, name } of sizes) {
       const outputPath = path.join(outputDir, name);
-      
+
       await sharp(logoPath)
         .resize(size, size, {
           fit: 'contain',
@@ -36,7 +40,7 @@ async function generateFavicons() {
         })
         .png()
         .toFile(outputPath);
-      
+
       console.log(`✓ Generated ${name} (${size}x${size})`);
     }
 

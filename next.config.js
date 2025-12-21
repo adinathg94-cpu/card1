@@ -1,3 +1,5 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 const config = require("./src/config/config.json");
 
 /** @type {import('next').NextConfig} */
@@ -8,4 +10,4 @@ const nextConfig = {
   output: "standalone",
 };
 
-module.exports = nextConfig;
+export default nextConfig;
