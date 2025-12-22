@@ -4,11 +4,18 @@ import Logo from "@/components/Logo";
 import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { FaAngleDown, FaArrowRightLong } from "react-icons/fa6";
 
 const Header = () => {
   const [isNavToggled, setIsNavToggled] = useState(false);
+  const pathname = usePathname();
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsNavToggled(false);
+  }, [pathname]);
 
   // Handle hamburger menu toggle
   const handleNavToggle = () => {
