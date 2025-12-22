@@ -10,42 +10,35 @@
     "logo_height": "60",
     "logo_text": "CARD"
   },
-
   "settings": {
     "sticky_header": true,
     "pagination": 6,
     "blog_folder": "blog"
   },
-
   "params": {
     "contact_form_action": "#",
     "footer_description": "Together, we can make a real impact in communities around the world.",
     "copyright": "Copyright © {year} All Rights Reserved by [UserBX](https://userbx.ie/)"
   },
-
   "navigation_button": {
     "enable": true,
     "label": "Donate Now",
     "link": "/donation/confirm"
   },
-
   "google_tag_manager": {
     "enable": false,
     "gtm_id": "GTM-XXXXXX"
   },
-
   "disqus": {
     "enable": false,
     "shortname": "themefisher-template",
     "settings": {}
   },
-
   "metadata": {
     "meta_author": "Themefisher",
     "meta_image": "/images/og-image.png",
     "meta_description": "CARD - Charity & Non-Profit NextJS Template"
   },
-
   "subscription_in_footer": {
     "enable": true,
     "mailchimp_form_action": "https://gmail.us4.list-manage.com/subscribe/post?u=463ee871f45d2d93748e77cad&amp;id=a0a2c6d074",

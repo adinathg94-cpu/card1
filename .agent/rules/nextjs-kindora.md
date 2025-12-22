@@ -39,3 +39,4 @@ trigger: always_on
 
 ### 5. Deployment & Build
 - **Images:** Always use `sharp` (included in devDependencies) for image optimization during `next build`.
+- run `npm run build` after changing files and check for issues regularly

@@ -6,5 +6,5 @@ description: "Education transforms lives, but millions of children worldwide sti
 button:
   enable: true
   label: "Donate Now"
-  link: "/contact"
+  link: "/donation/confirm"
 ---
