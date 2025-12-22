@@ -44,7 +44,7 @@ const Header = () => {
         <div className="order-0 flex items-center flex-shrink-0">
           <Logo />
         </div>
-        <div className="flex items-center gap-2 flex-1 justify-end">
+        <div className="flex items-center gap-2 flex-1 justify-end header-menu">
           {/* Desktop Donate Button */}
           <div className="ml-auto flex items-center lg:ml-2 order-1">
             {config.navigation_button && config.navigation_button.enable && (
@@ -80,9 +80,8 @@ const Header = () => {
           {/* /navbar toggler */}
           <ul
             id="nav-menu"
-            className={`navbar-nav absolute left-0 right-0 lg:static lg:flex items-center lg:w-auto lg:space-x-4 lg:pb-0 whitespace-nowrap ${
-              isNavToggled ? "" : "hidden"
-            } lg:flex lg:justify-center`}
+            className={`navbar-nav absolute left-0 right-0 lg:static lg:flex items-center lg:w-auto lg:space-x-4 lg:pb-0 whitespace-nowrap ${isNavToggled ? "" : "hidden"
+              } lg:flex lg:justify-center`}
           >
             {menu.main.map((item, i) => (
               <li key={i} className="nav-item">

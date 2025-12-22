@@ -1,5 +1,5 @@
 .btn {
-  @apply inline-block rounded border border-transparent px-5 py-2 font-medium text-sm capitalize transition cursor-pointer;
+  @apply inline-block rounded border border-transparent px-5 py-2 font-medium text-base capitalize transition cursor-pointer;
 }
 
 .btn-sm {

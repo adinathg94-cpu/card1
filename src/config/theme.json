@@ -17,9 +17,12 @@
   },
   "fonts": {
     "font_family": {
-      "primary": "Urbanist:wght@400;600;700",
+      "primary": "Golos Text:wght@400;600;700",
       "primary_type": "sans-serif"
     },
-    "font_size": { "base": "18", "scale": "1.235" }
+    "font_size": {
+      "base": "1.166",
+      "scale": "1.27"
+    }
   }
 }
