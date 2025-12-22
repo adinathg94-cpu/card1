@@ -122,7 +122,7 @@ const HeroBanner = ({ banner }: { banner: BannerSection }) => {
           {/* Main Heading */}
           <h1
             dangerouslySetInnerHTML={markdownify(banner.title)}
-            className="text-[48px] md:text-[60px] lg:text-[75px] font-bold leading-[90px] text-white capitalize"
+            className="text-[48px] md:text-[60px] lg:text-[75px] font-bold leading-tight text-white capitalize"
             data-aos="fade-up-sm"
             data-aos-delay="150"
           />
