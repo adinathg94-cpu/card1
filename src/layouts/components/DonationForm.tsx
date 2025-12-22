@@ -21,6 +21,9 @@ const DonationForm = () => {
 
     const predefinedAmounts = ["10.00", "25.00", "50.00", "100.00"];
 
+    // Dynamic PayPal currency: mapping INR to USD for processing
+    const paypalCurrency = currency === "INR" ? "USD" : currency;
+
     useEffect(() => {
         fetch('https://ipapi.co/json/')
             .then(res => res.json())
@@ -113,25 +116,51 @@ const DonationForm = () => {
             {/* PayPal Button */}
             <div className="relative z-0 min-h-[150px]">
                 <PayPalScriptProvider
-                    key={currency}
+                    key={paypalCurrency}
                     options={{
                         clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "sb",
-                        currency: currency,
-                        intent: "capture" // Explicitly stating intent matches default but good for clarity
+                        currency: paypalCurrency,
+                        intent: "capture"
                     }}
                 >
                     <PayPalButtons
                         style={{ layout: "vertical", shape: "rect", label: "donate", height: 45 }}
                         forceReRender={[amount, currency]}
-                        createOrder={(data, actions) => {
+                        createOrder={async (data, actions) => {
+                            let processAmount = amount;
+                            let processCurrency = currency;
+                            let description = `Donation to CARD - ${amount} ${currency}`;
+
+                            // Handle INR conversion
+                            if (currency === 'INR') {
+                                try {
+                                    const res = await fetch('https://hexarate.paikama.co/api/rates/INR/USD/latest');
+                                    const rateData = await res.json();
+
+                                    if (rateData.status_code === 200 && rateData.data && rateData.data.mid) {
+                                        const mid = rateData.data.mid;
+                                        const usdValue = parseFloat(amount) * mid;
+                                        processAmount = usdValue.toFixed(2);
+                                        processCurrency = 'USD';
+                                        description = `Donation to CARD - ${amount} INR (~${processAmount} USD)`;
+                                    } else {
+                                        throw new Error("Currency conversion failed");
+                                    }
+                                } catch (err) {
+                                    console.error(err);
+                                    setError("Currency conversion unavailable. Please try USD.");
+                                    throw err;
+                                }
+                            }
+
                             return actions.order.create({
                                 purchase_units: [
                                     {
                                         amount: {
-                                            value: amount,
-                                            currency_code: currency
+                                            value: processAmount,
+                                            currency_code: processCurrency
                                         },
-                                        description: `Donation to CARD - ${amount} ${currency}`
+                                        description: description
                                     },
                                 ],
                                 intent: "CAPTURE"
