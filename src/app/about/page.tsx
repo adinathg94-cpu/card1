@@ -32,19 +32,19 @@ export default function AboutPage() {
     brands,
     team: teamConfig,
   } = about.frontmatter;
-  
+
   // Get team members from database
   const dbMembers = getAdministrationMembersFromDB();
-  
+
   // Merge database members with team config
   const team = {
     ...teamConfig,
-    members: dbMembers.length > 0 
+    members: dbMembers.length > 0
       ? dbMembers.map((member) => ({
-          name: member.name,
-          designation: member.designation,
-          image: member.image,
-        }))
+        name: member.name,
+        designation: member.designation,
+        image: member.image,
+      }))
       : (teamConfig.members || []),
   };
 
@@ -95,13 +95,13 @@ export default function AboutPage() {
             <div className="row g-4 pt-4">
               {team.members?.filter((member) => {
                 const designation = member.designation?.toLowerCase() || '';
-                return designation === 'director' || designation === 'secretary' || 
-                       designation === 'treasurer' || designation === 'asst.director';
+                return designation === 'director' || designation === 'secretary' ||
+                  designation === 'treasurer' || designation === 'asst.director';
               }).map((member, i) => {
-                const originalIndex = team.members?.findIndex(m => m.name === member.name) || i;
+                // Use local index i for animation delay to make second row appear faster
                 return (
                   <div className="col-10 sm:col-6 md:col-4 lg:col-3 mx-auto" key={`second-${i}`}>
-                    <TeamCard member={member} index={originalIndex} />
+                    <TeamCard member={member} index={i} />
                   </div>
                 );
               })}
