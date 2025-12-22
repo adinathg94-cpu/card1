@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "CARD",
-    "base_url": "https://kindora-nextjs.vercel.app",
+    "base_url": "https://card-website-zeta.vercel.app/",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/favicon.ico",

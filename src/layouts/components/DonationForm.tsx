@@ -112,10 +112,16 @@ const DonationForm = () => {
 
             {/* PayPal Button */}
             <div className="relative z-0 min-h-[150px]">
-                <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "sb", currency: currency }}>
+                <PayPalScriptProvider
+                    key={currency}
+                    options={{
+                        clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "sb",
+                        currency: currency,
+                        intent: "capture" // Explicitly stating intent matches default but good for clarity
+                    }}
+                >
                     <PayPalButtons
                         style={{ layout: "vertical", shape: "rect", label: "donate", height: 45 }}
-                        key={currency + amount}
                         forceReRender={[amount, currency]}
                         createOrder={(data, actions) => {
                             return actions.order.create({

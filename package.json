@@ -17,6 +17,7 @@
   "dependencies": {
     "@justinribeiro/lite-youtube": "^1.8.2",
     "@next/third-parties": "^15.5.4",
+    "@paypal/checkout-server-sdk": "^1.0.3",
     "@paypal/react-paypal-js": "^8.9.2",
     "@stripe/stripe-js": "^8.6.0",
     "@types/bcryptjs": "^2.4.6",
