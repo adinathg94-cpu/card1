@@ -63,7 +63,7 @@ const CallToActionPrimary = ({ isNoSectionTop }: Props) => {
 
               <div className="lg:col-7 ml-auto">
                 <p
-                  className="text-balance font-medium text-dark text-center lg:text-right max-lg:mt-10"
+                  className="text-balance font-medium text-dark text-center lg:text-right max-lg:mt-10 text-[18px] tracking-[0.0005px] leading-[1.25]"
                   dangerouslySetInnerHTML={markdownify(callToAction.frontmatter.description)}
                 />
 

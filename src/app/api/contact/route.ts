@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 // Fallback key (only used if no env var provided). Replace with your own safe default if necessary.
-const FALLBACK_API_KEY = '2033f899b991cfccecbadd8594f52878-df55650e-1b0c93f7';
+const FALLBACK_API_KEY = 'fece5aa9d01e3e83a9b51e42761fac11-96164d60-7bd89461';
 
 export async function POST(req: Request) {
   try {
@@ -36,17 +36,16 @@ export async function POST(req: Request) {
 
     const apiKey = (process.env.MAILGUN_API_KEY || FALLBACK_API_KEY).trim();
     // sanitize domain: remove protocol and trailing slash if present
-    const rawDomain = process.env.MAILGUN_DOMAIN || 'sandboxc83ce14a42164525b261d2a13f0f5333.mailgun.org';
+    const rawDomain = process.env.MAILGUN_DOMAIN || 'mg.example.com';
     const domain = rawDomain.replace(/^https?:\/\//i, '').replace(/\/$/, '').trim();
-    const recipient = (process.env.CONTACT_RECIPIENT || 'adinathg94@gmail.com').trim();
+    const recipient = (process.env.CONTACT_RECIPIENT || 'card.dir@marthoma.in').trim();
 
     const auth = 'Basic ' + Buffer.from('api:' + apiKey).toString('base64');
 
     const text = `${message}\n\n---\nName: ${name}\nEmail: ${email}\nMobile: ${mobile || 'N/A'}`;
 
     const params = new URLSearchParams();
-    const sender = process.env.MAILGUN_SENDER || `Website Contact <postmaster@${domain}>`;
-    params.append('from', sender);
+    params.append('from', `Website Contact <contact@${domain}>`);
     params.append('to', recipient);
     params.append('subject', `Website Contact: ${name}`);
     params.append('text', text);

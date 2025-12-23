@@ -31,7 +31,7 @@ const CallToActionTertiary = () => {
                       />
                       <p
                         dangerouslySetInnerHTML={markdownify(callToActionData.frontmatter.description || "")}
-                        className="mb-12 text-balance"
+                        className="mb-12 text-balance text-[18px] tracking-[0.0005px] leading-[1.25]"
                       />
                       {callToActionData.frontmatter.button.enable && (
                         <Link
