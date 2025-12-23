@@ -38,7 +38,7 @@ const PromotionsSection: FC<Props> = ({ promotions }) => {
                   dangerouslySetInnerHTML={markdownify(promotions.title || "")}
                 />
                 <p
-                  className="text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.25]"
+                  className="text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.69]"
                   dangerouslySetInnerHTML={markdownify(promotions.description || "")}
                 />
               </div>

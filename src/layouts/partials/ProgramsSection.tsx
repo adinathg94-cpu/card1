@@ -26,7 +26,7 @@ const ProgramsSection = () => {
               dangerouslySetInnerHTML={markdownify(programsIndex.frontmatter.title || "")}
             />
             <p
-              className="text-center text-balance"
+              className="text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.69]"
               dangerouslySetInnerHTML={markdownify(programsIndex.frontmatter.description || "")}
             />
           </div>
