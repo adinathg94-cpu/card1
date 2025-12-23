@@ -29,7 +29,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       } else {
         router.push("/admin/login");
       }
-    } catch (_error) {
+    } catch {
       router.push("/admin/login");
     } finally {
       setLoading(false);

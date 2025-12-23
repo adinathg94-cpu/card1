@@ -1,6 +1,5 @@
 import { getBackgroundClass } from '@/components/Features';
 import TitleBadge from '@/components/TitleBadge';
-import config from "@/config/config.json";
 import DynamicIcon from '@/helpers/DynamicIcon';
 import { getListPage } from '@/lib/contentParser';
 import { markdownify } from '@/lib/utils/textConverter';
