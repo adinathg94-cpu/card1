@@ -95,7 +95,7 @@ const Header = () => {
                 <Link
                   href={item.url}
                   aria-label={item.name}
-                  className="nav-link inline-flex items-center cursor-pointer text-[15px] font-semibold tracking-[0.14em] uppercase text-[#034833]"
+                  className="nav-link inline-flex items-center cursor-pointer text-[15px] font-regular tracking-[0.14em] uppercase text-[#034833]"
                 >
                   {item.name}
                   {item.name === "Activities" && (

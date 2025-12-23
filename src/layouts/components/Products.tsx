@@ -41,7 +41,7 @@ const Products = ({ products }: Props) => {
             <div className="p-8 flex flex-col gap-6 flex-1 relative">
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold tracking-tight text-text-dark group-hover:text-primary transition-colors duration-300" dangerouslySetInnerHTML={markdownify(p.title)} />
-                <p className="text-text/80 text-lg leading-relaxed line-clamp-4" dangerouslySetInnerHTML={markdownify(p.description)} />
+                <p className="text-text/80 text-[18px] leading-[1.25] tracking-[0.0005px] line-clamp-4" dangerouslySetInnerHTML={markdownify(p.description)} />
               </div>
 
               <div className="mt-auto pt-4">

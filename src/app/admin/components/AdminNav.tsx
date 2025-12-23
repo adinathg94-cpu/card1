@@ -8,6 +8,13 @@ import {
   FaUsers,
   FaPhotoFilm,
   FaRightFromBracket,
+  FaHandHoldingDollar,
+  FaChartLine,
+  FaMagnifyingGlass,
+  FaMoneyBillWave,
+  FaFileLines,
+  FaEnvelope,
+  FaHandshake,
 } from "react-icons/fa6";
 
 interface AdminNavProps {
@@ -22,6 +29,13 @@ export default function AdminNav({ pathname, onLogout }: AdminNavProps) {
     { href: "/admin/downloads", label: "Downloads", icon: FaDownload },
     { href: "/admin/administration", label: "Administration", icon: FaUsers },
     { href: "/admin/media", label: "Media", icon: FaPhotoFilm },
+    { href: "/admin/donation-portal", label: "Donation Portal", icon: FaHandHoldingDollar },
+    { href: "/admin/analytics", label: "Analytics", icon: FaChartLine },
+    { href: "/admin/seo-optimisation", label: "SEO Optimisation", icon: FaMagnifyingGlass },
+    { href: "/admin/donation-management", label: "Donation Management", icon: FaMoneyBillWave },
+    { href: "/admin/annual-report", label: "Annual Report", icon: FaFileLines },
+    { href: "/admin/newsletter", label: "Newsletter", icon: FaEnvelope },
+    { href: "/admin/volunteer-list", label: "Volunteer List", icon: FaHandshake },
   ];
 
   return (
@@ -38,8 +52,8 @@ export default function AdminNav({ pathname, onLogout }: AdminNavProps) {
               <Link
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
-                    ? "bg-primary text-white"
-                    : "hover:bg-theme-light dark:hover:bg-dark-theme-light"
+                  ? "bg-primary text-white"
+                  : "hover:bg-theme-light dark:hover:bg-dark-theme-light"
                   }`}
               >
                 <Icon className="text-lg" />
