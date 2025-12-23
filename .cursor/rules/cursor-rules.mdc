@@ -1,3 +1,5 @@
+---
+alwaysApply: true
 # Kindora NextJS CMS Customizations
 
 globs:
@@ -26,3 +28,4 @@ tailwindcss
 react-icons
 aos
 swiper
+---
