@@ -31,7 +31,7 @@ const ProgramCard: React.FC<Props> = ({ data, aosDelay }) => {
               alt={title}
               width={400}
               height={300}
-              className="overflow-hidden object-cover w-full md:aspect-[16/10] rounded-2xl group-hover:scale-110 transition duration-700"
+              className="overflow-hidden object-cover w-full md:aspect-16/10 rounded-2xl group-hover:scale-110 transition duration-700"
               priority
             />
           </div>)
@@ -53,7 +53,7 @@ const ProgramCard: React.FC<Props> = ({ data, aosDelay }) => {
           className="h6 mb-2"
           dangerouslySetInnerHTML={markdownify(title || "")}
         />
-        <p className="text-[18px] tracking-[0.0005px] leading-[1.25]" dangerouslySetInnerHTML={markdownify(description || "")} />
+        <p className="text-[18px] tracking-[0.0005px] leading-tight" dangerouslySetInnerHTML={markdownify(description || "")} />
 
         <div className="flex justify-between mt-4 mb-6 text-text-dark">
           <div>

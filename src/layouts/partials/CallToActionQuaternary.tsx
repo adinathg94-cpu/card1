@@ -22,7 +22,7 @@ const CallToActionQuaternary = ({ isNoSectionTop = false }: Props) => {
         >
           <div className="container">
             <div
-              className={`${callToAction.frontmatter.banner_color} rounded-4xl p-14 text-wrap break-words relative overflow-hidden`}
+              className={`${callToAction.frontmatter.banner_color} rounded-4xl p-14 text-wrap wrap-break-word relative overflow-hidden`}
             >
               {/* Circle Background */}
               <div
@@ -36,7 +36,7 @@ const CallToActionQuaternary = ({ isNoSectionTop = false }: Props) => {
                   dangerouslySetInnerHTML={markdownify(callToAction.frontmatter.title || "")}
                 />
                 <p
-                  className="mb-14 text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.25]"
+                  className="mb-14 text-center text-balance text-[18px] tracking-[0.0005px] leading-tight"
                   dangerouslySetInnerHTML={markdownify(callToAction.frontmatter.description || "")}
                 />
                 {callToAction.frontmatter.button?.enable && (

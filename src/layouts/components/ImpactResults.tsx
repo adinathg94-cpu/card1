@@ -16,7 +16,7 @@ const ImpactResults = ({ impactResults }: Props) => {
         <div className="pt-14">
           {
             impactResults?.results.map((item, index) => (
-              <div key={index} className="row justify-center lg:justify-between items-center g-5 mb-[6rem] last:mb-0">
+              <div key={index} className="row justify-center lg:justify-between items-center g-5 mb-24 last:mb-0">
                 <div
                   data-aos="fade-up-sm"
                   data-aos-delay="100"
@@ -33,7 +33,7 @@ const ImpactResults = ({ impactResults }: Props) => {
                     />
                     <p
                       dangerouslySetInnerHTML={markdownify(item.description || "")}
-                      className="mb-12 max-lg:text-center text-[18px] tracking-[0.0005px] leading-[1.25]"
+                      className="mb-12 max-lg:text-center text-[18px] tracking-[0.0005px] leading-tight"
                     />
 
                     {item?.metrics && item?.metrics.length > 0 && (

@@ -23,7 +23,7 @@ const BlogCard: React.FC<Props> = ({ data, aosDelay }) => {
       {image && (
         <div className="overflow-hidden rounded-2xl mb-6">
           <ImageFallback
-            className="overflow-hidden w-full object-cover md:aspect-[16/9] rounded-2xl group-hover:scale-110 transition duration-700"
+            className="overflow-hidden w-full object-cover md:aspect-video rounded-2xl group-hover:scale-110 transition duration-700"
             src={image}
             alt={title}
             width={550}
@@ -51,7 +51,7 @@ const BlogCard: React.FC<Props> = ({ data, aosDelay }) => {
       <h4 className="mb-3 h6 font-semibold hover:text-secondary duration-200">
         <Link href={`/${blog_folder}/${data.slug}`}> {title}</Link>
       </h4>
-      {data.content && <p className="mb-10 line-clamp-2 text-[18px] tracking-[0.0005px] leading-[1.25]">{plainify(data.content)}</p>}
+      {data.content && <p className="mb-10 line-clamp-2 text-[18px] tracking-[0.0005px] leading-tight">{plainify(data.content)}</p>}
       <Link
         className="btn btn-outline w-full py-3"
         href={`/${blog_folder}/${data.slug}`}

@@ -31,7 +31,7 @@ const CallToActionSecondary = ({ isNoSectionTop = false }: Props) => {
                 dangerouslySetInnerHTML={markdownify(title || "")}
               />
               <p
-                className="font-semibold text-center text-[18px] tracking-[0.0005px] leading-[1.25]"
+                className="font-semibold text-center text-[18px] tracking-[0.0005px] leading-tight"
                 dangerouslySetInnerHTML={markdownify(description || "")}
               />
 

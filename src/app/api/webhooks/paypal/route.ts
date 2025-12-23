@@ -1,11 +1,9 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import client from "@/lib/paypal";
 
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const headersList = await headers();
 
         // 1. Basic Logging
         console.log("Received PayPal Webhook:", body.event_type);

@@ -45,7 +45,7 @@ const Features = ({ features }: Props) => {
                     dangerouslySetInnerHTML={markdownify(feature.title || "")}
                   />
                   <p
-                    className="mt-3 mb-6 text-[18px] tracking-[0.0005px] leading-[1.25]"
+                    className="mt-3 mb-6 text-[18px] tracking-[0.0005px] leading-tight"
                     dangerouslySetInnerHTML={markdownify(feature.description || "")}
                   />
 
