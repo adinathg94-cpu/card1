@@ -47,7 +47,7 @@ const RegularPage = async (props: { params: Promise<{ regular: string }> }) => {
                 />
               )}
               <h2 className="py-4 text-center" dangerouslySetInnerHTML={markdownify(title || "")} />
-              <p className="text-center text-balance" dangerouslySetInnerHTML={markdownify(description || "")} />
+              <p className="text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.69]" dangerouslySetInnerHTML={markdownify(description || "")} />
             </div>
           </div>
           <div className="row justify-center mt-2">

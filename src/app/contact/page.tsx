@@ -38,7 +38,7 @@ const ContactPage = () => {
               }
               <h2 className="py-4 text-center" dangerouslySetInnerHTML={markdownify(title || "")} />
               <p
-                className="text-center text-balance"
+                className="text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.69]"
                 dangerouslySetInnerHTML={markdownify(description || "")}
               />
             </div>
@@ -110,7 +110,7 @@ const ContactPage = () => {
                 dangerouslySetInnerHTML={markdownify(contact_form_intro.title || "")}
               />
               <p
-                className="text-balance"
+                className="text-balance text-[18px] tracking-[0.0005px] leading-[1.69]"
                 dangerouslySetInnerHTML={markdownify(contact_form_intro.description || "")}
               />
 

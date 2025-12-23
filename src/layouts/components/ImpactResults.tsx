@@ -33,7 +33,7 @@ const ImpactResults = ({ impactResults }: Props) => {
                     />
                     <p
                       dangerouslySetInnerHTML={markdownify(item.description || "")}
-                      className="mb-12 max-lg:text-center text-[18px] tracking-[0.0005px] leading-tight"
+                      className="mb-12 max-lg:text-center text-[18px] tracking-[0.0005px] leading-[1.69]"
                     />
 
                     {item?.metrics && item?.metrics.length > 0 && (

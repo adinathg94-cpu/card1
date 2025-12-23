@@ -22,7 +22,7 @@ const ReviewCard: React.FC<Props> = ({ review, index }) => {
         style={{ "--rating": review.ratings }}
         aria-label="Rating from the company"
       ></div>
-      <p className="h6 mb-8 mt-4 font-medium before:content-['“'] after:content-['”'] text-[18px] tracking-[0.0005px] leading-tight">
+      <p className="h6 mb-8 mt-4 font-medium before:content-['\201C'] after:content-['\201D'] text-[18px] tracking-[0.0005px] leading-[1.69]">
         {review.content}
       </p>
       <div className="flex justify-between items-center">

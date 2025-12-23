@@ -36,7 +36,7 @@ const CallToActionQuaternary = ({ isNoSectionTop = false }: Props) => {
                   dangerouslySetInnerHTML={markdownify(callToAction.frontmatter.title || "")}
                 />
                 <p
-                  className="mb-14 text-center text-balance text-[18px] tracking-[0.0005px] leading-tight"
+                  className="mb-14 text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.69]"
                   dangerouslySetInnerHTML={markdownify(callToAction.frontmatter.description || "")}
                 />
                 {callToAction.frontmatter.button?.enable && (

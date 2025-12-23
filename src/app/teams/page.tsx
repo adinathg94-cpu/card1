@@ -53,7 +53,7 @@ export default function Teams() {
                 />
               )}
               <h2 className="py-4 text-center" dangerouslySetInnerHTML={markdownify(title || "")} />
-              <p className="text-center text-balance" dangerouslySetInnerHTML={markdownify(description || "")} />
+              <p className="text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.69]" dangerouslySetInnerHTML={markdownify(description || "")} />
             </div>
           </div>
 
@@ -62,7 +62,7 @@ export default function Teams() {
               <h2 className="h4 font-semibold mb-2" dangerouslySetInnerHTML={markdownify(team_1.title)} />
             )}
             {team_1?.description && (
-              <p className="mb-10 text-balance" dangerouslySetInnerHTML={markdownify(team_1.description)} />
+              <p className="mb-10 text-balance text-[18px] tracking-[0.0005px] leading-[1.69]" dangerouslySetInnerHTML={markdownify(team_1.description)} />
             )}
             <div className="row g-4">
               {leadTeam.map((member, i) => (
@@ -78,7 +78,7 @@ export default function Teams() {
               <h2 className="h4 font-semibold mb-2" dangerouslySetInnerHTML={markdownify(team_2.title)} />
             )}
             {team_2?.description && (
-              <p className="mb-10 text-balance" dangerouslySetInnerHTML={markdownify(team_2.description)} />
+              <p className="mb-10 text-balance text-[18px] tracking-[0.0005px] leading-[1.69]" dangerouslySetInnerHTML={markdownify(team_2.description)} />
             )}
             <div className="row g-4">
               {otherTeam.map((member, i) => (

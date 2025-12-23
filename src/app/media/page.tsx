@@ -125,7 +125,7 @@ export default function MediaPage() {
                 dangerouslySetInnerHTML={markdownify(title || "")}
               />
               <p
-                className="text-center text-balance"
+                className="text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.69]"
                 dangerouslySetInnerHTML={markdownify(description || "")}
               />
             </div>
@@ -149,4 +149,5 @@ export default function MediaPage() {
     </>
   );
 }
+
 

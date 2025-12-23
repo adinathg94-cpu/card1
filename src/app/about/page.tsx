@@ -71,7 +71,7 @@ export default function AboutPage() {
                 dangerouslySetInnerHTML={markdownify(team.title || "")}
               />
               <p
-                className="text-center text-balance"
+                className="text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.69]"
                 dangerouslySetInnerHTML={markdownify(team.description || "")}
               />
             </div>
@@ -126,7 +126,7 @@ export default function AboutPage() {
               <h2 className="py-4 h1" dangerouslySetInnerHTML={markdownify(title || "")} />
             </div>
             <div className="lg:col-5">
-              <p className="text-balance" dangerouslySetInnerHTML={markdownify(description || "")} />
+              <p className="text-balance text-[18px] tracking-[0.0005px] leading-[1.69]" dangerouslySetInnerHTML={markdownify(description || "")} />
               {button?.enable && (
                 <Link href={button.link} className="btn btn-primary mt-4">
                   {button.label}
@@ -166,7 +166,7 @@ export default function AboutPage() {
                   dangerouslySetInnerHTML={markdownify(numbers_banner.title || "")}
                 />
                 <p
-                  className="text-center text-balance"
+                  className="text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.69]"
                   dangerouslySetInnerHTML={markdownify(numbers_banner.description || "")}
                 />
               </div>

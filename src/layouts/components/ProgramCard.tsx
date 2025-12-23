@@ -53,7 +53,7 @@ const ProgramCard: React.FC<Props> = ({ data, aosDelay }) => {
           className="h6 mb-2"
           dangerouslySetInnerHTML={markdownify(title || "")}
         />
-        <p className="text-[18px] tracking-[0.0005px] leading-tight" dangerouslySetInnerHTML={markdownify(description || "")} />
+        <p className="text-[18px] tracking-[0.0005px] leading-[1.69]" dangerouslySetInnerHTML={markdownify(description || "")} />
 
         <div className="flex justify-between mt-4 mb-6 text-text-dark">
           <div>
