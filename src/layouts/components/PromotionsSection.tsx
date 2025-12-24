@@ -70,7 +70,7 @@ const PromotionsSection: FC<Props> = ({ promotions }) => {
                     <ul className="text-center lg:text-left">
                       {card.list.map((item, index) => (
                         <li key={index} className="w-full">
-                          <div className="mx-auto lg:mx-0 w-fit bg-body text-dark text-sm font-medium px-4 py-px rounded-full mb-px z-20 break-words text-wrap">
+                          <div className="mx-auto lg:mx-0 w-fit bg-body text-dark text-sm font-medium px-4 py-px rounded-full mb-px z-20 wrap-break-word text-wrap">
                             {item}
                           </div>
                         </li>

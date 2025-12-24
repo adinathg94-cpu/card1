@@ -34,7 +34,7 @@ const ContactForm = () => {
       } else {
         setStatus({ ok: false, msg: data.error || 'Failed to send message.' });
       }
-    } catch (err) {
+    } catch {
       setStatus({ ok: false, msg: 'Unexpected error. Please try later.' });
     } finally {
       setLoading(false);

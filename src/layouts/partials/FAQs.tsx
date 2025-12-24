@@ -61,7 +61,7 @@ const FAQs = () => {
                     >
                       <Accordion title={item.question} id={index}>
                         <div
-                          className="text-[18px] tracking-[0.0005px] leading-[1.69]"
+                          className="text-[18px] tracking-[0.0005px] leading-[1.25]"
                           dangerouslySetInnerHTML={markdownify(item.answer)}
                         />
                       </Accordion>

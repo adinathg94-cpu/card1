@@ -31,7 +31,7 @@ const ProgramCard: React.FC<Props> = ({ data, aosDelay }) => {
               alt={title}
               width={400}
               height={300}
-              className="overflow-hidden object-cover w-full md:aspect-[16/10] rounded-2xl group-hover:scale-110 transition duration-700"
+              className="overflow-hidden object-cover w-full md:aspect-16/10 rounded-2xl group-hover:scale-110 transition duration-700"
               priority
             />
           </div>)

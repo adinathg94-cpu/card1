@@ -16,7 +16,7 @@ const ImpactResults = ({ impactResults }: Props) => {
         <div className="pt-14">
           {
             impactResults?.results.map((item, index) => (
-              <div key={index} className="row justify-center lg:justify-between items-center g-5 mb-[6rem] last:mb-0">
+              <div key={index} className="row justify-center lg:justify-between items-center g-5 mb-24 last:mb-0">
                 <div
                   data-aos="fade-up-sm"
                   data-aos-delay="100"

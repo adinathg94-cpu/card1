@@ -1,6 +1,5 @@
 import { getBackgroundClass } from '@/components/Features';
 import TitleBadge from '@/components/TitleBadge';
-import config from "@/config/config.json";
 import DynamicIcon from '@/helpers/DynamicIcon';
 import { getListPage } from '@/lib/contentParser';
 import { markdownify } from '@/lib/utils/textConverter';
@@ -14,7 +13,6 @@ import ContactForm from '@/layouts/components/ContactForm';
 const ContactPage = () => {
   const contactIndex = getListPage<ContactPage["frontmatter"]>('contact/_index.md');
   const { badge, title, description, cta_banners, contact_form_intro } = contactIndex.frontmatter;
-  const { contact_form_action }: { contact_form_action: string } = config.params;
   return (
     <>
       <SeoMeta {...contactIndex.frontmatter} />
@@ -56,7 +54,7 @@ const ContactPage = () => {
                     data-aos-delay={100 * (i % 2)}
                   >
                     <div
-                      className={`${banner.banner_color} rounded-4xl p-14 text-wrap break-words relative overflow-hidden`}
+                      className={`${banner.banner_color} rounded-4xl p-14 text-wrap wrap-break-word relative overflow-hidden`}
                     >
                       {/* Circle Background */}
                       <div

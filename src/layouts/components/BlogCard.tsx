@@ -23,7 +23,7 @@ const BlogCard: React.FC<Props> = ({ data, aosDelay }) => {
       {image && (
         <div className="overflow-hidden rounded-2xl mb-6">
           <ImageFallback
-            className="overflow-hidden w-full object-cover md:aspect-[16/9] rounded-2xl group-hover:scale-110 transition duration-700"
+            className="overflow-hidden w-full object-cover md:aspect-video rounded-2xl group-hover:scale-110 transition duration-700"
             src={image}
             alt={title}
             width={550}

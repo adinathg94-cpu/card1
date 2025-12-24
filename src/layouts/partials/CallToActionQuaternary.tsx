@@ -22,7 +22,7 @@ const CallToActionQuaternary = ({ isNoSectionTop = false }: Props) => {
         >
           <div className="container">
             <div
-              className={`${callToAction.frontmatter.banner_color} rounded-4xl p-14 text-wrap break-words relative overflow-hidden`}
+              className={`${callToAction.frontmatter.banner_color} rounded-4xl p-14 text-wrap wrap-break-word relative overflow-hidden`}
             >
               {/* Circle Background */}
               <div

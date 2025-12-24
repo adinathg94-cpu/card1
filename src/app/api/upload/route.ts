@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
 
     try {
       await mkdir(uploadPath, { recursive: true });
-    } catch (_error) {
+    } catch {
       // Directory might already exist
     }
 

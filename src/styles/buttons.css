@@ -23,7 +23,7 @@
 }
 
 .btn-outline {
-  @apply border border-border text-text-dark bg-body hover:bg-secondary hover:border-secondary hover:text-white rounded-full text-center transition-all ease-in-out duration-300 font-bold;
+  @apply border border-border text-text-dark bg-body hover:bg-secondary hover:border-secondary hover:text-white rounded-full text-center transition-all ease-in-out duration-300;
 }
 
 .icon-wrapper {
