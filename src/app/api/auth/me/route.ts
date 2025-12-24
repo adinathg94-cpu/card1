@@ -39,3 +39,4 @@ export async function GET(_request: NextRequest) {
     return NextResponse.json({ authenticated: false }, { status: 401 });
   }
 }
+

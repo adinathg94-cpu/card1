@@ -71,3 +71,4 @@ echo "✓ Generated site.webmanifest"
 
 echo ""
 echo "✅ All favicons generated successfully!"
+

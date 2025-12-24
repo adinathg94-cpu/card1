@@ -132,3 +132,4 @@ export function closeDB() {
     db = null;
   }
 }
+
