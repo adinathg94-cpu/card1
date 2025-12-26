@@ -111,27 +111,27 @@ team:
     bg_color: "bg-primary"
   members:
     - name: "The Most Rev. Dr. Theodosius Mar Thoma Metropolitan"
-      image: "/images/administration/patron.jpg"
+      image: "/images/administration/patron.png"
       designation: "Patron"
 
     - name: "Rt. Rev. Dr. Euyakim Mar Coorilos Suffragan Metropolitan"
-      image: "/images/administration/president.jpg"
+      image: "/images/administration/president.png"
       designation: "President"
 
     - name: "Rev. Shibu Samuel"
-      image: "/images/administration/director.jpg"
+      image: "/images/administration/director.png"
       designation: "Director"
 
     - name: "Rev.Abey T Mammen"
-      image: "/images/administration/secretary.jpg"
+      image: "/images/administration/secretary.png"
       designation: "Secretary"
 
     - name: "Victor T Thomas"
-      image: "/images/administration/treasurer.jpg"
+      image: "/images/administration/treasurer.png"
       designation: "Treasurer"
 
     - name: "Rev.Shine N Jacob"
-      image: "/images/administration/asst-director.jpg"
+      image: "/images/administration/asst-director.png"
       designation: "Asst.Director"
 draft: false
 ---

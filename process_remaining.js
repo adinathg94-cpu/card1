@@ -4,9 +4,9 @@ const targetWidth = 453;
 const targetHeight = 540;
 
 const members = [
-    { name: 'director', src: '/var/www/html/card-website/public/images/administration/director.jpg' },
-    { name: 'treasurer', src: '/var/www/html/card-website/public/images/administration/treasurer.jpg' },
-    { name: 'asst-director', src: '/var/www/html/card-website/public/images/administration/asst-director.jpg' }
+    { name: 'director', src: '/var/www/html/card-website/public/images/administration/director.png' },
+    { name: 'treasurer', src: '/var/www/html/card-website/public/images/administration/treasurer.png' },
+    { name: 'asst-director', src: '/var/www/html/card-website/public/images/administration/asst-director.png' }
 ];
 
 async function processMember(member) {
