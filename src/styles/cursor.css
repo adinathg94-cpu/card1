@@ -1,0 +1,82 @@
+/* Custom Cursor Styles */
+
+/* The cursor container */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    z-index: 9999;
+
+    /* Hiding/Showing logic */
+    opacity: 0;
+    transition: opacity 0.1s ease;
+
+    /* Fix alignment: Arrow tip is at 0,0 */
+    transform-origin: top left;
+}
+
+/* Active state - visible only when hovering interactive elements */
+body.cursor-hovering .custom-cursor {
+    opacity: 1;
+}
+
+/* The Cursor Shape & Animation */
+.custom-cursor::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Gradient Animation */
+    background: linear-gradient(-45deg, #0ba360, #2E86C1, #F1C40F, #E74C3C);
+    background-size: 300% 300%;
+    animation: flagWaveGradient 2s ease infinite;
+
+    /* Masking to Cursor Arrow Shape */
+    /* Scaled down to fit ~18px box */
+    clip-path: polygon(0 0,
+            0 17px,
+            4px 13px,
+            7px 19px,
+            9px 18px,
+            6px 12px,
+            12px 12px);
+}
+
+/* The Cursor Border/Stroke */
+/* Since clip-path cuts off borders, we use a drop-shadow filter on the psuedo-element's parent or a separate layer. */
+/* However, clip-path is strictly cutting. drop-shadow works on the resulting shape. */
+
+.custom-cursor {
+    /* Apply drop-shadow to the main element, which contains the clipped pseudo-element */
+    /* This creates a border around the clipped shape */
+    filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.8)) drop-shadow(0px 0px 1px white);
+}
+
+/* Animation Keyframes */
+@keyframes flagWaveGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Hide the default system cursor on interactive elements when the custom cursor is active */
+body.cursor-hovering a,
+body.cursor-hovering a *,
+body.cursor-hovering button,
+body.cursor-hovering button * {
+    cursor: none !important;
+}
