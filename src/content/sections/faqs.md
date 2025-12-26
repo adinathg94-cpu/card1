@@ -9,7 +9,7 @@ button:
 badge:
   enable: true
   label: "Questions Answered"
-  icon: "FaQuestionCircle" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
+  icon: "FaQuestion" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
   bg_color: "bg-secondary"
 list:
   - question: "How can I make a donation to CARD?"
