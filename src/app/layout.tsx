@@ -1,9 +1,12 @@
+
 import config from "@/config/config.json";
 import theme from "@/config/theme.json";
 import TwSizeIndicator from "@/helpers/TwSizeIndicator";
 import Providers from "@/partials/Providers";
 import ConditionalLayout from "./components/ConditionalLayout";
+import CustomCursor from "@/components/CustomCursor";
 import "@/styles/main.css";
+import "@/styles/cursor.css";
 import { GoogleTagManager } from "@next/third-parties/google";
 
 export default function RootLayout({
@@ -54,6 +57,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <TwSizeIndicator />
+        <CustomCursor />
         <Providers>
           <ConditionalLayout>{children}</ConditionalLayout>
         </Providers>
