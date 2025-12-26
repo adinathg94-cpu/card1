@@ -9,87 +9,45 @@ badge:
   bg_color: "bg-secondary"
 
 reviews:
-  - name: Brooklyn Simmons
+  - name: Anand Varghese
     avatar: /images/homepage/avatar/avatar-1.svg
-    designation: Product Manager
-    content: This charity provided critical medical aid to our community. The healthcare support.
-    ratings: 4
+    designation: Community Member
+    content: The support from the Mar Thoma Church's social service wing has been a lifeline for our village in Kerala. Their dedication to uplifting the marginalized is truly inspiring.
+    ratings: 5
     company_logo: /images/homepage/brands/waves.svg
 
-  - name: Kendall Monroe
+  - name: Deepa Thomas
     avatar: /images/homepage/avatar/avatar-2.svg
-    designation: Product Manager
-    content: After losing our home to a flood, they helped us rebuild and find stability again.
-    ratings: 4.3
+    designation: Beneficiary
+    content: I've seen firsthand how CARD transforms lives. From educational aid to housing support, their work in Kerala is making a real difference in our daily lives.
+    ratings: 4.8
     company_logo: /images/homepage/brands/craft.svg
 
-  - name: Madison Carter
+  - name: Rev. Mathew Philip
     avatar: /images/homepage/avatar/avatar-1.svg
-    designation: Product Manager
-    content: I’ve had the privilege to volunteer here, and seeing the difference we make in life.
-    ratings: 4.7
+    designation: Partner
+    content: A shining example of faith in action. The medical camps and self-help groups organized by the church are empowering communities across the state.
+    ratings: 5
     company_logo: /images/homepage/brands/swift.svg
 
-  - name: Riley Bennett
+  - name: Sarah John
     avatar: /images/homepage/avatar/avatar-7.png
-    designation: Product Manager
-    content: Their transparency inspire us to give more and make a bigger real impact together.
-    ratings: 4
+    designation: Volunteer
+    content: Volunteering with this team has been a blessing. Seeing the smiles on children's faces when they receive support is worth every moment.
+    ratings: 4.9
     company_logo: /images/homepage/brands/rotashow.svg
 
-  - name: Sydney Parker
+  - name: Dr. Kurian George
     avatar: /images/homepage/avatar/avatar-8.png
-    designation: Product Manager
-    content: My children now have access to clean water and meals thanks to this organization.
-    ratings: 3.8
+    designation: Medical Officer
+    content: The health initiatives driven by the Mar Thoma Church are critical for rural areas in Kerala. We are proud to support such a noble cause.
+    ratings: 5
     company_logo: /images/homepage/brands/travelers.svg
 
-  - name: Jordan Blake
+  - name: Priya Nair
     avatar: /images/homepage/avatar/avatar-9.png
-    designation: Product Manager
-    content: Knowing my monthly donations supporting children’s education gives me immense.
-    ratings: 4.8
-    company_logo: /images/homepage/brands/waves.svg
-
-  - name: Brooklyn Simmons
-    avatar: /images/homepage/avatar/avatar-1.svg
-    designation: Product Manager
-    content: This charity provided critical medical aid to our community. The healthcare support.
-    ratings: 4
-    company_logo: /images/homepage/brands/waves.svg
-
-  - name: Kendall Monroe
-    avatar: /images/homepage/avatar/avatar-2.svg
-    designation: Product Manager
-    content: After losing our home to a flood, they helped us rebuild and find stability again.
-    ratings: 4.3
-    company_logo: /images/homepage/brands/craft.svg
-
-  - name: Madison Carter
-    avatar: /images/homepage/avatar/avatar-1.svg
-    designation: Product Manager
-    content: I’ve had the privilege to volunteer here, and seeing the difference we make in life.
+    designation: Social Worker
+    content: Their transparency and commitment to social justice inspire us all. It's a privilege to witness the positive change they bring to Kerala.
     ratings: 4.7
-    company_logo: /images/homepage/brands/swift.svg
-
-  - name: Riley Bennett
-    avatar: /images/homepage/avatar/avatar-7.png
-    designation: Product Manager
-    content: Their transparency inspire us to give more and make a bigger real impact together.
-    ratings: 4
-    company_logo: /images/homepage/brands/rotashow.svg
-
-  - name: Sydney Parker
-    avatar: /images/homepage/avatar/avatar-8.png
-    designation: Product Manager
-    content: My children now have access to clean water and meals thanks to this organization.
-    ratings: 3.8
-    company_logo: /images/homepage/brands/travelers.svg
-
-  - name: Jordan Blake
-    avatar: /images/homepage/avatar/avatar-9.png
-    designation: Product Manager
-    content: Knowing my monthly donations supporting children’s education gives me immense.
-    ratings: 4.8
     company_logo: /images/homepage/brands/waves.svg
 ---
