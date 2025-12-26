@@ -41,6 +41,12 @@ const ActPage = async () => {
               dangerouslySetInnerHTML={markdownify(title)}
               className="mb-8 mt-4 font-semibold text-balance"
             />
+            {description && (
+              <p
+                dangerouslySetInnerHTML={markdownify(description)}
+                className="mb-10 text-balance text-[18px] tracking-[0.0005px] leading-[1.69]"
+              />
+            )}
             {image && (
               <div className="mb-10">
                 <ImageFallback
@@ -68,4 +74,6 @@ const ActPage = async () => {
 }
 
 export default ActPage;
+
+
 

@@ -72,3 +72,4 @@ with open(manifest_path, "w") as f:
 print("✓ Generated site.webmanifest")
 
 print("\n✅ All favicons generated successfully!")
+
