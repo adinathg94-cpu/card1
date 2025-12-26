@@ -17,6 +17,8 @@ package-lock.json
 
 # production
 /build
+/deployment-package
+deployment-package.zip
 
 # misc
 .DS_Store
