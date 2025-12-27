@@ -21,18 +21,23 @@ export default function RichTextEditor({
   // React 19 compatibility: Polyfill for findDOMNode
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const ReactDOM = require('react-dom');
-      if (!ReactDOM.findDOMNode) {
-        ReactDOM.findDOMNode = (node: any) => {
-          if (node == null) return null;
-          if (node instanceof HTMLElement) return node;
-          // For React components, try to get the DOM node
-          if (node?._reactInternals?.stateNode instanceof HTMLElement) {
-            return node._reactInternals.stateNode;
-          }
-          return node;
-        };
-      }
+      // Dynamically import ReactDOM to add the polyfill
+      import('react-dom').then((module) => {
+        const ReactDOM = module.default || module;
+        // @ts-ignore - Adding polyfill for React 19 compatibility
+        if (!ReactDOM.findDOMNode) {
+          // @ts-ignore - Adding polyfill for React 19 compatibility
+          ReactDOM.findDOMNode = (node: any) => {
+            if (node == null) return null;
+            if (node instanceof HTMLElement) return node;
+            // For React components, try to get the DOM node
+            if (node?._reactInternals?.stateNode instanceof HTMLElement) {
+              return node._reactInternals.stateNode;
+            }
+            return node;
+          };
+        }
+      });
     }
   }, []);
 
