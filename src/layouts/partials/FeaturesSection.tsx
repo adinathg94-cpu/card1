@@ -14,7 +14,7 @@ const FeaturesSection = () => {
   return (
     <>
       {enable && (
-        <section className="section pt-0 overflow-hidden">
+        <section className="section pt-0 overflow-hidden pb-0">
           <div className="container">
             <div
               data-aos="fade-up-sm"

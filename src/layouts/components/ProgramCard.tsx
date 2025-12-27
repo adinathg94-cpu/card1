@@ -58,12 +58,12 @@ const ProgramCard: React.FC<Props> = ({ data, aosDelay }) => {
         <div className="flex justify-between mt-4 mb-6 text-text-dark">
           <div>
             <span className="text-sm" dangerouslySetInnerHTML={markdownify("Goal")} />
-            <p className="mt-2 h6 font-bold" dangerouslySetInnerHTML={markdownify(goal || "")} />
+            <p className="mt-2 h6 font-semibold" dangerouslySetInnerHTML={markdownify(goal || "")} />
           </div>
 
           <div>
             <span className="text-sm" dangerouslySetInnerHTML={markdownify("Raised")} />
-            <p className="mt-2 h6 font-bold" dangerouslySetInnerHTML={markdownify(raised || "")} />
+            <p className="mt-2 h6 font-semibold" dangerouslySetInnerHTML={markdownify(raised || "")} />
           </div>
         </div>
 

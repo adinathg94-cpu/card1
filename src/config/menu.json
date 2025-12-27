@@ -36,6 +36,14 @@
         {
           "name": "Media",
           "url": "/media"
+        },
+        {
+          "name": "Teams",
+          "url": "/teams"
+        },
+        {
+          "name": "Reviews",
+          "url": "/reviews"
         }
       ]
     },

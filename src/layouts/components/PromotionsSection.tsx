@@ -26,11 +26,13 @@ const PromotionsSection: FC<Props> = ({ promotions }) => {
             >
               <div className="col-10 lg:col-7">
                 {promotions?.badge.enable && (
-                  <TitleBadge
-                    icon={promotions.badge.icon}
-                    label={promotions.badge.label}
-                    bg_color={promotions.badge.bg_color}
-                  />
+                  <div className="mt-5.5">
+                    <TitleBadge
+                      icon={promotions.badge.icon}
+                      label={promotions.badge.label}
+                      bg_color={promotions.badge.bg_color}
+                    />
+                  </div>
                 )}
 
                 <h2

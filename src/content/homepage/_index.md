@@ -117,8 +117,7 @@ impact_results:
   results:
     - title: "Vision"
       subtitle: "Vision and Mission"
-      image: "/images/homepage/result1.png"
-      image_2: "/images/homepage/result3.png"
+      image: "/images/homepage/result2.png"
       description: "Communities where poverty and injustice no longer exist, and every person enjoys a life of dignity, equality and sustainable relationships rooted in love, justice, participation and freedom."
     
       # metrics:
@@ -142,8 +141,8 @@ impact_results:
 
     - title: "Mission"
       subtitle: "Vision and Mission"
-      image: "/images/homepage/result2.png"
-      image_2: "/images/homepage/result3.png"
+      image: "/images/homepage/result1.png"
+
       description: "In Christ with the people, CARD walks alongside the poor and marginalized of India, empowering them through education, skill training, people’s organizations and livelihood support so they can move towards communities free from poverty, upholding human dignity, gender equality and environmental sustainability.​"
       # metrics:
       #   - title: "Medical Kits Distributed"

@@ -87,13 +87,15 @@ const ImpactResults = ({ impactResults }: Props) => {
                       width={500}
                       height={500}
                     />
-                    <ImageFallback
-                      src={item.image_2}
-                      alt={item.title!}
-                      width={222}
-                      height={223}
-                      className={`rounded-3xl max-md:hidden absolute bottom-10 right-10 z-20 ${index % 2 !== 0 ? "left-10" : "right-10"}`}
-                    />
+                    {item.image_2 && (
+                      <ImageFallback
+                        src={item.image_2}
+                        alt={item.title!}
+                        width={222}
+                        height={223}
+                        className={`rounded-3xl max-md:hidden absolute bottom-10 right-10 z-20 ${index % 2 !== 0 ? "left-10" : "right-10"}`}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
