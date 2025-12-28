@@ -52,7 +52,7 @@ export default function AboutPage() {
     <>
       <SeoMeta title={title} meta_title={meta_title} description={description} image={image} />
       <section className="section pb-18 xl:pb-24 pt-24 lg:pt-32 mb-0" style={{ marginBottom: '0px' }}>
-        <div className="container">
+        <div className="container mt-[10px] md:mt-0">
           <div
             data-aos="fade-up-sm"
             data-aos-delay="150"
