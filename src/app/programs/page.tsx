@@ -109,23 +109,7 @@ const ProgramsPage = () => {
                         {"View Program"}
                       </Link>
 
-                      <div className="flex flex-wrap lg:w-1/2 justify-between text-text-dark">
-                        <div>
-                          <span className="text-sm" dangerouslySetInnerHTML={markdownify("Goal")} />
-                          <p
-                            className="mt-2 h6 font-bold"
-                            dangerouslySetInnerHTML={markdownify(program.frontmatter.goal || "")}
-                          />
-                        </div>
 
-                        <div>
-                          <span className="text-sm" dangerouslySetInnerHTML={markdownify("Raised")} />
-                          <p
-                            className="mt-2 h6 font-bold"
-                            dangerouslySetInnerHTML={markdownify(program.frontmatter.raised || "")}
-                          />
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
