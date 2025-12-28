@@ -67,10 +67,25 @@ export async function POST(request: NextRequest) {
       // Directory might already exist
     }
 
-    // Generate unique filename
+    // Generate unique filename with sanitization
     const timestamp = Date.now();
     const randomStr = Math.random().toString(36).substring(2, 15);
-    const ext = path.extname(file.name);
+    const ext = path.extname(file.name).toLowerCase();
+
+    // Validate extension against whitelist
+    const allowedExtensions = type === 'image'
+      ? ['.jpg', '.jpeg', '.png', '.webp', '.gif']
+      : ['.pdf', '.doc', '.docx'];
+
+    if (!allowedExtensions.includes(ext)) {
+      return NextResponse.json(
+        { error: 'Invalid file extension' },
+        { status: 400 }
+      );
+    }
+
+
+    // Generate unique filename (using timestamp and random string for uniqueness)
     const filename = `${timestamp}-${randomStr}${ext}`;
     const filepath = path.join(uploadPath, filename);
 

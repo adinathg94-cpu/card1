@@ -2,8 +2,25 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { getDB } from "@/lib/db";
 import { cookies } from "next/headers";
+import { checkRateLimit, createRateLimitHeaders } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
+  // Check rate limit: 5 login attempts per 15 minutes
+  const rateLimit = checkRateLimit(request, {
+    maxRequests: 5,
+    windowSeconds: 15 * 60, // 15 minutes
+  });
+
+  if (!rateLimit.success) {
+    return NextResponse.json(
+      { error: "Too many login attempts. Please try again later." },
+      {
+        status: 429,
+        headers: createRateLimitHeaders(rateLimit)
+      }
+    );
+  }
+
   try {
     const { username, password } = await request.json();
 
@@ -37,10 +54,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create session token (simple approach - in production, use JWT or proper session store)
-    const sessionToken = Buffer.from(
-      `${user.id}:${Date.now()}:${Math.random()}`
-    ).toString("base64");
+    // Create session token with cryptographically secure random bytes
+    const crypto = await import('crypto');
+    const sessionToken = crypto.randomBytes(32).toString('base64url');
 
     // Set cookie
     const cookieStore = await cookies();

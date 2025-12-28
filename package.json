@@ -48,7 +48,8 @@
     "remark-gfm": "^4.0.1",
     "remark-toc": "^9.0.0",
     "stripe": "^20.1.0",
-    "swiper": "^12.0.2"
+    "swiper": "^12.0.2",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.10",
@@ -74,7 +75,8 @@
   "overrides": {
     "react-quill": {
       "react": "$react",
-      "react-dom": "$react-dom"
+      "react-dom": "$react-dom",
+      "quill": "$quill"
     }
   },
   "type": "module"

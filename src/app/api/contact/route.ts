@@ -1,9 +1,23 @@
 import { NextResponse } from 'next/server';
-
-// Fallback key (only used if no env var provided). Replace with your own safe default if necessary.
-const FALLBACK_API_KEY = 'fece5aa9d01e3e83a9b51e42761fac11-96164d60-7bd89461';
+import { checkRateLimit, createRateLimitHeaders } from '@/lib/rate-limit';
 
 export async function POST(req: Request) {
+  // Check rate limit: 10 contact submissions per hour
+  const rateLimit = checkRateLimit(req, {
+    maxRequests: 10,
+    windowSeconds: 60 * 60, // 1 hour
+  });
+
+  if (!rateLimit.success) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again later.' },
+      {
+        status: 429,
+        headers: createRateLimitHeaders(rateLimit)
+      }
+    );
+  }
+
   try {
     // Robust body parsing: support JSON and form-encoded bodies and return clear errors
     let body: any = {};
@@ -34,7 +48,25 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const apiKey = (process.env.MAILGUN_API_KEY || FALLBACK_API_KEY).trim();
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
+    }
+
+    // Sanitize inputs to prevent injection
+    const sanitizedName = String(name).trim().substring(0, 100);
+    const sanitizedEmail = String(email).trim().toLowerCase().substring(0, 100);
+    const sanitizedMobile = mobile ? String(mobile).trim().substring(0, 20) : 'N/A';
+    const sanitizedMessage = String(message).trim().substring(0, 5000);
+
+    // Validate environment variables are set
+    if (!process.env.MAILGUN_API_KEY) {
+      console.error('MAILGUN_API_KEY environment variable is not set');
+      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+    }
+
+    const apiKey = process.env.MAILGUN_API_KEY.trim();
     // sanitize domain: remove protocol and trailing slash if present
     const rawDomain = process.env.MAILGUN_DOMAIN || 'mg.example.com';
     const domain = rawDomain.replace(/^https?:\/\//i, '').replace(/\/$/, '').trim();
@@ -42,12 +74,12 @@ export async function POST(req: Request) {
 
     const auth = 'Basic ' + Buffer.from('api:' + apiKey).toString('base64');
 
-    const text = `${message}\n\n---\nName: ${name}\nEmail: ${email}\nMobile: ${mobile || 'N/A'}`;
+    const text = `${sanitizedMessage}\n\n---\nName: ${sanitizedName}\nEmail: ${sanitizedEmail}\nMobile: ${sanitizedMobile}`;
 
     const params = new URLSearchParams();
     params.append('from', `Website Contact <contact@${domain}>`);
     params.append('to', recipient);
-    params.append('subject', `Website Contact: ${name}`);
+    params.append('subject', `Website Contact: ${sanitizedName}`);
     params.append('text', text);
 
     const mailgunBase = (process.env.MAILGUN_BASE_URL || 'https://api.mailgun.net').replace(/\/$/, '');
