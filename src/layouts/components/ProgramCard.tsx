@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ProgramCard: React.FC<Props> = ({ data, aosDelay }) => {
-  const { title, image, description, end_date, categories, goal, raised } =
+  const { title, image, description, end_date, categories } =
     data.frontmatter;
 
   const today = new Date();
@@ -55,17 +55,7 @@ const ProgramCard: React.FC<Props> = ({ data, aosDelay }) => {
         />
         <p className="text-[18px] tracking-[0.0005px] leading-[1.69]" dangerouslySetInnerHTML={markdownify(description || "")} />
 
-        <div className="flex justify-between mt-4 mb-6 text-text-dark">
-          <div>
-            <span className="text-sm" dangerouslySetInnerHTML={markdownify("Goal")} />
-            <p className="mt-2 h6 font-semibold" dangerouslySetInnerHTML={markdownify(goal || "")} />
-          </div>
 
-          <div>
-            <span className="text-sm" dangerouslySetInnerHTML={markdownify("Raised")} />
-            <p className="mt-2 h6 font-semibold" dangerouslySetInnerHTML={markdownify(raised || "")} />
-          </div>
-        </div>
 
         <Link
           className="btn btn-outline w-full py-3 mt-auto"

@@ -115,10 +115,10 @@ impact_results:
     bg_color: "bg-tertiary"
 
   results:
-    - title: "Vision"
-      subtitle: "Vision and Mission"
+    - title: "Communities That Flourish"
+      subtitle: "Vision"
       image: "/images/homepage/result2.png"
-      description: "Communities where poverty and injustice no longer exist, and every person enjoys a life of dignity, equality and sustainable relationships rooted in love, justice, participation and freedom."
+      description: "A world where communities are free from poverty, exploitation, and injustice — where every person is able to live with dignity and equal opportunity. We envision societies rooted in love, justice, and mutual respect, where people actively participate in shaping their own future. In this future, relationships are sustainable and life-giving, human rights are protected, and resources are shared responsibly so that all people can flourish in freedom, security, and hope."
     
       # metrics:
       #   - title: "Schools Partnered"
@@ -139,11 +139,11 @@ impact_results:
       #     icon: "FaChartPie" ## Icons from https://react-icons.github.io/react-icons/icons/fa6/
       #     bg_color: "bg-tertiary"
 
-    - title: "Mission"
-      subtitle: "Vision and Mission"
+    - title: "Transforming Lives With Dignity"
+      subtitle: "Mission"
       image: "/images/homepage/result1.png"
 
-      description: "In Christ with the people, CARD walks alongside the poor and marginalized of India, empowering them through education, skill training, people’s organizations and livelihood support so they can move towards communities free from poverty, upholding human dignity, gender equality and environmental sustainability.​"
+      description: "Rooted in Christ and in solidarity with people, CARD walks alongside the poor and marginalized across India. We support transformation through education, skills training, strong people’s organizations, and sustainable livelihoods so communities can overcome poverty, uphold human dignity, advance gender equality, and protect the environment for future generations."
       # metrics:
       #   - title: "Medical Kits Distributed"
       #     counter:

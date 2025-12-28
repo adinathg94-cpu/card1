@@ -22,7 +22,7 @@ const CallToActionPrimary = ({ isNoSectionTop }: Props) => {
     <section className={`section ${isNoSectionTop && "pt-0"}`}>
       <div className="container">
         <div
-          className="bg-[url(/images/homepage/cta-bg-1.png)] bg-cover rounded-4xl overflow-hidden xl:bg-contain bg-center bg-no-repeat relative"
+          className="bg-[url(/images/homepage/cta-bg-1.png)] bg-cover rounded-4xl overflow-hidden xl:bg-contain relative"
           style={{
             backgroundImage: `url(/images/homepage/cta-bg-1.png)`,
           }}

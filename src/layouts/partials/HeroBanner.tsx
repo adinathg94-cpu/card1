@@ -161,13 +161,13 @@ const HeroBanner = ({ banner }: { banner: BannerSection }) => {
                 <div className="w-[27px] h-[27px] rounded-full bg-white/20 flex items-center justify-center">
                   <FaPhone className="text-white text-xs" />
                 </div>
-                <p className="text-white text-lg font-bold">{contact_info.phone}</p>
+                <p className="text-white text-lg font-normal">{contact_info.phone}</p>
               </div>
               <div className="flex items-center gap-4">
                 <div className="w-[27px] h-[27px] rounded-full bg-white/20 flex items-center justify-center">
                   <FaEnvelope className="text-white text-xs" />
                 </div>
-                <p className="text-white text-lg font-bold">{contact_info.email}</p>
+                <p className="text-white text-lg font-normal">{contact_info.email}</p>
               </div>
             </div>
           )}
