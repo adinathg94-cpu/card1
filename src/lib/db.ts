@@ -14,6 +14,8 @@ let db: Database.Database | null = null;
 
 export function getDB(): Database.Database {
   if (!db) {
+    console.log("Initializing DB at path:", dbPath);
+    console.log("Current working directory:", process.cwd());
     db = new Database(dbPath);
     db.pragma("journal_mode = WAL");
     initializeSchema(db);
@@ -97,6 +99,18 @@ function initializeSchema(database: Database.Database) {
       order_index INTEGER DEFAULT 0,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  // Sessions table for authentication
+  database.exec(`
+    CREATE TABLE IF NOT EXISTS sessions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      session_token TEXT UNIQUE NOT NULL,
+      expires_at DATETIME NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )
   `);
 

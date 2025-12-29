@@ -11,29 +11,32 @@ export async function GET() {
       return NextResponse.json({ authenticated: false }, { status: 401 });
     }
 
-    // In a production app, you'd validate the session token properly
-    // For now, we'll just check if it exists and get user info
+    // Validate session token from database
     const db = getDB();
-    // Extract user ID from session (simplified - in production use proper session management)
-    try {
-      const decoded = Buffer.from(sessionToken, "base64").toString();
-      const userId = parseInt(decoded.split(":")[0]);
 
-      const user = db
-        .prepare("SELECT id, username FROM users WHERE id = ?")
-        .get(userId) as { id: number; username: string } | undefined;
+    // Clean up expired sessions first
+    db.prepare("DELETE FROM sessions WHERE expires_at < datetime('now')").run();
 
-      if (!user) {
-        return NextResponse.json({ authenticated: false }, { status: 401 });
-      }
+    // Check if session exists and is valid
+    const session = db
+      .prepare(
+        `SELECT s.user_id, u.username 
+         FROM sessions s 
+         JOIN users u ON s.user_id = u.id 
+         WHERE s.session_token = ? AND s.expires_at > datetime('now')`
+      )
+      .get(sessionToken) as
+      | { user_id: number; username: string }
+      | undefined;
 
-      return NextResponse.json({
-        authenticated: true,
-        user: { id: user.id, username: user.username },
-      });
-    } catch {
+    if (!session) {
       return NextResponse.json({ authenticated: false }, { status: 401 });
     }
+
+    return NextResponse.json({
+      authenticated: true,
+      user: { id: session.user_id, username: session.username },
+    });
   } catch (error) {
     console.error("Auth check error:", error);
     return NextResponse.json({ authenticated: false }, { status: 401 });

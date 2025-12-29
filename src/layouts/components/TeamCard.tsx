@@ -11,7 +11,7 @@ const TeamCard: React.FC<Props> = ({ member, index }) => {
 
   return (
     <div data-aos="zoom-right-sm" data-aos-delay={index * 150 + 50}>
-      <div className="bg-dark/2 rounded-4xl p-4 pb-0 flex flex-col overflow-hidden">
+      <div className="bg-[#d9e8e3] rounded-4xl p-4 pb-0 flex flex-col overflow-hidden">
         <ImageFallback
           src={member.image || "/images/avatar.png"}
           alt={member.name}
