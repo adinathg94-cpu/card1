@@ -30,7 +30,7 @@ reviews:
     ratings: 5
     company_logo: /images/homepage/brands/swift.svg
 
-  - name: Sarah John
+  - name: George John
     avatar: /images/homepage/avatar/avatar-7.png
     designation: Volunteer
     content: Volunteering with this team has been a blessing. Seeing the smiles on children's faces when they receive support is worth every moment.
