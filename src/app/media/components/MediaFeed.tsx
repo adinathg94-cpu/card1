@@ -63,7 +63,7 @@ export default function MediaFeed({
 }: MediaFeedProps) {
 
     return (
-        <div className="flex flex-col gap-20 pb-20">
+        <div className="flex flex-col gap-20 pb-20 overflow-x-hidden">
 
             {/* Success Stories - Hero Slider */}
             {successStories.length > 0 && (
@@ -191,7 +191,7 @@ export default function MediaFeed({
 
             {/* Reels - Horizontal Scroll */}
             {reels.length > 0 && (
-                <section className="bg-theme-light dark:bg-dark-theme-light py-16">
+                <section className="bg-theme-light dark:bg-dark-theme-light py-16 overflow-x-hidden">
                     <div className="container">
                         <div className="flex items-center justify-between mb-8" data-aos="fade-up">
                             <div className="flex items-center gap-3">
