@@ -16,7 +16,7 @@ reviews:
     ratings: 5
     company_logo: /images/homepage/brands/waves.svg
 
-  - name: Deepa Thomas
+  - name: Sabeena
     avatar: /images/homepage/avatar/avatar-2.svg
     designation: Beneficiary
     content: I've seen firsthand how CARD transforms lives. From educational aid to housing support, their work in Kerala is making a real difference in our daily lives.
@@ -44,7 +44,7 @@ reviews:
     ratings: 5
     company_logo: /images/homepage/brands/travelers.svg
 
-  - name: Priya Nair
+  - name: Gopan Nair
     avatar: /images/homepage/avatar/avatar-9.png
     designation: Social Worker
     content: Their transparency and commitment to social justice inspire us all. It's a privilege to witness the positive change they bring to Kerala.

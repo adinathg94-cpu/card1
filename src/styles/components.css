@@ -161,8 +161,8 @@
     content: "★★★★★";
     letter-spacing: 4px;
     background: linear-gradient(90deg,
-        var(--color-tertiary) calc(var(--rating) / 5 * 100%),
-        #e7e7e7 calc(var(--rating) / 5 * 100%));
+      var(--color-secondary) calc(var(--rating) / 5 * 100%),
+      #e7e7e7 calc(var(--rating) / 5 * 100%));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

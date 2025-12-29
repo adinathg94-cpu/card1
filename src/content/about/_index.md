@@ -93,7 +93,7 @@ impact_results:
     - title: "CARD’s work is made possible by a dedicated community"
       subtitle: "Our Mission"
       image: "/images/homepage/result1.png"
-      image_2: "/images/homepage/result3.png"
+      image_2: ""
       description: "We value transparency and keep our supporters informed about the tangible outcomes of their contributions. Together, we are creating a powerful movement of compassion and action."
       button:
         enable: true
