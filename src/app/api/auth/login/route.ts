@@ -58,25 +58,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create session token with cryptographically secure random bytes
-    const crypto = await import('crypto');
-    const sessionToken = crypto.randomBytes(32).toString('base64url');
+    // Generate JWT token (stateless, works in serverless environments)
+    const { generateToken } = await import("@/lib/jwt");
+    const token = generateToken(user.id, user.username);
 
-    // Calculate expiration time (7 days from now)
-    const expiresAt = new Date();
-    expiresAt.setDate(expiresAt.getDate() + 7);
-
-    // Store session in database
-    db.prepare(
-      "INSERT INTO sessions (user_id, session_token, expires_at) VALUES (?, ?, ?)"
-    ).run(user.id, sessionToken, expiresAt.toISOString());
-
-    // Clean up expired sessions
-    db.prepare("DELETE FROM sessions WHERE expires_at < datetime('now')").run();
-
-    // Set cookie
+    // Set cookie with JWT token
     const cookieStore = await cookies();
-    cookieStore.set("admin_session", sessionToken, {
+    cookieStore.set("admin_session", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
