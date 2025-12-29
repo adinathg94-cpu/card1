@@ -32,7 +32,7 @@ banner:
   media_section:
     enable: true
     label: "Watch Our Videos"
-    url: "https://www.youtube.com/embed/-MvdyU5iAjU?autoplay=1&mute=0"
+    url: "https://www.youtube.com/embed/g4XW6uq8ivo?autoplay=1&mute=0"
 
   impact_metrics:
     label: ""
