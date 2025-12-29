@@ -83,7 +83,7 @@ numbers_banner:
     - title: "Raised to support education, healthcare, and disaster relief"
       counter:
         count: "12"
-        count_suffix: "Million+"
+        count_suffix: "M+"
         count_prefix: ""
         count_duration: 4
 
