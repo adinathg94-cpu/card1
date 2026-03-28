@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDB, serializeJSON, parseJSON } from "@/lib/db";
 import { cookies } from "next/headers";
 
-// GET single blog post
+// GET single blog post (by numeric ID or slug)
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -10,9 +10,12 @@ export async function GET(
   try {
     const { id } = await params;
     const db = getDB();
-    const post = db
-      .prepare("SELECT * FROM blog_posts WHERE id = ?")
-      .get(parseInt(id)) as any;
+
+    // Support lookup by slug (string) or numeric ID
+    const isNumeric = /^\d+$/.test(id);
+    const post = isNumeric
+      ? (db.prepare("SELECT * FROM blog_posts WHERE id = ?").get(parseInt(id)) as any)
+      : (db.prepare("SELECT * FROM blog_posts WHERE slug = ?").get(id) as any);
 
     if (!post) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });

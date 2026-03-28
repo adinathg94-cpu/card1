@@ -5,32 +5,59 @@ import TitleBadge from "@/components/TitleBadge";
 import config from "@/config/config.json";
 import ImageFallback from "@/helpers/ImageFallback";
 import MDXContent from "@/helpers/MDXContent";
-import { getSinglePage, getBlogPostFromDB, getBlogPostsFromDB } from "@/lib/contentParser";
+import { getSinglePage } from "@/lib/contentParser";
 import similarItems from "@/lib/utils/similarItems";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
 import SeoMeta from "@/partials/SeoMeta";
 import { BlogPost } from "@/types";
 
-
 const { blog_folder } = config.settings;
 
-// Force dynamic rendering so DB edits show immediately
-export const dynamic = "force-dynamic";
+// Opt out of Full Route Cache so DB edits show immediately
+export const revalidate = 0;
 
 const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
   const params = await props.params;
 
-  // Try database first
-  let post = getBlogPostFromDB(params.single);
+  // Fetch via API to avoid loading better-sqlite3 on ESM worker threads
+  // (prevents EEXIST / stdin crash on Hostinger/Passenger environments)
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "http://localhost:3000";
 
+  let post: any = null;
+
+  try {
+    // Fetch by slug using the updated /api/news/[id] route
+    const res = await fetch(`${baseUrl}/api/news/${params.single}`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      const data = await res.json();
+      post = {
+        slug: data.slug,
+        frontmatter: {
+          title: data.title,
+          meta_title: data.meta_title,
+          description: data.description,
+          image: data.image,
+          categories: data.categories || [],
+          badge: data.frontmatter?.badge || null,
+        },
+        content: data.content || "",
+      };
+    }
+  } catch {
+    // ignore — fall through to markdown fallback
+  }
+
+  // Fallback to markdown files if DB lookup failed
   if (!post) {
-    // Fallback to markdown
     const posts = getSinglePage<BlogPost["frontmatter"]>("blog");
     const mdPost = posts.filter((page) => page.slug === params.single)[0];
-    if (!mdPost) {
-      notFound();
-    }
+    if (!mdPost) notFound();
     post = {
       slug: mdPost.slug,
       frontmatter: mdPost.frontmatter as any,
@@ -38,22 +65,37 @@ const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
     };
   }
 
+  // Get all posts for "similar posts" section via API
+  let allPosts: any[] = [];
+  try {
+    const res = await fetch(`${baseUrl}/api/news`, { cache: "no-store" });
+    if (res.ok) {
+      const dbPosts = await res.json();
+      allPosts = dbPosts.map((p: any) => ({
+        slug: p.slug,
+        frontmatter: {
+          title: p.title,
+          description: p.description,
+          image: p.image,
+          categories: p.categories || [],
+          date: p.date,
+        },
+        content: p.content || "",
+      }));
+    }
+  } catch {
+    // fallback to markdown
+    allPosts = getSinglePage<BlogPost["frontmatter"]>("blog") as any[];
+  }
+
+  if (allPosts.length === 0) {
+    allPosts = getSinglePage<BlogPost["frontmatter"]>("blog") as any[];
+  }
+
+  const similarPosts = similarItems(post, allPosts);
+
   const { title, meta_title, description, image, badge, categories } =
     post.frontmatter as any;
-
-  // Get all posts for similar items
-  const dbPosts = getBlogPostsFromDB();
-  let allPosts;
-  if (dbPosts.length > 0) {
-    allPosts = dbPosts.map((p) => ({
-      slug: p.slug,
-      frontmatter: p.frontmatter,
-      content: p.content,
-    }));
-  } else {
-    allPosts = getSinglePage<BlogPost["frontmatter"]>("blog");
-  }
-  const similarPosts = similarItems(post, allPosts);
 
   return (
     <>
@@ -83,7 +125,7 @@ const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
                   height={600}
                   width={1280}
                   alt={title}
-                  className="w-full aspect-[16/7.5] object-cover  object-center rounded-4xl"
+                  className="w-full aspect-16/7.5 object-cover object-center rounded-4xl"
                 />
               </div>
             )}
@@ -127,6 +169,6 @@ const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
       <CallToActionSecondary isNoSectionTop={true} />
     </>
   );
-}
+};
 
 export default PostSingle;

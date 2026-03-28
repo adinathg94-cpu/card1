@@ -1,7 +1,7 @@
 import TitleBadge from "@/components/TitleBadge";
 import ImageFallback from "@/helpers/ImageFallback";
 import MDXContent from "@/helpers/MDXContent";
-import { getDB, parseJSON } from "@/lib/db";
+import { parseJSON } from "@/lib/db";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionQuaternary from "@/partials/CallToActionQuaternary";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
@@ -9,20 +9,47 @@ import FAQs from "@/partials/FAQs";
 import SeoMeta from "@/partials/SeoMeta";
 import { notFound } from "next/navigation";
 
-// Force dynamic rendering so DB edits show immediately
-export const dynamic = "force-dynamic";
+// Opt out of Full Route Cache so admin edits show immediately
+export const revalidate = 0;
 
 const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => {
   const params = await props.params;
-  const db = getDB();
-  const program = db.prepare("SELECT * FROM programs WHERE slug = ?").get(params.single) as any;
+
+  // Use the API route so we don't initiate a second SQLite connection
+  // on an ESM worker thread (avoids EEXIST on stdin in Hostinger env)
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "http://localhost:3000";
+
+  let program: any = null;
+
+  try {
+    const res = await fetch(`${baseUrl}/api/programs/${params.single}`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      program = await res.json();
+    }
+  } catch {
+    // fallback: try direct DB import as last resort
+    try {
+      const { getDB } = await import("@/lib/db");
+      const db = getDB();
+      program = db
+        .prepare("SELECT * FROM programs WHERE slug = ?")
+        .get(params.single);
+    } catch {
+      // ignore — notFound() below handles missing program
+    }
+  }
 
   if (!program) {
     notFound();
   }
 
   const categories = parseJSON<string[]>(program.categories) || [];
-  const { title, image, description, content, goal, raised } = program;
+  const { title, image, description, content } = program;
 
   const frontmatter = {
     title,
@@ -47,7 +74,7 @@ const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => 
               dangerouslySetInnerHTML={markdownify(title)}
               className="mb-8 mt-4 font-semibold text-balance"
             />
-            
+
             {image && (
               <div className="mb-10 relative overflow-hidden rounded-4xl group">
                 <ImageFallback
@@ -60,7 +87,7 @@ const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => 
                 />
               </div>
             )}
-            
+
             <div className="row justify-center mt-12">
               <div className="lg:col-10">
                 <div className="content mb-10">
@@ -76,6 +103,6 @@ const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => 
       <CallToActionSecondary />
     </>
   );
-}
+};
 
 export default ProgramSingle;
