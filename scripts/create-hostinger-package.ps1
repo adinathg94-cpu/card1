@@ -100,7 +100,7 @@ $envContent = "# ============================================`n# HOSTINGER PRODU
 Set-Content -Path (Join-Path $TEMP_DIR ".env.production.example") -Value $envContent -Encoding UTF8
 
 # Create HOSTINGER_README.md
-$readmeContent = "# Hostinger Deployment Guide`n`n## Steps in Hostinger hPanel`n`n### 1. Upload & Extract`n- Upload hostinger-deploy.zip via File Manager`n- Extract it into your app folder (e.g. /home/user/domains/yourdomain.com/public_html)`n`n### 2. Node.js App Settings`n- Go to hPanel > Websites > Manage > Node.js`n- Node.js version: 20.x (recommended)`n- Application startup file: server.js`n- Build command: npm install --legacy-peer-deps && npm run build`n`n### 3. Startup Command`n  node .next/standalone/server.js`n`n### 4. Environment Variables`n- Add all variables from .env.production.example in hPanel Node.js settings`n- Fill in your actual API keys`n`n### 5. After First Deploy`n- The app runs on the port Hostinger assigns`n- Hostinger proxies it to your domain automatically`n"
+$readmeContent = "# Hostinger Deployment Guide`n`n## Steps in Hostinger hPanel`n`n### 1. Upload & Extract`n- Upload hostinger-deploy.zip via File Manager`n- Extract it into your app folder (e.g. /home/user/domains/yourdomain.com/public_html)`n`n### 2. Node.js App Settings`n- Go to hPanel > Websites > Manage > Node.js`n- Node.js version: 20.x (recommended)`n- Application startup file: server.js (This fixes the 'EEXIST process.getStdin' error)`n- Build command: npm install --legacy-peer-deps && npm run build`n`n### 3. Startup Command`n  node server.js`n`n### 4. Environment Variables`n- Add all variables from .env.production.example in hPanel Node.js settings`n- Fill in your actual API keys`n`n### 5. After First Deploy`n- The app runs on the port Hostinger assigns`n- Hostinger proxies it to your domain automatically`n"
 Set-Content -Path (Join-Path $TEMP_DIR "HOSTINGER_README.md") -Value $readmeContent -Encoding UTF8
 
 # Create the ZIP
@@ -125,6 +125,6 @@ Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "  1. Upload 'hostinger-deploy.zip' to Hostinger File Manager" -ForegroundColor White
 Write-Host "  2. Extract into your app root folder" -ForegroundColor White
 Write-Host "  3. In hPanel Node.js: set build cmd = npm install --legacy-peer-deps && npm run build" -ForegroundColor White
-Write-Host "  4. Set startup = node .next/standalone/server.js" -ForegroundColor White
+Write-Host "  4. Set startup = node server.js" -ForegroundColor White
 Write-Host "  5. Add environment variables from .env.production.example" -ForegroundColor White
 Write-Host ""
