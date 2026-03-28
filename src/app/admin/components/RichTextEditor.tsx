@@ -3,22 +3,18 @@
 import dynamic from "next/dynamic";
 import { useState, useEffect } from "react";
 
-// Dynamically import react-quill (and its CSS) to avoid SSR issues in React 19
-const ReactQuill = dynamic(
-  async () => {
-    const { default: RQ } = await import("react-quill");
-    await import("react-quill/dist/quill.snow.css");
-    return RQ;
-  },
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-48 border border-border rounded-b-lg bg-white dark:bg-dark-theme-light flex items-center justify-center text-gray-400 text-sm">
-        Loading editor...
-      </div>
-    ),
-  }
-);
+// CSS must be a top-level import — Next.js handles it correctly
+import "react-quill/dist/quill.snow.css";
+
+// Dynamically import react-quill component only (no SSR) to avoid React 19 issues
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-48 border border-border rounded-b-lg bg-white dark:bg-dark-theme-light flex items-center justify-center text-gray-400 text-sm">
+      Loading editor...
+    </div>
+  ),
+});
 
 interface RichTextEditorProps {
   value: string;
@@ -31,7 +27,7 @@ export default function RichTextEditor({
   onChange,
   label = "Content",
 }: RichTextEditorProps) {
-  // Wait until client-side mount so react-quill picks up the correct initial value
+  // Wait for client-side mount so react-quill receives the correct initial value
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -86,7 +82,7 @@ export default function RichTextEditor({
   return (
     <div className="rich-text-editor-wrapper">
       <label className="block text-sm font-medium mb-2">{label}</label>
-      {mounted && (
+      {mounted ? (
         <ReactQuill
           theme="snow"
           value={value}
@@ -96,8 +92,7 @@ export default function RichTextEditor({
           className="bg-white dark:bg-dark-theme-light"
           style={{ minHeight: "200px" }}
         />
-      )}
-      {!mounted && (
+      ) : (
         <div className="h-48 border border-border rounded-lg bg-white dark:bg-dark-theme-light flex items-center justify-center text-gray-400 text-sm">
           Loading editor...
         </div>
