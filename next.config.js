@@ -10,8 +10,14 @@ const nextConfig = {
   output: "standalone",
 
   images: {
-    // Allow images served from your Hostinger domain
-    domains: ["darkviolet-seal-509592.hostingersite.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "darkviolet-seal-509592.hostingersite.com",
+        port: "",
+        pathname: "/uploads/images/**",
+      },
+    ],
   },
 
   webpack: (config) => {
