@@ -2,26 +2,7 @@ import Database from "better-sqlite3";
 import path from "path";
 import fs from "fs";
 
-const dbPath = path.join(process.cwd(), "data", "cms.db");
-const dbDir = path.dirname(dbPath);
-
-// Ensure data directory exists
-if (!fs.existsSync(dbDir)) {
-  fs.mkdirSync(dbDir, { recursive: true });
-}
-
 let db: Database.Database | null = null;
-
-export function getDB(): Database.Database {
-  if (!db) {
-    console.log("Initializing DB at path:", dbPath);
-    console.log("Current working directory:", process.cwd());
-    db = new Database(dbPath);
-    db.pragma("journal_mode = WAL");
-    initializeSchema(db);
-  }
-  return db;
-}
 
 function initializeSchema(database: Database.Database) {
   // Users table
@@ -114,6 +95,27 @@ function initializeSchema(database: Database.Database) {
     )
   `);
 
+  // Programs table (with updated fields for full Program type compatibility)
+  database.exec(`
+    CREATE TABLE IF NOT EXISTS programs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      slug TEXT UNIQUE NOT NULL,
+      title TEXT NOT NULL,
+      description TEXT,
+      content TEXT,
+      image TEXT,
+      date DATETIME,
+      end_date DATETIME,
+      categories TEXT,
+      goal TEXT,
+      raised TEXT,
+      featured BOOLEAN DEFAULT 0,
+      order_index INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
   // Create indexes for better performance
   database.exec(`
     CREATE INDEX IF NOT EXISTS idx_blog_posts_slug ON blog_posts(slug);
@@ -121,7 +123,25 @@ function initializeSchema(database: Database.Database) {
     CREATE INDEX IF NOT EXISTS idx_blog_posts_draft ON blog_posts(draft);
     CREATE INDEX IF NOT EXISTS idx_media_items_type ON media_items(type);
     CREATE INDEX IF NOT EXISTS idx_administration_members_is_lead ON administration_members(is_lead_team);
+    CREATE INDEX IF NOT EXISTS idx_programs_slug ON programs(slug);
+    CREATE INDEX IF NOT EXISTS idx_programs_featured ON programs(featured);
   `);
+}
+
+export function getDB(): Database.Database {
+  if (!db) {
+    const dbPath = path.join(process.cwd(), "data", "cms.db");
+    const dbDir = path.dirname(dbPath);
+
+    if (!fs.existsSync(dbDir)) {
+      fs.mkdirSync(dbDir, { recursive: true });
+    }
+
+    db = new Database(dbPath);
+    db.pragma("journal_mode = WAL");
+    initializeSchema(db);
+  }
+  return db;
 }
 
 // Helper function to serialize JSON for storage
@@ -146,4 +166,3 @@ export function closeDB() {
     db = null;
   }
 }
-

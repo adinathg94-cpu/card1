@@ -5,93 +5,12 @@ import { markdownify } from "@/lib/utils/textConverter";
 import { BannerSection } from "@/types";
 import Link from "next/link";
 import { FaArrowRightLong, FaPhone, FaEnvelope } from "react-icons/fa6";
-import { useState, useEffect } from "react";
 
-const HeroVideoPlayer = ({ video }: { video: { label: string; url: string } }) => {
-  const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsOpen(false);
-      }
-    };
-    if (isOpen) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen]);
-
-  return (
-    <>
-      <div
-        onClick={() => setIsOpen(true)}
-        className="flex items-center gap-4 cursor-pointer group"
-      >
-        {/* Play Button Circle */}
-        <div className="w-[55px] h-[55px] rounded-full border-2 border-white flex items-center justify-center group-hover:bg-white/10 transition-all">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            className="text-white ml-1"
-          >
-            <path
-              d="M6.5 4.5L14.5 10L6.5 15.5V4.5Z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
-        {/* Video Label */}
-        <p
-          dangerouslySetInnerHTML={markdownify(video.label)}
-          className="text-white text-lg font-semibold"
-        />
-      </div>
-
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-[9999]"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setIsOpen(false);
-          }}
-        >
-          <div className="relative w-[80%] max-w-3xl">
-            <button
-              onClick={() => setIsOpen(false)}
-              className="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300"
-            >
-              ×
-            </button>
-            <iframe
-              width="100%"
-              height="500"
-              src={video.url}
-              title="YouTube Video"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              className="rounded-lg shadow-lg"
-            />
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
 
 const HeroBanner = ({ banner }: { banner: BannerSection }) => {
-  const { media_section, contact_info } = banner as BannerSection & {
+  const { contact_info } = banner as BannerSection & {
     contact_info?: {
       enable: boolean;
       phone: string;
@@ -118,7 +37,20 @@ const HeroBanner = ({ banner }: { banner: BannerSection }) => {
 
       {/* Content Container */}
       <div className="container relative z-10 h-full flex items-center">
-        <div className="w-full max-w-[680px] space-y-8">
+        <div className="w-full max-w-[680px] space-y-6">
+          {/* Subtitle/Badge */}
+          {banner.subtitle && (
+            <div 
+              className="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full"
+              data-aos="fade-up-sm"
+              data-aos-delay="100"
+            >
+              <span className="text-white text-sm font-bold tracking-widest uppercase">
+                {banner.subtitle}
+              </span>
+            </div>
+          )}
+
           {/* Main Heading */}
           <h1
             dangerouslySetInnerHTML={markdownify(banner.title)}
@@ -144,10 +76,7 @@ const HeroBanner = ({ banner }: { banner: BannerSection }) => {
               </Link>
             )}
 
-            {/* Watch Our Videos */}
-            {media_section?.enable && (
-              <HeroVideoPlayer video={media_section} />
-            )}
+
           </div>
 
           {/* Contact Information */}

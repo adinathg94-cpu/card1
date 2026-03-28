@@ -47,13 +47,7 @@ const ReviewCard: React.FC<Props> = ({ review, index }) => {
             />
           </div>
         </div>
-        <ImageFallback
-          className="object-contain max-h-7 max-w-24"
-          src={review.company_logo}
-          alt="logo of the company"
-          width={140}
-          height={30}
-        />
+      
       </div>
     </div>
   );

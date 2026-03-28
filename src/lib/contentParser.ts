@@ -84,7 +84,7 @@ export const getBlogPostsFromDB = () => {
       .prepare("SELECT * FROM blog_posts WHERE draft = 0 ORDER BY date DESC, created_at DESC")
       .all() as any[];
 
-    return posts.map((post) => ({
+    return posts.map((post: any) => ({
       slug: post.slug,
       frontmatter: {
         title: post.title,
@@ -146,7 +146,7 @@ export const getDownloadsFromDB = () => {
       .prepare("SELECT * FROM downloads ORDER BY date DESC, created_at DESC")
       .all() as any[];
 
-    return downloads.map((download) => ({
+    return downloads.map((download: any) => ({
       name: download.name,
       url: download.url,
       file_size: download.file_size,
@@ -170,7 +170,7 @@ export const getAdministrationMembersFromDB = () => {
       )
       .all() as any[];
 
-    return members.map((member) => ({
+    return members.map((member: any) => ({
       name: member.name,
       designation: member.designation,
       image: member.image,
@@ -198,7 +198,7 @@ export const getMediaItemsFromDB = (type?: string) => {
       ? (db.prepare(query).all(type) as any[])
       : (db.prepare(query).all() as any[]);
 
-    return items.map((item) => ({
+    return items.map((item: any) => ({
       type: item.type,
       title: item.title,
       description: item.description,

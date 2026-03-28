@@ -1,6 +1,7 @@
 ---
 # Banner
 banner:
+  subtitle: "CARD®"
   title: "Spreading smiles and building brighter futures."
   content: ""
   image: "/images/banner1.png"
@@ -10,7 +11,7 @@ banner:
     label: "Read More"
     link: "/about"
   button_link:
-    enable: true
+    enable: false
     label: "Watch Our Videos"
     link: "#"
 
@@ -30,7 +31,7 @@ banner:
       - "/images/homepage/brands/6.svg"
 
   media_section:
-    enable: true
+    enable: false
     label: "Watch Our Videos"
     url: "https://www.youtube.com/embed/g4XW6uq8ivo?autoplay=1&mute=0"
 
@@ -118,7 +119,7 @@ impact_results:
     - title: "Communities That Flourish"
       subtitle: "Vision"
       image: "/images/homepage/result2.png"
-      description: "A world where communities are free from poverty, exploitation, and injustice — where every person is able to live with dignity and equal opportunity. We envision societies rooted in love, justice, and mutual respect, where people actively participate in shaping their own future. In this future, relationships are sustainable and life-giving, human rights are protected, and resources are shared responsibly so that all people can flourish in freedom, security, and hope."
+      description: "Weaving the Web of Life: The Christian Agency for Rural Development (CARD) works towards a world where poverty and injustice no longer exist, and all people enjoy a life of sustainable relationships with one another, based on the exercise of love, justice, participation, and freedom."
     
       # metrics:
       #   - title: "Schools Partnered"
@@ -143,7 +144,7 @@ impact_results:
       subtitle: "Mission"
       image: "/images/homepage/result1.png"
 
-      description: "Rooted in Christ and in solidarity with people, CARD walks alongside the poor and marginalized across India. We support transformation through education, skills training, strong people’s organizations, and sustainable livelihoods so communities can overcome poverty, uphold human dignity, advance gender equality, and protect the environment for future generations."
+      description: "In Christ with the people: CARD engages in dedicated service in Christ to work with the poor and marginalized people of India to empower them through capacity-developing programs like education, skill training, advocacy of people’s organizations, and livelihood support programs. This enables them to move towards a community that enjoys freedom from poverty, protection of human dignity, gender equality, and environmental sustainability."
       # metrics:
       #   - title: "Medical Kits Distributed"
       #     counter:

@@ -9,13 +9,10 @@ interface Props {
 }
 
 const ProgramCard: React.FC<Props> = ({ data, aosDelay }) => {
-  const { title, image, description, end_date, categories } =
+  const { title, image, description, categories } =
     data.frontmatter;
 
-  const today = new Date();
-  const endDate = new Date(end_date!);
-  const diffTime = endDate.getTime() - today.getTime();
-  const daysLeft = Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24)), 0);
+
 
   return (
     <div
@@ -46,7 +43,7 @@ const ProgramCard: React.FC<Props> = ({ data, aosDelay }) => {
               </p>
             ))}
           </li>
-          <li className="inline-block text-sm">{daysLeft} Days Left</li>
+          <li className="inline-block text-sm"></li>
         </ul>
 
         <h3

@@ -4,7 +4,7 @@ import Features from "@/components/Features";
 import ImpactResults from "@/components/ImpactResults";
 import TeamCard from "@/components/TeamCard";
 import TitleBadge from "@/components/TitleBadge";
-import BrandSlider from "@/layouts/components/BrandSlider";
+
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
 import NumbersBanner from "@/partials/NumbersBanner";
@@ -29,7 +29,7 @@ export default function AboutPage() {
     features,
     numbers_banner,
     impact_results,
-    brands,
+    administration_images,
     team: teamConfig,
   } = about.frontmatter;
 
@@ -141,7 +141,39 @@ export default function AboutPage() {
               className="w-full rounded-4xl pt-12"
             />
           </div>
-          <BrandSlider brands={brands} />
+          {administration_images?.enable && (
+            <div
+              data-aos="fade-up-sm"
+              data-aos-delay="150"
+              className="pt-16"
+            >
+              {administration_images.title && (
+                <h2 className="text-center h3 mb-8" dangerouslySetInnerHTML={markdownify(administration_images.title)} />
+              )}
+              {administration_images.content && (
+                <div 
+                  className="prose prose-lg max-w-none text-balance text-[18px] tracking-[0.0005px] leading-[1.8] mb-12"
+                  style={{ color: 'var(--color-text)' }}
+                  dangerouslySetInnerHTML={markdownify(administration_images.content)} 
+                />
+              )}
+              <div className="row g-4 pb-10">
+                {administration_images.list.map((item, i) => (
+                  <div key={i} className="col-12 lg:col-6">
+                    <div className="relative overflow-hidden rounded-2xl shadow-xl transition-transform hover:scale-[1.02] duration-300">
+                      <ImageFallback
+                        src={item}
+                        alt={`Administration Image ${i + 1}`}
+                        width={800}
+                        height={600}
+                        className="w-full h-auto object-contain"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           <Features features={features} />
         </div>
       </section>

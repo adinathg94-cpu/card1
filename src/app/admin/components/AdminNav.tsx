@@ -15,6 +15,7 @@ import {
   FaFileLines,
   FaEnvelope,
   FaHandshake,
+  FaGlobe,
 } from "react-icons/fa6";
 
 interface AdminNavProps {
@@ -25,6 +26,7 @@ interface AdminNavProps {
 export default function AdminNav({ pathname, onLogout }: AdminNavProps) {
   const navItems = [
     { href: "/admin", label: "Dashboard", icon: FaHouse },
+    { href: "/admin/programs", label: "Programs", icon: FaGlobe },
     { href: "/admin/news", label: "News & Updates", icon: FaNewspaper },
     { href: "/admin/downloads", label: "Downloads", icon: FaDownload },
     { href: "/admin/administration", label: "Administration", icon: FaUsers },

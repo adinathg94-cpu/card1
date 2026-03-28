@@ -6,7 +6,7 @@ import menu from "@/config/menu.json";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { FaAngleDown, FaArrowRightLong } from "react-icons/fa6";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const Header = () => {
   const [isNavToggled, setIsNavToggled] = useState(false);
@@ -98,9 +98,7 @@ const Header = () => {
                   className="nav-link inline-flex items-center cursor-pointer text-[15px] font-regular tracking-[0.14em] uppercase text-[#034833]"
                 >
                   {item.name}
-                  {item.name === "Activities" && (
-                    <FaAngleDown className="ml-1 text-[10px]" />
-                  )}
+                  {item.name === "Activities" }
                 </Link>
               </li>
             ))}

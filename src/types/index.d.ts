@@ -36,6 +36,7 @@ export interface Button {
 
 export interface BannerSection {
   title: string;
+  subtitle?: string;
   content: string;
   image: string;
   testimonial_image: string;
@@ -274,10 +275,11 @@ export interface Program extends RegularPage {
 export interface AboutPage extends RegularPage {
   frontmatter: RegularPage["frontmatter"] & {
     button: Button;
-    brands: {
+    administration_images: {
       enable: boolean;
       title?: string;
-      logos: string[];
+      content?: string;
+      list: string[];
     };
     features: Array<{
       title: string;

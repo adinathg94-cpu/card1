@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     if (contentType.includes('application/json')) {
       try {
         body = await req.json();
-      } catch (e) {
+      } catch {
         return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
       }
     } else if (contentType.includes('application/x-www-form-urlencoded')) {
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       if (!text) return NextResponse.json({ error: 'Empty request body' }, { status: 400 });
       try {
         body = JSON.parse(text);
-      } catch (_e) {
+      } catch {
         body = Object.fromEntries(new URLSearchParams(text));
       }
     }
@@ -65,7 +65,6 @@ export async function POST(req: Request) {
     if (!resp.ok) {
       const contentType = resp.headers.get('content-type') || '';
       const errText = contentType.includes('application/json') ? await resp.json() : await resp.text();
-      // eslint-disable-next-line no-console
       console.error('Mailgun error response:', errText);
       return NextResponse.json({ error: 'Mailgun error', details: errText }, { status: 502 });
     }
@@ -73,7 +72,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true, message: 'Message sent' }, { status: 200 });
   } catch (err: any) {
     // log error server-side (do not leak secrets to clients)
-    // eslint-disable-next-line no-console
     console.error('Contact form send error:', err);
     return NextResponse.json({ error: 'Server error', details: err?.message || String(err) }, { status: 500 });
   }

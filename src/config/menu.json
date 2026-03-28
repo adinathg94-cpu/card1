@@ -53,6 +53,14 @@
         {
           "name": "Contact Us",
           "url": "/contact"
+        },
+        {
+          "name": "Accreditation",
+          "url": "/accreditation"
+        },
+        {
+          "name": "Policy",
+          "url": "/policy"
         }
       ]
     }

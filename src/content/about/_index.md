@@ -13,16 +13,17 @@ button:
   label: "Learn More"
   link: "/about"
 
-brands:
+administration_images:
   enable: true
-  title: "CARD’s trusted partners and their core values"
-  logos:
-    - "/images/homepage/brands/1.svg"
-    - "/images/homepage/brands/2.svg"
-    - "/images/homepage/brands/3.svg"
-    - "/images/homepage/brands/4.svg"
-    - "/images/homepage/brands/5.svg"
-    - "/images/homepage/brands/6.svg"
+  content: |
+    Each and every person is created in the image of God, and has the right to a dignified life, with access to resources for development, and free from exploitation and marginalisation. Conscious socio-political intervention by the Marginalised can empower them to alleviate the travails and exploitation of the weak, and wanton destruction of the ecosystem, to create a just and sustainable milieu.
+
+    Mar Thoma Syrian Church of Malabar initiated Christian Agency for Rural Development (CARD) in 1977 to conscientise the Marginalised to generate people’s power for emancipation. CARD’s mandate is to engineer generation of people’s power, through enhanced social, political, and economic awareness. CARD, by virtue of its mandate is secular in approach, and intervenes with bar to religion, gender, and/or political affiliation.
+
+    CARD is registered, as a Society under the Travancore Cochin Literary Scientific and Charitable Societies Registration Act XII of 1955, and with FCRA (GoI). CARD is a permanent member of Act Alliance, Geneva, Global Alliance of World Council of Churches (WCC), and Lutheran World Federation (LWF).
+  list:
+    - "/images/administration/Governing-board-members.jpg"
+    - "/images/administration/CARD Administrative setup.png"
 
 features:
   - title: Empathy

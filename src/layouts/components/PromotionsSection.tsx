@@ -79,7 +79,7 @@ const PromotionsSection: FC<Props> = ({ promotions }) => {
                       ))}
                     </ul>
 
-                    <div className="mt-auto pt-8 max-lg:mx-auto">
+                    <div className="mt-auto pt-8 max-lg:mx-auto hidden">
                       {card.button.enable && (
                         <Link
                           className="btn btn-icon"

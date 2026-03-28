@@ -3,21 +3,40 @@ import ProgramCard from '@/components/ProgramCard';
 import TitleBadge from '@/components/TitleBadge';
 import config from "@/config/config.json";
 import ImageFallback from '@/helpers/ImageFallback';
-import { getListPage, getSinglePage } from '@/lib/contentParser';
+import { getListPage } from '@/lib/contentParser';
+import { getDB, parseJSON } from '@/lib/db';
 import { markdownify } from '@/lib/utils/textConverter';
 import CallToActionSecondary from '@/partials/CallToActionSecondary';
 import FAQs from '@/partials/FAQs';
 import NumbersBanner from '@/partials/NumbersBanner';
 import SeoMeta from '@/partials/SeoMeta';
-import type { Program, ProgramsPage } from '@/types';
+import type { ProgramsPage } from '@/types';
 import Link from 'next/link';
 const FOLDER = "programs";
 
-const ProgramsPage = () => {
+const ProgramsPage = async () => {
   const programsIndex = getListPage<ProgramsPage["frontmatter"]>(`${FOLDER}/_index.md`);
   const { title, description, badge, all_programs, button, numbers_banner } =
     programsIndex.frontmatter;
-  const programs = getSinglePage<Program["frontmatter"]>(FOLDER);
+
+  const db = getDB();
+  const dbPrograms = db.prepare("SELECT * FROM programs ORDER BY order_index ASC, created_at DESC").all() as any[];
+
+  const programs = dbPrograms.map(p => ({
+    slug: p.slug,
+    frontmatter: {
+      title: p.title,
+      description: p.description,
+      image: p.image,
+      date: p.date,
+      end_date: p.end_date,
+      categories: parseJSON<string[]>(p.categories) || [],
+      goal: p.goal || '',
+      raised: p.raised || '',
+      featured: p.featured === 1
+    },
+    content: p.content
+  }));
 
   const featuredProgram = programs
     .filter((program) => program?.frontmatter?.featured)
@@ -153,7 +172,7 @@ const ProgramsPage = () => {
               {
                 programs?.map((program, i) => {
                   const aosDelay = 100 * (i % 3);
-                  return <ProgramCard key={program.slug} data={program} aosDelay={aosDelay} />;
+                  return <ProgramCard key={program.slug} data={program as any} aosDelay={aosDelay} />;
                 })
               }
               <Pagination
