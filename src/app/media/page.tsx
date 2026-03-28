@@ -13,7 +13,8 @@ export default function MediaPage() {
 
   // Get media items from database
   const allMediaItems = getMediaItemsFromDB();
-  
+  export const dynamic = "force-dynamic";
+
   // Group by type
   const successStories = allMediaItems
     .filter((item) => item.type === "success_story")
