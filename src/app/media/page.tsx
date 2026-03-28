@@ -7,13 +7,13 @@ import type { RegularPage } from "@/types";
 import socialConfig from "@/config/social.json";
 import MediaFeed from "./components/MediaFeed";
 
+export const dynamic = "force-dynamic";
 export default function MediaPage() {
   const media = getListPage<RegularPage["frontmatter"]>("media/_index.md");
   const { title, meta_title, description, image, badge } = media.frontmatter;
 
   // Get media items from database
   const allMediaItems = getMediaItemsFromDB();
-  export const dynamic = "force-dynamic";
 
   // Group by type
   const successStories = allMediaItems
