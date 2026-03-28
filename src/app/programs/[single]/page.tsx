@@ -8,40 +8,34 @@ import CallToActionSecondary from "@/partials/CallToActionSecondary";
 import FAQs from "@/partials/FAQs";
 import SeoMeta from "@/partials/SeoMeta";
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
 
 // Opt out of Full Route Cache so admin edits show immediately
 export const revalidate = 0;
 
 const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => {
   const params = await props.params;
-
-  // Use the API route so we don't initiate a second SQLite connection
-  // on an ESM worker thread (avoids EEXIST on stdin in Hostinger env)
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "http://localhost:3000";
+  const headerList = await headers();
+  const host = headerList.get("host");
+  
+  // Use protocol-relative or detect protocol
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
 
   let program: any = null;
 
   try {
+    // Fetch via API to avoid native SQLite bindings in the page worker
+    // Using the detected host ensures it works on both dev/prod/preview domains
     const res = await fetch(`${baseUrl}/api/programs/${params.single}`, {
       cache: "no-store",
     });
     if (res.ok) {
       program = await res.json();
     }
-  } catch {
-    // fallback: try direct DB import as last resort
-    try {
-      const { getDB } = await import("@/lib/db");
-      const db = getDB();
-      program = db
-        .prepare("SELECT * FROM programs WHERE slug = ?")
-        .get(params.single);
-    } catch {
-      // ignore — notFound() below handles missing program
-    }
+  } catch (err) {
+    console.error("Fetch error:", err);
+    // Explicitly avoid fallback that imports native modules to prevent EEXIST crash
   }
 
   if (!program) {
@@ -82,7 +76,7 @@ const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => 
                   height={600}
                   width={1280}
                   alt={title}
-                  className="w-full aspect-[16/7.5] object-cover object-center group-hover:scale-105 transition duration-700"
+                  className="w-full aspect-16/7.5 object-cover object-center group-hover:scale-105 transition duration-700"
                   priority
                 />
               </div>

@@ -11,6 +11,7 @@ import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
 import SeoMeta from "@/partials/SeoMeta";
 import { BlogPost } from "@/types";
+import { headers } from "next/headers";
 
 const { blog_folder } = config.settings;
 
@@ -19,18 +20,17 @@ export const revalidate = 0;
 
 const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
   const params = await props.params;
+  const headerList = await headers();
+  const host = headerList.get("host");
 
-  // Fetch via API to avoid loading better-sqlite3 on ESM worker threads
-  // (prevents EEXIST / stdin crash on Hostinger/Passenger environments)
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "http://localhost:3000";
+  // Use protocol detection or fallback to detected host
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
 
   let post: any = null;
 
   try {
-    // Fetch by slug using the updated /api/news/[id] route
+    // Fetch by slug using the API route on the same host to avoid native DB loading in worker context
     const res = await fetch(`${baseUrl}/api/news/${params.single}`, {
       cache: "no-store",
     });
@@ -49,11 +49,12 @@ const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
         content: data.content || "",
       };
     }
-  } catch {
-    // ignore — fall through to markdown fallback
+  } catch (err) {
+    console.error("News fetch error:", err);
+    // Explicitly avoid fallback that imports native modules to prevent EEXIST crash
   }
 
-  // Fallback to markdown files if DB lookup failed
+  // Fallback to markdown files only (no direct DB call)
   if (!post) {
     const posts = getSinglePage<BlogPost["frontmatter"]>("blog");
     const mdPost = posts.filter((page) => page.slug === params.single)[0];
@@ -84,7 +85,6 @@ const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
       }));
     }
   } catch {
-    // fallback to markdown
     allPosts = getSinglePage<BlogPost["frontmatter"]>("blog") as any[];
   }
 

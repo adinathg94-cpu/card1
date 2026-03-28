@@ -1,47 +1,44 @@
 // server.js
-// Custom Entry Point for Hostinger / Phusion Passenger
+// Custom Entry Point for Hostinger / Phusion Passenger 
 // Fixes 'EEXIST at new Socket (node:net:434:13) at process.getStdin' error.
 
-// Hostinger's Passenger environment sometimes incorrectly maps stdin 
-// which causes Node 20+ to crash when Next.js 15 tries to access worker_threads or stdin streams.
+// Hostinger's environment on Node 20+ sometimes crashes when Next.js 15 
+// tries to initialize standard input streams.
 try {
-    // 1. Close standard input file descriptor to prevent EEXIST on fd 0 mapping.
-    const fs = require('fs');
-    fs.closeSync(0);
+  // Mock process.stdin before it's accessed by the ESM loader or Next.js
+  const mockStdin = {
+    on: () => {},
+    once: () => {},
+    emit: () => {},
+    read: () => {},
+    resume: () => {},
+    pause: () => {},
+    setEncoding: () => {},
+    setRawMode: () => {},
+    isTTY: false,
+    readable: false,
+    writable: false,
+    destroy: () => {},
+    end: () => {},
+  };
+
+  // Ensure process.stdin getter doesn't trigger new Socket creation
+  Object.defineProperty(process, 'stdin', {
+    get: function() { return mockStdin; },
+    configurable: true,
+    enumerable: true
+  });
 } catch (e) {
-    // Ignore errors if already closed or inaccessible
+  // Ignore property override errors
 }
 
+// Delegate to the Next.js standalone server
 try {
-    // 2. Mock process.stdin to prevent ESM loader or Next.js from crashing on the getter
-    Object.defineProperty(process, 'stdin', {
-        get: function() {
-            return {
-                on: function() {},
-                once: function() {},
-                emit: function() {},
-                read: function() {},
-                resume: function() {},
-                pause: function() {},
-                setEncoding: function() {},
-                setRawMode: function() {},
-                isTTY: false
-            };
-        },
-        configurable: true
-    });
+  require('./.next/standalone/server.js');
 } catch (e) {
-    // Ignore property override errors
-}
-
-// 3. Delegate to the Next.js standalone server
-try {
-    require('./.next/standalone/server.js');
-} catch (e) {
-    console.error('Failed to start Next.js standalone server:', e);
-    
-    // Fallback: If standalone isn't generated or accessible, try to start Next dynamically
-    // Note: This requires 'next' to be installed on production
-    const nextStart = require('next/dist/cli/next-start').nextStart;
-    nextStart([ '-p', process.env.PORT || '3000' ]);
+  console.error('Failed to load standalone server:', e);
+  
+  // Fallback if standalone isn't available
+  const nextStart = require('next/dist/cli/next-start').nextStart;
+  nextStart([ '-p', process.env.PORT || '3000' ]);
 }
