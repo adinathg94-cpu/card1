@@ -120,13 +120,6 @@ export async function DELETE(
       return NextResponse.json({ error: "Program not found" }, { status: 404 });
     }
 
-    // Revalidate the cached list page
-    try {
-      revalidatePath("/programs", "page");
-    } catch {
-      // ignore
-    }
-
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting program:", error);

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDB } from "@/lib/db";
 import { cookies } from "next/headers";
-import { revalidatePath } from "next/cache";
 
 // GET single administration member
 export async function GET(
@@ -66,13 +65,6 @@ export async function PUT(
       parseInt(id)
     );
 
-    // Revalidate the cached team page
-    try {
-      revalidatePath("/teams", "page");
-    } catch {
-       // ignore
-    }
-
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error updating member:", error);
@@ -102,13 +94,6 @@ export async function DELETE(
     db.prepare("DELETE FROM administration_members WHERE id = ?").run(
       parseInt(id)
     );
-
-    // Revalidate the cached team page
-    try {
-       revalidatePath("/teams", "page");
-    } catch {
-       // ignore
-    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

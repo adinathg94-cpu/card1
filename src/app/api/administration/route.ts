@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDB } from "@/lib/db";
 import { cookies } from "next/headers";
-import { revalidatePath } from "next/cache";
 
 // GET all administration members
 export async function GET() {
@@ -58,13 +57,6 @@ export async function POST(request: NextRequest) {
         bio || null,
         order_index || 0
       );
-
-    // Revalidate the cached team page
-    try {
-      revalidatePath("/teams", "page");
-    } catch {
-       // ignore
-    }
 
     return NextResponse.json({ id: result.lastInsertRowid });
   } catch (error) {

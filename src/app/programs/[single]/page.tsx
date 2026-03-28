@@ -68,7 +68,7 @@ const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => 
                   height={600}
                   width={1280}
                   alt={title}
-                  className="w-full aspect-16/7.5 object-cover object-center group-hover:scale-105 transition duration-700"
+                  className="w-full aspect-[16/7.5] object-cover object-center group-hover:scale-105 transition duration-700"
                   priority
                 />
               </div>
