@@ -15,31 +15,8 @@ import { BlogPost } from "@/types";
 
 const { blog_folder } = config.settings;
 
-// remove dynamicParams
-export const dynamicParams = false;
-
-// generate static params
-export const generateStaticParams: () => { single: string }[] = () => {
-  // Try database first, fallback to markdown
-  const dbPosts = getBlogPostsFromDB();
-  let posts;
-
-  if (dbPosts.length > 0) {
-    posts = dbPosts.map((post) => ({
-      slug: post.slug,
-      frontmatter: post.frontmatter,
-      content: post.content,
-    }));
-  } else {
-    posts = getSinglePage(blog_folder);
-  }
-
-  const paths = posts.map((post) => ({
-    single: post.slug!,
-  }));
-
-  return paths;
-};
+// Force dynamic rendering so DB edits show immediately
+export const dynamic = "force-dynamic";
 
 const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
   const params = await props.params;

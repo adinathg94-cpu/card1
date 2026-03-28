@@ -9,18 +9,8 @@ import FAQs from "@/partials/FAQs";
 import SeoMeta from "@/partials/SeoMeta";
 import { notFound } from "next/navigation";
 
-// remove dynamicParams
-export const dynamicParams = true;
-
-// generate static params
-export async function generateStaticParams() {
-  const db = getDB();
-  const programs = db.prepare("SELECT slug FROM programs").all() as { slug: string }[];
-
-  return programs.map((program) => ({
-    single: program.slug,
-  }));
-}
+// Force dynamic rendering so DB edits show immediately
+export const dynamic = "force-dynamic";
 
 const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => {
   const params = await props.params;
@@ -58,19 +48,6 @@ const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => 
               className="mb-8 mt-4 font-semibold text-balance"
             />
             
-            <div className="flex flex-wrap gap-4 mb-8">
-              {goal && (
-                <span className="px-4 py-2 bg-secondary/10 text-secondary rounded-full text-sm font-semibold border border-secondary/20">
-                  Goal: {goal}
-                </span>
-              )}
-              {raised && (
-                <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold border border-green-200">
-                  Raised: {raised}
-                </span>
-              )}
-            </div>
-
             {image && (
               <div className="mb-10 relative overflow-hidden rounded-4xl group">
                 <ImageFallback
