@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDB, serializeJSON } from "@/lib/db";
 import { cookies } from "next/headers";
-import { revalidatePath } from "next/cache";
 
 // GET single program
 export async function GET(
@@ -78,14 +77,6 @@ export async function PUT(
 
     if (result.changes === 0) {
       return NextResponse.json({ error: "Program not found" }, { status: 404 });
-    }
-
-    // Revalidate the cached pages so changes show immediately (ISR)
-    try {
-      revalidatePath(`/programs/${slug}`, "page");
-      revalidatePath("/programs", "page");
-    } catch {
-      // ignore revalidation errors — not critical
     }
 
     return NextResponse.json({ success: true });
