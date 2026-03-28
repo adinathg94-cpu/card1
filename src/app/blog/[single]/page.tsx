@@ -14,7 +14,21 @@ import { BlogPost } from "@/types";
 
 const { blog_folder } = config.settings;
 
-export const dynamic = "force-dynamic";
+// Allow slugs not in generateStaticParams to be rendered on-demand
+export const dynamicParams = true;
+
+// Pre-render known slugs at build time
+export const generateStaticParams: () => { single: string }[] = () => {
+  try {
+    const dbPosts = getBlogPostsFromDB();
+    if (dbPosts.length > 0) {
+      return dbPosts.map((post) => ({ single: post.slug! }));
+    }
+    return getSinglePage(blog_folder).map((post) => ({ single: post.slug! }));
+  } catch {
+    return [];
+  }
+};
 
 const PostSingle = async (props: { params: Promise<{ single: string }> }) => {
   const params = await props.params;

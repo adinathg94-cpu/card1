@@ -11,8 +11,6 @@ import { BlogPage, BlogPost } from "@/types";
 
 const { blog_folder } = config.settings;
 
-export const dynamic = "force-dynamic";
-
 export default function BlogIndexPage() {
   // Try database first, fallback to markdown
   const dbPosts = getBlogPostsFromDB();

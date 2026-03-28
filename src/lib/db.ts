@@ -2,42 +2,6 @@ import Database from "better-sqlite3";
 import path from "path";
 import fs from "fs";
 
-/**
- * HOSTINGER / PHUSION PASSENGER PATCH
- * Fixes 'EEXIST at new Socket (node:net:434:13) at process.getStdin' error.
- * This occurs because Passenger doesn't correctly map stdin (FD 0) for Node 20+,
- * causing Next.js 15 worker threads to crash.
- */
-if (typeof process !== 'undefined') {
-  try {
-    // 1. Close standard input file descriptor to prevent EEXIST on fd 0 mapping.
-    // Use fs.closeSync(0) with extreme caution, only in environments where stdin is broken.
-    if (process.env.NODE_ENV === 'production') {
-      try { fs.closeSync(0); } catch (e) {}
-    }
-
-    // 2. Mock process.stdin so the getter won't throw when Next.js accesses it.
-    Object.defineProperty(process, 'stdin', {
-      get: function() {
-        return {
-          on: () => {},
-          once: () => {},
-          emit: () => {},
-          read: () => {},
-          resume: () => {},
-          pause: () => {},
-          setEncoding: () => {},
-          setRawMode: () => {},
-          isTTY: false
-        };
-      },
-      configurable: true
-    });
-  } catch (e) {
-    // Ignore override errors
-  }
-}
-
 let db: Database.Database | null = null;
 
 function initializeSchema(database: Database.Database) {

@@ -8,7 +8,6 @@ import FAQs from "@/partials/FAQs";
 import FeaturesSection from "@/partials/FeaturesSection";
 import SeoMeta from "@/partials/SeoMeta";
 import { TeamMember, TeamsPage } from "@/types";
-export const dynamic = "force-dynamic";
 
 export default function Teams() {
   const teamsIndex = getListPage<TeamsPage["frontmatter"]>("teams/_index.md");
