@@ -13,6 +13,7 @@ import SeoMeta from '@/partials/SeoMeta';
 import type { ProgramsPage } from '@/types';
 import Link from 'next/link';
 const FOLDER = "programs";
+export const dynamic = "force-dynamic";
 
 const ProgramsPage = async () => {
   const programsIndex = getListPage<ProgramsPage["frontmatter"]>(`${FOLDER}/_index.md`);
