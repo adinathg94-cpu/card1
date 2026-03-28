@@ -9,19 +9,7 @@ import FAQs from "@/partials/FAQs";
 import SeoMeta from "@/partials/SeoMeta";
 import { notFound } from "next/navigation";
 
-// Allow dynamic segments not in generateStaticParams to be rendered on-demand
-export const dynamicParams = true;
-
-// generate static params for known slugs at build time
-export async function generateStaticParams() {
-  try {
-    const db = getDB();
-    const programs = db.prepare("SELECT slug FROM programs").all() as { slug: string }[];
-    return programs.map((p) => ({ single: p.slug }));
-  } catch {
-    return [];
-  }
-}
+export const dynamic = "force-dynamic";
 
 const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => {
   const params = await props.params;
