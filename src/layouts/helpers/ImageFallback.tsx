@@ -16,11 +16,15 @@ const ImageFallback = ({
   const [imgSrc, setImgSrc] = useState(src);
   const [isError, setIsError] = useState(false);
 
+  // Bypass image optimization for uploaded images starting with /uploads/
+  const isUpload = typeof imgSrc === "string" && imgSrc.startsWith("/uploads/");
+
   return (
     <Image
       {...rest}
       src={imgSrc}
       alt={alt}
+      unoptimized={rest.unoptimized || isUpload}
       onError={() => {
         if (!isError) {
           setImgSrc(fallbackSrc);
