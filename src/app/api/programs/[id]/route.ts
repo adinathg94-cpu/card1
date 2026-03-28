@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDB, serializeJSON } from "@/lib/db";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 // GET single program
 export async function GET(
@@ -79,6 +80,14 @@ export async function PUT(
       return NextResponse.json({ error: "Program not found" }, { status: 404 });
     }
 
+    // Revalidate the cached pages so changes show immediately (ISR)
+    try {
+      revalidatePath(`/programs/${slug}`, "page");
+      revalidatePath("/programs", "page");
+    } catch {
+      // ignore revalidation errors — not critical
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error updating program:", error);
@@ -109,6 +118,13 @@ export async function DELETE(
 
     if (result.changes === 0) {
       return NextResponse.json({ error: "Program not found" }, { status: 404 });
+    }
+
+    // Revalidate the cached list page
+    try {
+      revalidatePath("/programs", "page");
+    } catch {
+      // ignore
     }
 
     return NextResponse.json({ success: true });

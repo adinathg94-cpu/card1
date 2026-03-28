@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDB, serializeJSON, parseJSON } from "@/lib/db";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 // GET single blog post (by numeric ID or slug)
 export async function GET(
@@ -92,6 +93,14 @@ export async function PUT(
       parseInt(id)
     );
 
+    // Revalidate the cached pages
+    try {
+      revalidatePath(`/blog/${slug}`, "page");
+      revalidatePath("/blog", "page");
+    } catch (error) {
+       console.error("Revalidation error:", error);
+    }
+
     return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error("Error updating post:", error);
@@ -125,6 +134,13 @@ export async function DELETE(
     const { id } = await params;
     const db = getDB();
     db.prepare("DELETE FROM blog_posts WHERE id = ?").run(parseInt(id));
+
+    // Revalidate the cached list page
+    try {
+       revalidatePath("/blog", "page");
+    } catch (error) {
+       console.error("Revalidation error:", error);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -1,7 +1,7 @@
 import TitleBadge from "@/components/TitleBadge";
 import ImageFallback from "@/helpers/ImageFallback";
 import MDXContent from "@/helpers/MDXContent";
-import { parseJSON } from "@/lib/db";
+import { getDB, parseJSON } from "@/lib/db";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionQuaternary from "@/partials/CallToActionQuaternary";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
@@ -9,40 +9,26 @@ import FAQs from "@/partials/FAQs";
 import SeoMeta from "@/partials/SeoMeta";
 import { notFound } from "next/navigation";
 
-// Opt out of Full Route Cache so admin edits show immediately
-export const revalidate = 0;
+// Allow dynamic segments not in generateStaticParams to be rendered on-demand
+export const dynamicParams = true;
+
+// generate static params for known slugs at build time
+export async function generateStaticParams() {
+  try {
+    const db = getDB();
+    const programs = db.prepare("SELECT slug FROM programs").all() as { slug: string }[];
+    return programs.map((p) => ({ single: p.slug }));
+  } catch {
+    return [];
+  }
+}
 
 const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => {
   const params = await props.params;
-
-  // Use the API route so we don't initiate a second SQLite connection
-  // on an ESM worker thread (avoids EEXIST on stdin in Hostinger env)
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "http://localhost:3000";
-
-  let program: any = null;
-
-  try {
-    const res = await fetch(`${baseUrl}/api/programs/${params.single}`, {
-      cache: "no-store",
-    });
-    if (res.ok) {
-      program = await res.json();
-    }
-  } catch {
-    // fallback: try direct DB import as last resort
-    try {
-      const { getDB } = await import("@/lib/db");
-      const db = getDB();
-      program = db
-        .prepare("SELECT * FROM programs WHERE slug = ?")
-        .get(params.single);
-    } catch {
-      // ignore — notFound() below handles missing program
-    }
-  }
+  const db = getDB();
+  const program = db
+    .prepare("SELECT * FROM programs WHERE slug = ?")
+    .get(params.single) as any;
 
   if (!program) {
     notFound();
@@ -82,7 +68,7 @@ const ProgramSingle = async (props: { params: Promise<{ single: string }> }) => 
                   height={600}
                   width={1280}
                   alt={title}
-                  className="w-full aspect-[16/7.5] object-cover object-center group-hover:scale-105 transition duration-700"
+                  className="w-full aspect-16/7.5 object-cover object-center group-hover:scale-105 transition duration-700"
                   priority
                 />
               </div>
