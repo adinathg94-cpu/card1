@@ -16,6 +16,7 @@ import { getListPage, getAdministrationMembersFromDB } from "@/lib/contentParser
 import type { AboutPage } from "@/types";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
 
 export default function AboutPage() {
   const about = getListPage<AboutPage["frontmatter"]>("about/_index.md");
