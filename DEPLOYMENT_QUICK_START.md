@@ -4,7 +4,7 @@
 
 You can now deploy your Next.js application to the client's server **without providing source code**. The application uses:
 - ✅ Next.js standalone mode (self-contained deployment)
-- ✅ Code obfuscation (intellectual property protection)
+- ✅ Compiled code (reduced readability)
 - ✅ Automated packaging system
 
 ---
@@ -18,7 +18,7 @@ npm run build:deploy
 ```
 
 This command will:
-1. Build the production bundle with obfuscation
+1. Build the production bundle
 2. Copy all necessary files (no source code)
 3. Create deployment configuration
 4. Generate `deployment-package.zip`
@@ -29,7 +29,7 @@ This command will:
 deployment-package.zip
 ├── server.js                    # Standalone Node.js server
 ├── .next/
-│   ├── static/                 # Obfuscated client-side JavaScript
+│   ├── static/                 # Production client-side JavaScript
 │   └── server/                 # Compiled server code
 ├── public/                     # Static assets
 ├── package.json                # Production dependencies only
@@ -104,7 +104,7 @@ pm2 startup
 
 ## What the Client CAN See
 
-✅ **Compiled Code**: Obfuscated JavaScript (unreadable)
+✅ **Compiled Code**: Production-ready JavaScript (minified)
 ✅ **Static Assets**: Images, fonts, CSS
 ✅ **Node Server**: Ready-to-run server.js
 ✅ **Dependencies**: Only production npm packages
@@ -144,8 +144,8 @@ pm2 restart kindora-app
 
 ## Security Features
 
-✅ **Code Obfuscation**: All JavaScript is obfuscated with hexadecimal names
-✅ **No Source Maps**: Reverse engineering is extremely difficult
+✅ **Compiled Output**: All JavaScript is minified for production
+✅ **No Source Maps**: Source code remains protected in build output
 ✅ **Environment Isolation**: Sensitive config in `.env.production`
 ✅ **Compiled Output**: Only production-ready code included
 
@@ -209,7 +209,7 @@ Visit `http://localhost:3000` to verify everything works.
 
 ## Next Steps
 
-1. ✅ Code obfuscation is already configured
+1. ✅ Build system is configured for standalone production output
 2. ✅ Deployment system is ready to use
 3. ▶️ Run `npm run build:deploy` when ready to create package
 4. ▶️ Transfer ZIP to client

@@ -45,7 +45,7 @@ $EXCLUDE_FILES = @(
     ".env.local",
     ".env",
     "Home Page.pdf",
-    "OBFUSCATION_SUMMARY.md",
+
     "process_remaining.js",
     "package-lock.json"
 )
