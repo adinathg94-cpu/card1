@@ -1,5 +1,4 @@
 import ImageFallback from "@/helpers/ImageFallback";
-import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import { CtaSecondarySection } from "@/types";
 import Link from "next/link";
@@ -9,10 +8,29 @@ interface Props {
   isNoSectionTop?: boolean;
 }
 
-const CallToActionSecondary = ({ isNoSectionTop = false }: Props) => {
-  const callToActionData = getListPage<CtaSecondarySection["frontmatter"]>(
-    "sections/call-to-action-secondary.md"
-  );
+import { headers } from "next/headers";
+
+const CallToActionSecondary = async ({ isNoSectionTop = false }: Props) => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let callToActionData: any = {
+    frontmatter: { buttons: [], facts: { team: [], counter: {} } },
+  };
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?file=sections/call-to-action-secondary.md`,
+      { cache: "no-store" }
+    );
+    if (res.ok) {
+      callToActionData = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching secondary CTA from API:", error);
+  }
+
   const { enable, title, image, description, buttons, facts } =
     callToActionData.frontmatter;
 

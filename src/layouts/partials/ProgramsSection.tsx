@@ -1,13 +1,43 @@
-import { getListPage, getSinglePage } from "@/lib/contentParser";
+import { headers } from "next/headers";
 import ProgramCard from "@/components/ProgramCard";
 import TitleBadge from "@/components/TitleBadge";
 import { sortByDate } from "@/lib/utils/sortFunctions";
 import { markdownify } from "@/lib/utils/textConverter";
 import { Program, RegularPage } from "@/types";
 
-const ProgramsSection = () => {
-  const programsIndex = getListPage<RegularPage["frontmatter"]>("sections/programs-homepage-section.md");
-  const programs = sortByDate(getSinglePage<Program["frontmatter"]>("programs"));
+import config from "@/config/config.json";
+const { blog_folder } = config.settings;
+
+const ProgramsSection = async () => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let programsIndex: any = { frontmatter: {} };
+  let programs: any[] = [];
+
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?file=sections/programs-homepage-section.md`,
+      { cache: "no-store" }
+    );
+    if (res.ok) programsIndex = await res.json();
+  } catch (error) {
+    console.error("Error fetching programs index from API:", error);
+  }
+
+  try {
+    const res = await fetch(`${baseUrl}/api/posts?folder=programs`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      const data = await res.json();
+      programs = sortByDate(data);
+    }
+  } catch (error) {
+    console.error("Error fetching programs from API:", error);
+  }
 
   return (
     <section className="section pt-0">

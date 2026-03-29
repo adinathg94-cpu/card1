@@ -2,15 +2,30 @@
 import TitleBadge from "@/components/TitleBadge";
 import ImageFallback from "@/helpers/ImageFallback";
 import MDXContent from "@/helpers/MDXContent";
-import { getSinglePage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
 import SeoMeta from "@/partials/SeoMeta";
 import { RegularPage } from "@/types";
 
+import { headers } from "next/headers";
+
 const ActPage = async () => {
-  const pages = getSinglePage<RegularPage["frontmatter"]>("pages");
-  const page = pages.filter((p) => p.slug === "act")[0];
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let page: any = null;
+  try {
+    const res = await fetch(`${baseUrl}/api/posts?folder=pages&slug=act`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      page = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching act page from API:", error);
+  }
 
   if (!page) {
     return <div>Page not found</div>;

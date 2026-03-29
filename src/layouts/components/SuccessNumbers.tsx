@@ -1,12 +1,31 @@
 import DynamicIcon from "@/helpers/DynamicIcon";
-import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import { SuccessNumbersSection } from "@/types";
 import TitleBadge from "./TitleBadge";
 
-const SuccessNumbers = () => {
-  const successNumbers = getListPage<SuccessNumbersSection["frontmatter"]>("sections/success-numbers.md");
-  const { enable, badge, facts, title, description } = successNumbers.frontmatter;
+import { headers } from "next/headers";
+
+const SuccessNumbers = async () => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let successNumbersByFile: any = { frontmatter: {} };
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?file=sections/success-numbers.md`,
+      { cache: "no-store" }
+    );
+    if (res.ok) {
+      successNumbersByFile = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching success numbers from API:", error);
+  }
+
+  const { enable, badge, facts, title, description } =
+    successNumbersByFile.frontmatter;
 
   return (
     <>

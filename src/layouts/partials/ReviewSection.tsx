@@ -1,12 +1,31 @@
 import ReviewCard from "@/components/ReviewCard";
 import TitleBadge from "@/components/TitleBadge";
-import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import { ReviewsSection } from "@/types";
 
-const ReviewSection = () => {
-  const reviewsSection = getListPage<ReviewsSection["frontmatter"]>("sections/reviews-section.md");
-  const { enable, title, description, badge, reviews } = reviewsSection.frontmatter;
+import { headers } from "next/headers";
+
+const ReviewSection = async () => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let reviewsSectionByFile: any = { frontmatter: {} };
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?file=sections/reviews-section.md`,
+      { cache: "no-store" }
+    );
+    if (res.ok) {
+      reviewsSectionByFile = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching review section from API:", error);
+  }
+
+  const { enable, title, description, badge, reviews } =
+    reviewsSectionByFile.frontmatter;
 
   return (
     <>

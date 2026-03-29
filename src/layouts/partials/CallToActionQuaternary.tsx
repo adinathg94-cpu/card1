@@ -1,4 +1,3 @@
-import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import { type CtaTertiarySection } from "@/types";
 import Link from "next/link";
@@ -7,10 +6,26 @@ interface Props {
   isNoSectionTop?: boolean;
 }
 
-const CallToActionQuaternary = ({ isNoSectionTop = false }: Props) => {
-  const callToAction = getListPage<CtaTertiarySection["frontmatter"]>(
-    "sections/call-to-action-quaternary.md"
-  );
+import { headers } from "next/headers";
+
+const CallToActionQuaternary = async ({ isNoSectionTop = false }: Props) => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let callToAction: any = { frontmatter: { button: {} } };
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?file=sections/call-to-action-quaternary.md`,
+      { cache: "no-store" }
+    );
+    if (res.ok) {
+      callToAction = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching quaternary CTA from API:", error);
+  }
 
   return (
     <>

@@ -1,16 +1,42 @@
 import ReviewCard from "@/components/ReviewCard";
 import TitleBadge from "@/components/TitleBadge";
-import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
 import SeoMeta from "@/partials/SeoMeta";
 import type { ReviewsPage, ReviewsSection } from "@/types";
 
-export default function ReviewsPage() {
-  const reviewsIndex = getListPage<ReviewsPage["frontmatter"]>("reviews/_index.md");
-  const reviewsSection = getListPage<ReviewsSection["frontmatter"]>(
-    "sections/reviews-section.md"
-  );
+import { headers } from "next/headers";
+
+export default async function ReviewsPage() {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let reviewsIndex: any = { frontmatter: { badge: {} } };
+  try {
+    const res = await fetch(`${baseUrl}/api/posts?folder=reviews&isList=true`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      reviewsIndex = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching reviews index from API:", error);
+  }
+
+  let reviewsSection: any = { frontmatter: {} };
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?file=sections/reviews-section.md`,
+      { cache: "no-store" }
+    );
+    if (res.ok) {
+      reviewsSection = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching reviews section from API:", error);
+  }
 
   return (
     <>

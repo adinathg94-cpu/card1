@@ -1,7 +1,6 @@
 import { getBackgroundClass } from '@/components/Features';
 import TitleBadge from '@/components/TitleBadge';
 import DynamicIcon from '@/helpers/DynamicIcon';
-import { getListPage } from '@/lib/contentParser';
 import { markdownify } from '@/lib/utils/textConverter';
 import CallToActionSecondary from '@/partials/CallToActionSecondary';
 import FAQs from '@/partials/FAQs';
@@ -10,9 +9,28 @@ import type { ContactPage } from '@/types';
 import Link from 'next/link';
 import ContactForm from '@/layouts/components/ContactForm';
 
-const ContactPage = () => {
-  const contactIndex = getListPage<ContactPage["frontmatter"]>('contact/_index.md');
-  const { badge, title, description, cta_banners, contact_form_intro } = contactIndex.frontmatter;
+import { headers } from "next/headers";
+
+const ContactPage = async () => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let contactIndex: any = { frontmatter: {} };
+  try {
+    const res = await fetch(`${baseUrl}/api/posts?folder=contact&isList=true`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      contactIndex = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching contact index from API:", error);
+  }
+
+  const { badge, title, description, cta_banners, contact_form_intro } =
+    contactIndex.frontmatter;
   return (
     <>
       <SeoMeta {...contactIndex.frontmatter} />

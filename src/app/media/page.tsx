@@ -1,19 +1,44 @@
 import TitleBadge from "@/components/TitleBadge";
-import { getListPage, getMediaItemsFromDB } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
 import SeoMeta from "@/partials/SeoMeta";
 import type { RegularPage } from "@/types";
 import socialConfig from "@/config/social.json";
 import MediaFeed from "./components/MediaFeed";
+import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
-export default function MediaPage() {
-  const media = getListPage<RegularPage["frontmatter"]>("media/_index.md");
+
+export default async function MediaPage() {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let media: any = { frontmatter: {} };
+  try {
+    const res = await fetch(`${baseUrl}/api/posts?folder=media&isList=true`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      media = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching media index from API:", error);
+  }
+
   const { title, meta_title, description, image, badge } = media.frontmatter;
 
-  // Get media items from database
-  const allMediaItems = getMediaItemsFromDB();
+  // Get media items from database via API
+  let allMediaItems: any[] = [];
+  try {
+    const res = await fetch(`${baseUrl}/api/media`, { cache: "no-store" });
+    if (res.ok) {
+      allMediaItems = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching media items from API:", error);
+  }
 
   // Group by type
   const successStories = allMediaItems

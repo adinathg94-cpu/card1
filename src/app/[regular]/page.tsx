@@ -16,10 +16,27 @@ export async function generateStaticParams() {
   return pages.map((page) => ({ regular: page.slug }));
 }
 
+import { headers } from "next/headers";
+
 const RegularPage = async (props: { params: Promise<{ regular: string }> }) => {
   const params = await props.params;
-  const pages = getSinglePage<RegularPage["frontmatter"]>("pages");
-  const page = pages.find((p) => p.slug === params.regular);
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let page: any = null;
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?folder=pages&slug=${params.regular}`,
+      { cache: "no-store" }
+    );
+    if (res.ok) {
+      page = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching regular page from API:", error);
+  }
 
   if (!page) {
     return notFound();

@@ -1,16 +1,30 @@
 import Products from "@/components/Products";
 import TitleBadge from "@/components/TitleBadge";
-import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import type { ProductsSection } from "@/types";
+import { headers } from "next/headers";
 
-const ProductsSection = () => {
-  const productsSection = getListPage<ProductsSection["frontmatter"]>(
-    "sections/products-section.md"
-  );
+const ProductsSection = async () => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let productsSectionByFile: any = { frontmatter: {} };
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?file=sections/products-section.md`,
+      { cache: "no-store" }
+    );
+    if (res.ok) {
+      productsSectionByFile = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching products section from API:", error);
+  }
 
   const { enable, title, description, badge, products } =
-    productsSection.frontmatter;
+    productsSectionByFile.frontmatter;
 
   return (
     <>

@@ -1,14 +1,31 @@
 
 
 import TitleBadge from "@/components/TitleBadge";
-import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import Accordion, { AccordionProvider } from "@/shortcodes/Accordion";
 import { FaqsSection } from "@/types";
 import Link from "next/link";
 
-const FAQs = () => {
-  const faqsData = getListPage<FaqsSection["frontmatter"]>("sections/faqs.md");
+import { headers } from "next/headers";
+
+const FAQs = async () => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let faqsData: any = { frontmatter: {} };
+  try {
+    const res = await fetch(`${baseUrl}/api/posts?file=sections/faqs.md`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      faqsData = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching FAQs from API:", error);
+  }
+
   const { enable, title, description, button, badge, list } =
     faqsData.frontmatter;
 

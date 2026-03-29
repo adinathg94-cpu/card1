@@ -1,44 +1,38 @@
-import { NextResponse } from "next/server";
-import { getBlogPostsFromDB, getListPage, getSinglePage } from "@/lib/contentParser";
+import { NextRequest, NextResponse } from "next/server";
+import { getSinglePage, getListPage } from "@/lib/contentParser";
 import config from "@/config/config.json";
-import { BlogPost, BlogPage } from "@/types";
 
-const { blog_folder } = config.settings;
-
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const slug = searchParams.get('slug');
+    const folder = searchParams.get("folder") || config.settings.blog_folder;
+    const isList = searchParams.get("isList") === "true";
+    const slug = searchParams.get("slug");
+    const file = searchParams.get("file");
 
-    const dbPosts = getBlogPostsFromDB();
-    let posts;
-    
-    if (dbPosts.length > 0) {
-      posts = dbPosts.map((post) => ({
-        slug: post.slug,
-        frontmatter: post.frontmatter,
-        content: post.content,
-      }));
-    } else {
-      posts = getSinglePage<BlogPost["frontmatter"]>(blog_folder);
+    if (file) {
+      const pageData = getListPage(file);
+      return NextResponse.json(pageData);
     }
 
+    if (isList) {
+      const pageData = getListPage(`${folder}/_index.md`);
+      return NextResponse.json(pageData);
+    }
+
+    const posts = getSinglePage(folder);
+
     if (slug) {
-      const post = posts.find(p => p.slug === slug);
+      const post = posts.find((p) => p.slug === slug);
       if (!post) {
-        return NextResponse.json({ error: "Not found" }, { status: 404 });
+        return NextResponse.json({ error: "Post not found" }, { status: 404 });
       }
       return NextResponse.json(post);
     }
-    
-    const postIndex = getListPage<BlogPage["frontmatter"]>(`${blog_folder}/_index.md`);
 
-    return NextResponse.json({
-      posts,
-      postIndex,
-    });
+    return NextResponse.json(posts);
   } catch (error) {
-    console.error("Error fetching posts:", error);
+    console.error("Error in posts API:", error);
     return NextResponse.json(
       { error: "Failed to fetch posts" },
       { status: 500 }

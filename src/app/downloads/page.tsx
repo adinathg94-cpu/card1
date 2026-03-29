@@ -1,5 +1,4 @@
 import TitleBadge from "@/components/TitleBadge";
-import { getListPage, getDownloadsFromDB } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToActionSecondary from "@/partials/CallToActionSecondary";
 import SeoMeta from "@/partials/SeoMeta";
@@ -7,12 +6,38 @@ import type { RegularPage } from "@/types";
 import Link from "next/link";
 import { FaDownload, FaFilePdf } from "react-icons/fa6";
 
-export default function DownloadsPage() {
-  const downloads = getListPage<RegularPage["frontmatter"]>("downloads/_index.md");
+import { headers } from "next/headers";
+
+export default async function DownloadsPage() {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let downloads: any = { frontmatter: {} };
+  try {
+    const res = await fetch(`${baseUrl}/api/posts?folder=downloads&isList=true`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      downloads = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching downloads index from API:", error);
+  }
+
   const { title, meta_title, description, image, badge } = downloads.frontmatter;
-  
-  // Get downloads from database
-  const dbDownloads = getDownloadsFromDB();
+
+  // Get downloads from database via API
+  let dbDownloads: any[] = [];
+  try {
+    const res = await fetch(`${baseUrl}/api/downloads`, { cache: "no-store" });
+    if (res.ok) {
+      dbDownloads = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching downloads from API:", error);
+  }
   const pdfFiles = dbDownloads.map((download) => ({
     name: download.name,
     url: download.url,

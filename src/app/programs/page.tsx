@@ -3,8 +3,6 @@ import ProgramCard from '@/components/ProgramCard';
 import TitleBadge from '@/components/TitleBadge';
 import config from "@/config/config.json";
 import ImageFallback from '@/helpers/ImageFallback';
-import { getListPage } from '@/lib/contentParser';
-import { getDB, parseJSON } from '@/lib/db';
 import { markdownify } from '@/lib/utils/textConverter';
 import CallToActionSecondary from '@/partials/CallToActionSecondary';
 import FAQs from '@/partials/FAQs';
@@ -15,29 +13,53 @@ import Link from 'next/link';
 const FOLDER = "programs";
 export const dynamic = "force-dynamic";
 
+import { headers } from "next/headers";
+
 const ProgramsPage = async () => {
-  const programsIndex = getListPage<ProgramsPage["frontmatter"]>(`${FOLDER}/_index.md`);
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let programsIndex: any = { frontmatter: {} };
+  try {
+    const res = await fetch(`${baseUrl}/api/posts?folder=${FOLDER}&isList=true`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      programsIndex = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching programs index from API:", error);
+  }
+
   const { title, description, badge, all_programs, button, numbers_banner } =
     programsIndex.frontmatter;
 
-  const db = getDB();
-  const dbPrograms = db.prepare("SELECT * FROM programs ORDER BY order_index ASC, created_at DESC").all() as any[];
-
-  const programs = dbPrograms.map(p => ({
-    slug: p.slug,
-    frontmatter: {
-      title: p.title,
-      description: p.description,
-      image: p.image,
-      date: p.date,
-      end_date: p.end_date,
-      categories: parseJSON<string[]>(p.categories) || [],
-      goal: p.goal || '',
-      raised: p.raised || '',
-      featured: p.featured === 1
-    },
-    content: p.content
-  }));
+  let programs: any[] = [];
+  try {
+    const res = await fetch(`${baseUrl}/api/programs`, { cache: "no-store" });
+    if (res.ok) {
+      const dbPrograms = await res.json();
+      programs = dbPrograms.map((p: any) => ({
+        slug: p.slug,
+        frontmatter: {
+          title: p.title,
+          description: p.description,
+          image: p.image,
+          date: p.date,
+          end_date: p.end_date,
+          categories: p.categories || [],
+          goal: p.goal || "",
+          raised: p.raised || "",
+          featured: p.featured === 1,
+        },
+        content: p.content,
+      }));
+    }
+  } catch (error) {
+    console.error("Error fetching programs from API:", error);
+  }
 
   const featuredProgram = programs
     .filter((program) => program?.frontmatter?.featured)

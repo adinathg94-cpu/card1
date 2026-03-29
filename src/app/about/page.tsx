@@ -12,14 +12,29 @@ import SeoMeta from "@/partials/SeoMeta";
 import Testimonial from "@/partials/Testimonial";
 
 import ImageFallback from "@/helpers/ImageFallback";
-import { getListPage, getAdministrationMembersFromDB } from "@/lib/contentParser";
-import type { AboutPage } from "@/types";
+import { headers } from "next/headers";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export default function AboutPage() {
-  const about = getListPage<AboutPage["frontmatter"]>("about/_index.md");
+export default async function AboutPage() {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let about: any = { frontmatter: {} };
+  try {
+    const res = await fetch(`${baseUrl}/api/posts?folder=about&isList=true`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      about = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching about page from API:", error);
+  }
+
   const {
     title,
     description,
@@ -34,19 +49,30 @@ export default function AboutPage() {
     team: teamConfig,
   } = about.frontmatter;
 
-  // Get team members from database
-  const dbMembers = getAdministrationMembersFromDB();
+  // Get team members from database via API
+  let dbMembers: any[] = [];
+  try {
+    const res = await fetch(`${baseUrl}/api/administration`, {
+      cache: "no-store",
+    });
+    if (res.ok) {
+      dbMembers = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching administration members from API:", error);
+  }
 
   // Merge database members with team config
   const team = {
     ...teamConfig,
-    members: dbMembers.length > 0
-      ? dbMembers.map((member) => ({
-        name: member.name,
-        designation: member.designation,
-        image: member.image,
-      }))
-      : (teamConfig.members || []),
+    members:
+      dbMembers.length > 0
+        ? dbMembers.map((member) => ({
+            name: member.name,
+            designation: member.designation,
+            image: member.image,
+          }))
+        : teamConfig?.members || [],
   };
 
   return (

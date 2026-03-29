@@ -1,6 +1,5 @@
 import DynamicIcon from "@/helpers/DynamicIcon";
 import ImageFallback from "@/helpers/ImageFallback";
-import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import { CtaPrimarySection } from "@/types";
 import VideoPlayer from "../components/VideoPlayer";
@@ -9,10 +8,26 @@ interface Props {
   isNoSectionTop?: boolean;
 }
 
-const CallToActionPrimary = ({ isNoSectionTop }: Props) => {
-  const callToAction = getListPage<CtaPrimarySection["frontmatter"]>(
-    "sections/call-to-action-primary.md"
-  );
+import { headers } from "next/headers";
+
+const CallToActionPrimary = async ({ isNoSectionTop }: Props) => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let callToAction: any = { frontmatter: { facts: [], media_section: {} } };
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?file=sections/call-to-action-primary.md`,
+      { cache: "no-store" }
+    );
+    if (res.ok) {
+      callToAction = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching primary CTA from API:", error);
+  }
 
   if (!callToAction.frontmatter.enable) {
     return null;

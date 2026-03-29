@@ -1,12 +1,27 @@
-import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import { CtaTertiarySection } from "@/types";
 import Link from "next/link";
 
-const CallToActionTertiary = () => {
-  const callToActionData = getListPage<CtaTertiarySection["frontmatter"]>(
-    "sections/call-to-action-tertiary.md"
-  );
+import { headers } from "next/headers";
+
+const CallToActionTertiary = async () => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let callToActionData: any = { frontmatter: { button: {} } };
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?file=sections/call-to-action-tertiary.md`,
+      { cache: "no-store" }
+    );
+    if (res.ok) {
+      callToActionData = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching tertiary CTA from API:", error);
+  }
 
   return (
     <>

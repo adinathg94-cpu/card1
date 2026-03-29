@@ -1,15 +1,31 @@
 import Features from "@/components/Features";
 import TitleBadge from "@/components/TitleBadge";
-import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import type { FeaturesSection } from "@/types";
 
-const FeaturesSection = () => {
-  const featuresSection = getListPage<FeaturesSection["frontmatter"]>(
-    "sections/features-section.md"
-  );
+import { headers } from "next/headers";
+
+const FeaturesSection = async () => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let featuresSectionByFile: any = { frontmatter: {} };
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?file=sections/features-section.md`,
+      { cache: "no-store" }
+    );
+    if (res.ok) {
+      featuresSectionByFile = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching features section from API:", error);
+  }
+
   const { enable, title, description, badge, features } =
-    featuresSection.frontmatter;
+    featuresSectionByFile.frontmatter;
 
   return (
     <>

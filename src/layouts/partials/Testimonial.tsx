@@ -1,11 +1,28 @@
 import ReviewSlider from "@/components/ReviewSlider";
 import TitleBadge from "@/components/TitleBadge";
-import { getListPage } from "@/lib/contentParser";
 import { markdownify } from "@/lib/utils/textConverter";
 import type { ReviewsSection } from "@/types";
 
-const Testimonial = () => {
-  const reviewsSection = getListPage<ReviewsSection["frontmatter"]>("sections/reviews-section.md");
+import { headers } from "next/headers";
+
+const Testimonial = async () => {
+  const headerList = await headers();
+  const host = headerList.get("host");
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  let reviewsSection: any = { frontmatter: {} };
+  try {
+    const res = await fetch(
+      `${baseUrl}/api/posts?file=sections/reviews-section.md`,
+      { cache: "no-store" }
+    );
+    if (res.ok) {
+      reviewsSection = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching testimonials from API:", error);
+  }
 
   return (
     <>
