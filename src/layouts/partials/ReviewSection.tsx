@@ -11,7 +11,7 @@ const ReviewSection = async () => {
   const protocol = host?.includes("localhost") ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
 
-  let reviewsSectionByFile: any = { frontmatter: {} };
+  let reviewsSectionByFile: ReviewsSection = { frontmatter: {} as any };
   try {
     const res = await fetch(
       `${baseUrl}/api/posts?file=sections/reviews-section.md`,

@@ -11,7 +11,9 @@ const SuccessNumbers = async () => {
   const protocol = host?.includes("localhost") ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
 
-  let successNumbersByFile: any = { frontmatter: {} };
+  let successNumbersByFile: SuccessNumbersSection = {
+    frontmatter: {} as any,
+  };
   try {
     const res = await fetch(
       `${baseUrl}/api/posts?file=sections/success-numbers.md`,

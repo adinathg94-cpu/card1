@@ -11,13 +11,13 @@ import ContactForm from '@/layouts/components/ContactForm';
 
 import { headers } from "next/headers";
 
-const ContactPage = async () => {
+const Contact = async () => {
   const headerList = await headers();
   const host = headerList.get("host");
   const protocol = host?.includes("localhost") ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
 
-  let contactIndex: any = { frontmatter: {} };
+  let contactIndex: ContactPage = { frontmatter: {} as any };
   try {
     const res = await fetch(`${baseUrl}/api/posts?folder=contact&isList=true`, {
       cache: "no-store",
@@ -44,16 +44,17 @@ const ContactPage = async () => {
             className="row justify-center"
           >
             <div className="col-10 lg:col-6">
-              {badge &&
-                badge.enable && (
-                  <TitleBadge
-                    icon={badge.icon}
-                    label={badge.label}
-                    bg_color={badge.bg_color}
-                  />
-                )
-              }
-              <h2 className="py-4 text-center" dangerouslySetInnerHTML={markdownify(title || "")} />
+              {badge && badge.enable && (
+                <TitleBadge
+                  icon={badge.icon}
+                  label={badge.label}
+                  bg_color={badge.bg_color}
+                />
+              )}
+              <h2
+                className="py-4 text-center"
+                dangerouslySetInnerHTML={markdownify(title || "")}
+              />
               <p
                 className="text-center text-balance text-[18px] tracking-[0.0005px] leading-[1.69]"
                 dangerouslySetInnerHTML={markdownify(description || "")}
@@ -63,45 +64,45 @@ const ContactPage = async () => {
 
           <div className="pt-14">
             <div className="row g-4">
-              {
-                cta_banners?.map((banner, i) => (
+              {cta_banners?.map((banner: any, i: number) => (
+                <div
+                  key={i}
+                  className="md:col-6 mx-auto"
+                  data-aos="fade-up-sm"
+                  data-aos-delay={100 * (i % 2)}
+                >
                   <div
-                    key={i}
-                    className="md:col-6 mx-auto"
-                    data-aos="fade-up-sm"
-                    data-aos-delay={100 * (i % 2)}
+                    className={`${banner.banner_color} rounded-4xl p-14 text-wrap wrap-break-word relative overflow-hidden`}
                   >
+                    {/* Circle Background */}
                     <div
-                      className={`${banner.banner_color} rounded-4xl p-14 text-wrap wrap-break-word relative overflow-hidden`}
-                    >
-                      {/* Circle Background */}
-                      <div
-                        className="absolute top-[70%] lg:top-[55%] left-1/2 -translate-x-1/2 z-0 rounded-full bg-body/30"
-                        style={{ width: '100vw', height: '200vw' }}
-                      />
+                      className="absolute top-[70%] lg:top-[55%] left-1/2 -translate-x-1/2 z-0 rounded-full bg-body/30"
+                      style={{ width: "100vw", height: "200vw" }}
+                    />
 
-                      <div className="relative z-10 flex flex-col items-center">
-                        <h3
-                          className="mb-4 h4 font-semibold text-center"
-                          dangerouslySetInnerHTML={markdownify(banner.title || "")}
-                        />
-                        <p
-                          className="mb-6 text-center text-balance text-sm text-text-dark"
-                          dangerouslySetInnerHTML={markdownify(banner.description || "")}
-                        />
-                        {banner.button?.enable && (
-                          <Link
-                            href={banner.button.link}
-                            className="btn btn-primary w-full text-center"
-                          >
-                            {banner.button.label}
-                          </Link>
+                    <div className="relative z-10 flex flex-col items-center">
+                      <h3
+                        className="mb-4 h4 font-semibold text-center"
+                        dangerouslySetInnerHTML={markdownify(banner.title || "")}
+                      />
+                      <p
+                        className="mb-6 text-center text-balance text-sm text-text-dark"
+                        dangerouslySetInnerHTML={markdownify(
+                          banner.description || ""
                         )}
-                      </div>
+                      />
+                      {banner.button?.enable && (
+                        <Link
+                          href={banner.button.link}
+                          className="btn btn-primary w-full text-center"
+                        >
+                          {banner.button.label}
+                        </Link>
+                      )}
                     </div>
                   </div>
-                ))
-              }
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -124,16 +125,20 @@ const ContactPage = async () => {
               />
               <h2
                 className="py-4"
-                dangerouslySetInnerHTML={markdownify(contact_form_intro.title || "")}
+                dangerouslySetInnerHTML={markdownify(
+                  contact_form_intro.title || ""
+                )}
               />
               <p
                 className="text-balance text-[18px] tracking-[0.0005px] leading-[1.69]"
-                dangerouslySetInnerHTML={markdownify(contact_form_intro.description || "")}
+                dangerouslySetInnerHTML={markdownify(
+                  contact_form_intro.description || ""
+                )}
               />
 
               <div className="grid md:grid-cols-2 gap-4 pt-14">
-                {
-                  contact_form_intro.highlights.map((highlight, i) => {
+                {contact_form_intro.highlights.map(
+                  (highlight: any, i: number) => {
                     const bgClass = getBackgroundClass(i);
                     return (
                       <div key={i}>
@@ -148,20 +153,28 @@ const ContactPage = async () => {
 
                         <h6
                           className="font-semibold"
-                          dangerouslySetInnerHTML={markdownify(highlight.title || "")}
+                          dangerouslySetInnerHTML={markdownify(
+                            highlight.title || ""
+                          )}
                         />
                         <p
                           className="mt-3 mb-6"
-                          dangerouslySetInnerHTML={markdownify(highlight.description || "")}
+                          dangerouslySetInnerHTML={markdownify(
+                            highlight.description || ""
+                          )}
                         />
                       </div>
                     );
-                  })
-                }
+                  }
+                )}
               </div>
             </div>
 
-            <div data-aos="fade-up-sm" data-aos-delay="200" className="lg:col-6">
+            <div
+              data-aos="fade-up-sm"
+              data-aos-delay="200"
+              className="lg:col-6"
+            >
               <div className="bg-dark/2 p-10 rounded-2xl">
                 <h6 className="h4 mb-2 font-semibold">Let’s Chat</h6>
                 <p>Want to learn more about Us, we are ready to help.</p>
@@ -179,7 +192,7 @@ const ContactPage = async () => {
       <FAQs />
       <CallToActionSecondary isNoSectionTop />
     </>
-  )
-}
+  );
+};
 
-export default ContactPage
+export default Contact;

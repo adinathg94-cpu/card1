@@ -7,13 +7,13 @@ import type { ReviewsPage, ReviewsSection } from "@/types";
 
 import { headers } from "next/headers";
 
-export default async function ReviewsPage() {
+export default async function Reviews() {
   const headerList = await headers();
   const host = headerList.get("host");
   const protocol = host?.includes("localhost") ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
 
-  let reviewsIndex: any = { frontmatter: { badge: {} } };
+  let reviewsIndex: ReviewsPage = { frontmatter: { badge: {} } as any };
   try {
     const res = await fetch(`${baseUrl}/api/posts?folder=reviews&isList=true`, {
       cache: "no-store",
@@ -25,14 +25,14 @@ export default async function ReviewsPage() {
     console.error("Error fetching reviews index from API:", error);
   }
 
-  let reviewsSection: any = { frontmatter: {} };
+  let reviewsSectionByFile: ReviewsSection = { frontmatter: {} as any };
   try {
     const res = await fetch(
       `${baseUrl}/api/posts?file=sections/reviews-section.md`,
       { cache: "no-store" }
     );
     if (res.ok) {
-      reviewsSection = await res.json();
+      reviewsSectionByFile = await res.json();
     }
   } catch (error) {
     console.error("Error fetching reviews section from API:", error);
@@ -73,7 +73,7 @@ export default async function ReviewsPage() {
 
           <div className="pt-14">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 h-auto">
-              {reviewsSection.frontmatter.reviews?.map((review, i) => (
+              {reviewsSectionByFile.frontmatter.reviews?.map((review: any, i: number) => (
                 <ReviewCard key={i} review={review} index={i} />
               ))}
             </div>

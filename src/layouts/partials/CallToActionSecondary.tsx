@@ -16,8 +16,8 @@ const CallToActionSecondary = async ({ isNoSectionTop = false }: Props) => {
   const protocol = host?.includes("localhost") ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
 
-  let callToActionData: any = {
-    frontmatter: { buttons: [], facts: { team: [], counter: {} } },
+  let callToActionData: CtaSecondarySection = {
+    frontmatter: { buttons: [], facts: { team: [], counter: {} } } as any,
   };
   try {
     const res = await fetch(
@@ -54,12 +54,13 @@ const CallToActionSecondary = async ({ isNoSectionTop = false }: Props) => {
               />
 
               <ul className="flex flex-wrap justify-center gap-4 mt-6">
-                {buttons?.map((button, i) =>
+                {buttons?.map((button: any, i: number) =>
                   button.enable ? (
                     <li key={i}>
                       <Link
-                        className={`btn ${i % 2 === 0 ? "btn-primary" : "btn-outline py-3 px-10"
-                          }`}
+                        className={`btn ${
+                          i % 2 === 0 ? "btn-primary" : "btn-outline py-3 px-10"
+                        }`}
                         href={button.link}
                       >
                         {button.label}
@@ -84,7 +85,7 @@ const CallToActionSecondary = async ({ isNoSectionTop = false }: Props) => {
                     />
                   )}
                   <div className="flex items-center max-lg:justify-center -space-x-2">
-                    {facts.team?.map((t, i) => (
+                    {facts.team?.map((t: string, i: number) => (
                       <div
                         key={i}
                         data-aos="fade-right-sm"
@@ -111,7 +112,7 @@ const CallToActionSecondary = async ({ isNoSectionTop = false }: Props) => {
                 </div>
 
                 <ul className="text-center lg:text-left space-y-px">
-                  {facts.dialogues?.map((fact, i) => (
+                  {facts.dialogues?.map((fact: string, i: number) => (
                     <li
                       key={i}
                       data-aos="fade-up-sm"

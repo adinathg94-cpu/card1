@@ -14,7 +14,7 @@ const FAQs = async () => {
   const protocol = host?.includes("localhost") ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
 
-  let faqsData: any = { frontmatter: {} };
+  let faqsData: FaqsSection = { frontmatter: {} as any };
   try {
     const res = await fetch(`${baseUrl}/api/posts?file=sections/faqs.md`, {
       cache: "no-store",
@@ -41,12 +41,14 @@ const FAQs = async () => {
             <div className="bg-dark/2 rounded-4xl p-6 py-12 md:p-12">
               <div className="row justify-between items-center max-lg:text-center">
                 <div className="lg:col-5">
-                  {badge && <TitleBadge
-                    icon={badge.icon}
-                    label={badge.label}
-                    bg_color={badge.bg_color}
-                    isCenter={false}
-                  />}
+                  {badge && (
+                    <TitleBadge
+                      icon={badge.icon}
+                      label={badge.label}
+                      bg_color={badge.bg_color}
+                      isCenter={false}
+                    />
+                  )}
                   <h2
                     className="py-4"
                     dangerouslySetInnerHTML={markdownify(title || "")}
@@ -69,7 +71,7 @@ const FAQs = async () => {
 
               <div className="pt-10">
                 <AccordionProvider>
-                  {list?.map((item, index) => (
+                  {list?.map((item: any, index: number) => (
                     <div
                       data-aos="fade-up-sm"
                       data-aos-delay={index * 100 + 50}
@@ -78,7 +80,7 @@ const FAQs = async () => {
                     >
                       <Accordion title={item.question} id={index}>
                         <div
-                          className="text-[18px] tracking-[0.0005px] leading-[1.25]"
+                          className="text-[18px] tracking-[0.0005px] leading-tight"
                           dangerouslySetInnerHTML={markdownify(item.answer)}
                         />
                       </Accordion>

@@ -11,19 +11,20 @@ import NumbersBanner from "@/partials/NumbersBanner";
 import SeoMeta from "@/partials/SeoMeta";
 import Testimonial from "@/partials/Testimonial";
 
+import { AboutPage } from "@/types";
 import ImageFallback from "@/helpers/ImageFallback";
 import { headers } from "next/headers";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export default async function AboutPage() {
+export default async function About() {
   const headerList = await headers();
   const host = headerList.get("host");
   const protocol = host?.includes("localhost") ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
 
-  let about: any = { frontmatter: {} };
+  let about: AboutPage = { frontmatter: {} as any };
   try {
     const res = await fetch(`${baseUrl}/api/posts?folder=about&isList=true`, {
       cache: "no-store",
@@ -67,7 +68,7 @@ export default async function AboutPage() {
     ...teamConfig,
     members:
       dbMembers.length > 0
-        ? dbMembers.map((member) => ({
+        ? dbMembers.map((member: any) => ({
             name: member.name,
             designation: member.designation,
             image: member.image,
@@ -106,11 +107,11 @@ export default async function AboutPage() {
           <div className="pt-14">
             {/* First Row: Patron, President */}
             <div className="row g-4 justify-center">
-              {team.members?.filter((member) => {
+              {team.members?.filter((member: any) => {
                 const designation = member.designation?.toLowerCase() || '';
                 return designation === 'patron' || designation === 'president';
-              }).map((member, i) => {
-                const originalIndex = team.members?.findIndex(m => m.name === member.name) || i;
+              }).map((member: any, i: number) => {
+                const originalIndex = team.members?.findIndex((m: any) => m.name === member.name) || i;
                 return (
                   <div className="col-10 sm:col-6 md:col-4 lg:col-3 mx-auto" key={`first-${i}`}>
                     <TeamCard member={member} index={originalIndex} />
@@ -120,11 +121,11 @@ export default async function AboutPage() {
             </div>
             {/* Second Row: Director, Secretary, Treasurer, Asst.Director */}
             <div className="row g-4 pt-4">
-              {team.members?.filter((member) => {
+              {team.members?.filter((member: any) => {
                 const designation = member.designation?.toLowerCase() || '';
                 return designation === 'director' || designation === 'secretary' ||
                   designation === 'treasurer' || designation === 'asst.director';
-              }).map((member, i) => {
+              }).map((member: any, i: number) => {
                 // Use local index i for animation delay to make second row appear faster
                 return (
                   <div className="col-10 sm:col-6 md:col-4 lg:col-3 mx-auto" key={`second-${i}`}>
@@ -185,7 +186,7 @@ export default async function AboutPage() {
                 />
               )}
               <div className="row g-4 pb-10">
-                {administration_images.list.map((item, i) => (
+                {administration_images.list.map((item: string, i: number) => (
                   <div key={i} className="col-12 lg:col-6">
                     <div className="relative overflow-hidden rounded-2xl shadow-xl transition-transform hover:scale-[1.02] duration-300">
                       <ImageFallback

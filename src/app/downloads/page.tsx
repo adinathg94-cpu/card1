@@ -90,7 +90,7 @@ export default async function DownloadsPage() {
                 >
                   <div className="rounded-2xl bg-dark/2 p-6 h-full flex flex-col group hover:bg-dark/5 transition-colors">
                     <div className="flex items-start gap-4 mb-4">
-                      <div className="flex-shrink-0">
+                      <div className="shrink-0">
                         <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                           <FaFilePdf className="text-2xl text-primary" />
                         </div>

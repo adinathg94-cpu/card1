@@ -69,7 +69,7 @@ const ActPage = async () => {
                   height={600}
                   width={1280}
                   alt={title}
-                  className="w-full aspect-[16/7.5] object-cover object-center rounded-4xl"
+                  className="w-full aspect-16/7.5 object-cover object-center rounded-4xl"
                 />
               </div>
             )}
