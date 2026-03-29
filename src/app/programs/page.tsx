@@ -41,21 +41,23 @@ const ProgramsPage = async () => {
     const res = await fetch(`${baseUrl}/api/programs`, { cache: "no-store" });
     if (res.ok) {
       const dbPrograms = await res.json();
-      programs = dbPrograms.map((p: any) => ({
-        slug: p.slug,
-        frontmatter: {
-          title: p.title,
-          description: p.description,
-          image: p.image,
-          date: p.date,
-          end_date: p.end_date,
-          categories: p.categories || [],
-          goal: p.goal || "",
-          raised: p.raised || "",
-          featured: p.featured === 1,
-        },
-        content: p.content,
-      }));
+      if (Array.isArray(dbPrograms)) {
+        programs = dbPrograms.map((p: any) => ({
+          slug: p.slug,
+          frontmatter: {
+            title: p.title,
+            description: p.description,
+            image: p.image,
+            date: p.date,
+            end_date: p.end_date,
+            categories: p.categories || [],
+            goal: p.goal || "",
+            raised: p.raised || "",
+            featured: p.featured === 1,
+          },
+          content: p.content,
+        }));
+      }
     }
   } catch (error) {
     console.error("Error fetching programs from API:", error);

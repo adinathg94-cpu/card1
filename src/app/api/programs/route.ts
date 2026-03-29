@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDB, serializeJSON } from "@/lib/db";
+import { getDB, serializeJSON, parseJSON } from "@/lib/db";
 import { cookies } from "next/headers";
 
 // GET all programs
@@ -10,9 +10,15 @@ export async function GET() {
       .prepare(
         "SELECT * FROM programs ORDER BY order_index ASC, created_at DESC"
       )
-      .all();
+      .all() as any[];
 
-    return NextResponse.json(programs);
+    // Parse JSON categories field
+    const parsedPrograms = programs.map((p) => ({
+      ...p,
+      categories: parseJSON<string[]>(p.categories) || [],
+    }));
+
+    return NextResponse.json(parsedPrograms);
   } catch (error) {
     console.error("Error fetching programs:", error);
     return NextResponse.json(
